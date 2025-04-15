@@ -1,176 +1,290 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"> // Set to 'en' for English version initially if preferred
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matte Noir | Culture-First Creative Agency</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #0a0a0a;
-      color: #ffffff;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-    a { color: inherit; text-decoration: none; }
-    header {
-      background: linear-gradient(to right, #111, #222);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    header p {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      color: #d4af87;
-    }
-    .btn {
-      background: #d4af87;
-      color: #0a0a0a;
-      padding: 15px 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    section {
-      padding: 80px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #d4af87;
-      margin-bottom: 40px;
-    }
-    .pillars {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: space-between;
-    }
-    .pillar {
-      flex: 1 1 calc(50% - 20px);
-      background: #1a1a1a;
-      padding: 40px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
-    .pillar:hover {
-      background: #2b2b2b;
-    }
-    .pillar h3 { color: #d4af87; margin-bottom: 15px; }
-    .gallery-items, .portfolio-items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .portfolio-item {
-      flex: 1 1 300px;
-      border-radius: 12px;
-      background: #1f1f1f;
-      overflow: hidden;
-    }
-    .portfolio-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .blog p {
-      max-width: 800px;
-      margin: 0 auto 20px;
-      text-align: justify;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .contact input, .contact textarea {
-      padding: 15px;
-      border-radius: 5px;
-      background: #1f1f1f;
-      color: #fff;
-      border: 1px solid #444;
-    }
-    .contact button {
-      background: #d4af87;
-      color: #000;
-      font-weight: bold;
-      padding: 15px;
-      border: none;
-      border-radius: 5px;
-    }
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Groupe - Bâtir l'avenir, ensemble</title> // Example Title
+    <meta name="description" content="VM Groupe - Votre partenaire de confiance en immobilier et construction. Découvrez nos services et projets."> // Example Meta Description
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to potential icon library (e.g., Font Awesome) -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
 </head>
+
 <body>
-  <header>
-    <h1>MATTE NOIR</h1>
-    <p>Luxury brand systems for culture-first businesses</p>
-    <a href="#contact" class="btn">Start Your Strategy</a>
-  </header>
 
-  <section>
-    <h2>Our Pillars</h2>
-    <div class="pillars">
-      <div class="pillar"><h3>Social Haus</h3><p>From elevated packaging to luxury visuals—our award-winning design studio crafts timeless brand systems that speak for you when you're not in the room.</p></div>
-      <div class="pillar"><h3>Social OS</h3><p>We engineer performance. Full-funnel paid media, marketing automation, and growth infrastructure designed to scale what matters most—your bottom line.</p></div>
-      <div class="pillar"><h3>Social Archive</h3><p>Culture is data. We decode social behavior, analyze content performance, and document brand memory to fuel relevance and retention strategies.</p></div>
-      <div class="pillar"><h3>Social Noir</h3><p>An invitation-only program for visionary brands. Our highest tier of brand orchestration: creative, culture, commerce.</p></div>
-    </div>
-  </section>
+    <!-- === Header === -->
+    <header class="site-header">
+        <div class="container"> // Often wrap content in a container for centering/padding
+            <a href="/" class="logo">
+                <img src="images/vm-groupe-logo.png" alt="VM Groupe Logo"> // Replace with actual logo path
+            </a>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="/">Accueil</a></li> // Home
+                    <li><a href="#about-intro">À Propos</a></li> // About
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projets</a></li> // Projects
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="language-switcher">
+                <a href="#" class="lang-fr active">FR</a> / <a href="#" class="lang-en">EN</a>
+            </div>
+            <!-- Add mobile menu toggle button here if needed -->
+        </div>
+    </header>
 
-  <section class="portfolio">
-    <h2>Recent Projects</h2>
-    <div class="portfolio-items">
-      <div class="portfolio-item"><img src="https://mattenoir.com/assets/gleaux-lemon.jpg" alt="Gleaux & Co Lemon Verbena"></div>
-      <div class="portfolio-item"><img src="https://mattenoir.com/assets/yayra-shirt.jpg" alt="Yayra Marketing Shirt"></div>
-      <div class="portfolio-item"><img src="https://mattenoir.com/assets/philly-track-relays.jpg" alt="Philly Track Jawn"></div>
-      <div class="portfolio-item"><img src="https://mattenoir.com/assets/kamala-2024.jpg" alt="Kamala 2024 Tee"></div>
-    </div>
-  </section>
+    <!-- === Main Content Area === -->
+    <main>
 
-  <section class="blog">
-    <h2>Strategy Blog</h2>
-    <p>In today’s global-first digital economy, local branding has never been more powerful. While many businesses chase mass visibility, the brands that dominate are rooted in culture, authenticity, and geographic nuance.</p>
-    <p>Local marketing isn't just about maps and miles—it’s about language, landmarks, and lived experience. Whether it's the block you’re from, the borough you claim, or the neighborhood vibe that shaped you—those roots are your brand's richest asset.</p>
-    <p>At Matte Noir, we specialize in taking those stories and turning them into content that scales. We geo-segment ads, localize copy, and apply cultural fluency to every asset. The result? Deeper loyalty, stronger engagement, and real community impact.</p>
-    <p>As we scale brands across platforms and borders, we remind our clients: stay global in ambition—but always local in tone. That’s where the future of marketing is headed.</p>
-  </section>
+        <!-- === Hero Section === -->
+        <section id="hero" class="hero">
+            <div class="video-background">
+                <!-- Video tag requires source, autoplay, loop, muted, playsinline attributes for background effect -->
+                 <video autoplay loop muted playsinline poster="images/hero-fallback.jpg">
+                     <source src="videos/hero-video.mp4" type="video/mp4"> // Replace with actual video path
+                     Your browser does not support the video tag.
+                 </video>
+            </div>
+            <div class="hero-overlay"></div> // For darkening video
+            <div class="hero-content container">
+                <h1>BÂTIR L'AVENIR, ENSEMBLE</h1> // Building the future, together
+                <p>Votre partenaire de confiance en immobilier et construction</p> // Your trusted partner...
+                <a href="#projects" class="cta-button">DÉCOUVRIR NOS PROJETS</a> // Discover our projects
+            </div>
+        </section>
 
-  <section class="contact" id="contact">
-    <h2>Let's Connect</h2>
-    <form action="https://formspree.io/f/xoqgdpee" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Tell us about your brand..."></textarea>
-      <button type="submit">Submit Inquiry</button>
-    </form>
-  </section>
+        <!-- === Introduction / About Snippet === -->
+        <section id="about-intro" class="about-intro section-padding"> // Add padding classes as needed
+            <div class="container">
+                <div class="grid-layout-intro"> // Use CSS Grid or Flexbox for layout
+                    <div class="intro-text">
+                        <h2>Qui Sommes-Nous?</h2> // Who Are We?
+                        <p>Introduction à VM Groupe, mettant en avant la mission, l'expertise en développement immobilier et gestion de construction. Mots clés: innovation, qualité, durabilité, partenariat, focus client...</p>
+                        <p>Nous sommes votre partenaire de confiance pour réaliser vos ambitions immobilières.</p>
+                        <a href="/a-propos" class="learn-more-link">En Savoir Plus</a> // Learn More (Link to full About page)
+                    </div>
+                    <div class="intro-image">
+                        <img src="images/about-image.jpg" alt="Équipe VM Groupe ou projet représentatif"> // Replace with relevant image
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <footer>
-    &copy; 2025 Matte Noir. Designed for visionaries.
-  </footer>
+        <!-- === Services Section === -->
+        <section id="services" class="services section-padding bg-light"> // Optional light background class
+            <div class="container">
+                <h2>NOS SERVICES</h2> // Our Services
+                <div class="services-grid"> // Use CSS Grid or Flexbox
+                    <article class="service-item">
+                        <!-- <i class="fas fa-building"></i> --> // Placeholder for icon
+                        <img src="images/icon-dev.png" alt="Icône Développement Immobilier" class="service-icon"> // Or use an image icon
+                        <h3>Développement Immobilier</h3> // Real Estate Development
+                        <p>Description du service de développement immobilier: identification d'opportunités, planification, exécution.</p>
+                    </article>
+                    <article class="service-item">
+                        <!-- <i class="fas fa-hard-hat"></i> --> // Placeholder for icon
+                        <img src="images/icon-mgmt.png" alt="Icône Gestion Construction" class="service-icon">
+                        <h3>Gestion de la Construction</h3> // Construction Management
+                        <p>Description de la gestion de projet: budget, échéancier, qualité, de A à Z.</p>
+                    </article>
+                    <article class="service-item">
+                        <!-- <i class="fas fa-lightbulb"></i> --> // Placeholder for icon
+                        <img src="images/icon-consult.png" alt="Icône Conseil Stratégie" class="service-icon">
+                        <h3>Conseil et Stratégie</h3> // Consulting and Strategy
+                        <p>Description des services de conseil: investissements, stratégies de développement.</p>
+                    </article>
+                    <!-- Add more services if needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- === Why Choose Us Section === -->
+        <section id="why-us" class="why-us section-padding">
+            <div class="container">
+                <h2>Pourquoi Choisir VM Groupe?</h2> // Why Choose VM Groupe?
+                <ul class="value-propositions">
+                    <li>
+                        <!-- <i class="fas fa-star"></i> --> // Icon
+                        <strong>Expertise & Expérience</strong>
+                        <p>Description brève de l'expertise.</p>
+                    </li>
+                    <li>
+                        <!-- <i class="fas fa-users"></i> --> // Icon
+                        <strong>Approche Personnalisée</strong>
+                        <p>Description de l'orientation client.</p>
+                    </li>
+                    <li>
+                        <!-- <i class="fas fa-check-circle"></i> --> // Icon
+                        <strong>Qualité & Rigueur</strong>
+                        <p>Description de l'engagement qualité.</p>
+                    </li>
+                     <li>
+                        <!-- <i class="fas fa-comments"></i> --> // Icon
+                        <strong>Transparence & Communication</strong>
+                        <p>Description de la communication.</p>
+                    </li>
+                     <li>
+                        <!-- <i class="fas fa-leaf"></i> --> // Icon
+                        <strong>Innovation & Durabilité</strong>
+                        <p>Description de l'engagement durable.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- === Projects Section === -->
+        <section id="projects" class="projects section-padding bg-light">
+            <div class="container">
+                <h2>NOS PROJETS / RÉALISATIONS</h2> // Our Projects / Achievements
+                <div class="projects-grid"> // Use CSS Grid or Flexbox
+                    <article class="project-item">
+                        <a href="/projet/details-projet-1"> // Link to project detail page
+                           <img src="images/project1.jpg" alt="Nom du Projet 1">
+                           <div class="project-info">
+                               <h3>Nom du Projet 1</h3>
+                               <span>Résidentiel</span> // Category
+                           </div>
+                        </a>
+                    </article>
+                    <article class="project-item">
+                        <a href="/projet/details-projet-2">
+                            <img src="images/project2.jpg" alt="Nom du Projet 2">
+                            <div class="project-info">
+                                <h3>Nom du Projet 2</h3>
+                                <span>Commercial</span>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="project-item">
+                         <a href="/projet/details-projet-3">
+                            <img src="images/project3.jpg" alt="Nom du Projet 3">
+                            <div class="project-info">
+                                <h3>Nom du Projet 3</h3>
+                                <span>Industriel</span>
+                             </div>
+                        </a>
+                    </article>
+                    <!-- Add more project items -->
+                </div>
+                <div class="text-center" style="margin-top: 30px;"> // Basic centering for the button
+                    <a href="/projets" class="cta-button secondary">Voir Tous Les Projets</a> // See All Projects
+                </div>
+            </div>
+        </section>
+
+        <!-- === Testimonials/Logos Section (Optional) === -->
+        <section id="testimonials" class="testimonials section-padding">
+             <div class="container">
+                 <h2>Ils Nous Font Confiance</h2> // They Trust Us
+                 <!-- Option 1: Testimonials -->
+                 <!-- <div class="testimonial-slider"> -->
+                     <!-- <blockquote class="testimonial-item"> -->
+                         <!-- <p>"Citation du client ici..."</p> -->
+                         <!-- <cite>Nom du Client, Entreprise</cite> -->
+                     <!-- </blockquote> -->
+                 <!-- </div> -->
+                 <!-- Option 2: Logos -->
+                 <div class="client-logos">
+                     <img src="images/logo-client-1.png" alt="Client Logo 1">
+                     <img src="images/logo-client-2.png" alt="Client Logo 2">
+                     <img src="images/logo-client-3.png" alt="Client Logo 3">
+                     <!-- Add more logos -->
+                 </div>
+             </div>
+        </section>
+
+        <!-- === Call to Action (Lower) === -->
+        <section id="contact-cta" class="contact-cta section-padding bg-dark text-light"> // Dark background, light text
+            <div class="container text-center">
+                <h2>Prêt à Démarrer Votre Projet?</h2> // Ready to Start Your Project?
+                <p>Contactez-nous dès aujourd'hui pour discuter de vos besoins et voir comment nous pouvons vous aider.</p>
+                <a href="#contact" class="cta-button">CONTACTEZ-NOUS</a> // Contact Us
+            </div>
+        </section>
+
+        <!-- === Contact Section (if integrated on homepage, otherwise separate page) === -->
+        <section id="contact" class="contact section-padding">
+            <div class="container">
+                <h2>Contactez-Nous</h2>
+                <div class="contact-form-container">
+                    <!-- Basic Form Structure - Needs backend processing -->
+                    <form action="/submit-form" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nom:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet:</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Envoyer le Message</button> // Send Message
+                    </form>
+                </div>
+                <div class="contact-details">
+                    <p><strong>Adresse:</strong> 123 Rue Exemple, Ville, QC J1J 1J1</p>
+                    <p><strong>Téléphone:</strong> <a href="tel:+15551234567">(555) 123-4567</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@vmgroupe.com">info@vmgroupe.com</a></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- === Footer === -->
+    <footer class="site-footer bg-dark text-light">
+        <div class="container footer-grid"> // Use CSS Grid or Flexbox
+            <div class="footer-col footer-about">
+                <img src="images/vm-groupe-logo-white.png" alt="VM Groupe Logo White" class="footer-logo"> // White version for dark bg
+                <p>Votre partenaire de confiance en immobilier et construction.</p>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/a-propos">À Propos</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projets">Projets</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/politique-confidentialite">Politique de Confidentialité</a></li> // Privacy Policy
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>Contact Info</h4>
+                <p>123 Rue Exemple, Ville, QC J1J 1J1</p>
+                <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                <p><a href="mailto:info@vmgroupe.com">info@vmgroupe.com</a></p>
+            </div>
+            <div class="footer-col footer-social">
+                <h4>Suivez-Nous</h4> // Follow Us
+                <ul class="social-icons">
+                    <li><a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li> <!-- Requires Font Awesome or similar -->
+                    <li><a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>© <span id="current-year"></span> VM Groupe. Tous droits réservés.</p> // Copyright - Year updated by JS
+        </div>
+    </footer>
+
+    <!-- Optional: JavaScript files -->
+    <!-- <script src="js/scripts.js"></script> -->
+    <script>
+        // Simple script to update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
