@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matte Noir Agency</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matte Noir | Culture-First Creative Agency</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -11,20 +11,28 @@
       background-color: #0a0a0a;
       color: #ffffff;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
     a { color: inherit; text-decoration: none; }
     header {
-      background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1650&q=80') no-repeat center center/cover;
+      background: linear-gradient(to right, #111, #222);
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      color: #fff;
     }
-    header h1 { font-size: 4rem; margin-bottom: 20px; }
-    header p { font-size: 1.5rem; margin-bottom: 40px; color: #d4af87; }
+    header h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: #d4af87;
+    }
     .btn {
       background: #d4af87;
       color: #0a0a0a;
@@ -34,55 +42,58 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      text-decoration: none;
     }
-    section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-    .pillars { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #d4af87;
+      margin-bottom: 40px;
+    }
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+    }
     .pillar {
       flex: 1 1 calc(50% - 20px);
       background: #1a1a1a;
       padding: 40px;
       border-radius: 10px;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
     }
-    .pillar:hover { background-color: #2c2c2c; }
-    .pillar h3 { margin-bottom: 15px; color: #d4af87; }
-    .gallery, .blog-posts, .portfolio { margin-top: 60px; }
-    .gallery-items, .blog-posts, .portfolio-items {
+    .pillar:hover {
+      background: #2b2b2b;
+    }
+    .pillar h3 { color: #d4af87; margin-bottom: 15px; }
+    .gallery-items, .portfolio-items {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
-    .gallery-item, .blog-post, .portfolio-item {
-      flex: 1 1 250px;
-      border-radius: 10px;
+    .portfolio-item {
+      flex: 1 1 300px;
+      border-radius: 12px;
+      background: #1f1f1f;
       overflow: hidden;
-      background-color: #1a1a1a;
-      padding: 20px;
     }
-    .gallery-item img, .portfolio-item img {
+    .portfolio-item img {
       width: 100%;
+      height: auto;
       display: block;
-      border-radius: 10px;
     }
-    .blog-post h3 { color: #d4af87; margin-bottom: 10px; }
-    .about, .contact, .blog {
-      background-color: #121212;
-      margin-top: 60px;
-      padding: 60px 20px;
-      border-radius: 10px;
-    }
-    .about h2, .contact h2, .blog h2, .gallery h2, .portfolio h2 {
-      font-size: 2rem;
-      color: #d4af87;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .about p, .contact p, .blog p {
-      text-align: center;
+    .blog p {
       max-width: 800px;
       margin: 0 auto 20px;
+      text-align: justify;
+      font-size: 1.1rem;
+      line-height: 1.8;
     }
     .contact form {
       display: flex;
@@ -94,24 +105,22 @@
     .contact input, .contact textarea {
       padding: 15px;
       border-radius: 5px;
-      border: none;
       background: #1f1f1f;
       color: #fff;
+      border: 1px solid #444;
     }
     .contact button {
       background: #d4af87;
-      color: #0a0a0a;
-      padding: 15px;
+      color: #000;
       font-weight: bold;
+      padding: 15px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
     }
     footer {
       text-align: center;
-      padding: 40px 20px;
-      color: #777;
-      background-color: #0a0a0a;
+      padding: 40px;
+      color: #999;
     }
   </style>
 </head>
@@ -119,74 +128,49 @@
   <header>
     <h1>MATTE NOIR</h1>
     <p>Luxury brand systems for culture-first businesses</p>
-    <a href="#contact" class="btn">Request a Free Audit</a>
+    <a href="#contact" class="btn">Start Your Strategy</a>
   </header>
 
   <section>
-    <h2 style="text-align:center; font-size:2.5rem; margin-bottom: 60px;">Our Pillars</h2>
+    <h2>Our Pillars</h2>
     <div class="pillars">
-      <a href="#haus" class="pillar"><h3>Social Haus</h3><p>Design & packaging artistry, from product visuals to full brand systems.</p></a>
-      <a href="#os" class="pillar"><h3>Social OS</h3><p>Performance marketing, paid media execution, campaign infrastructure.</p></a>
-      <a href="#archive" class="pillar"><h3>Social Archive</h3><p>Content research, storytelling frameworks, emotional branding.</p></a>
-      <a href="#noir" class="pillar"><h3>Social Noir</h3><p>Full-service luxury brand campaigns—invite only.</p></a>
+      <div class="pillar"><h3>Social Haus</h3><p>From elevated packaging to luxury visuals—our award-winning design studio crafts timeless brand systems that speak for you when you're not in the room.</p></div>
+      <div class="pillar"><h3>Social OS</h3><p>We engineer performance. Full-funnel paid media, marketing automation, and growth infrastructure designed to scale what matters most—your bottom line.</p></div>
+      <div class="pillar"><h3>Social Archive</h3><p>Culture is data. We decode social behavior, analyze content performance, and document brand memory to fuel relevance and retention strategies.</p></div>
+      <div class="pillar"><h3>Social Noir</h3><p>An invitation-only program for visionary brands. Our highest tier of brand orchestration: creative, culture, commerce.</p></div>
     </div>
   </section>
 
-  <section class="portfolio" id="haus">
-    <h2>Portfolio – Social Haus</h2>
+  <section class="portfolio">
+    <h2>Recent Projects</h2>
     <div class="portfolio-items">
-      <div class="portfolio-item"><img src="/mnt/data/LEMON_VERBENA_CANDLE.jpg" alt="Candle"></div>
-      <div class="portfolio-item"><img src="/mnt/data/DRAGON_BLOOD.jpg" alt="Dragon Blood"></div>
-      <div class="portfolio-item"><img src="/mnt/data/MARTHAS_VINEYARD.jpg" alt="Martha's Vineyard"></div>
-      <div class="portfolio-item"><img src="/mnt/data/YAYRA_LOGO.png" alt="Yayra Logo"></div>
+      <div class="portfolio-item"><img src="https://mattenoir.com/assets/gleaux-lemon.jpg" alt="Gleaux & Co Lemon Verbena"></div>
+      <div class="portfolio-item"><img src="https://mattenoir.com/assets/yayra-shirt.jpg" alt="Yayra Marketing Shirt"></div>
+      <div class="portfolio-item"><img src="https://mattenoir.com/assets/philly-track-relays.jpg" alt="Philly Track Jawn"></div>
+      <div class="portfolio-item"><img src="https://mattenoir.com/assets/kamala-2024.jpg" alt="Kamala 2024 Tee"></div>
     </div>
-  </section>
-
-  <section class="portfolio" id="os">
-    <h2>Portfolio – Social OS</h2>
-    <div class="portfolio-items">
-      <div class="portfolio-item"><img src="/mnt/data/PHILLY_TRACK_JAWN.png" alt="Penn Relays"></div>
-      <div class="portfolio-item"><img src="/mnt/data/KAMALA_2024.png" alt="Kamala 2024"></div>
-      <div class="portfolio-item"><img src="/mnt/data/HARRIS_WALZ.png" alt="Campaign"></div>
-    </div>
-  </section>
-
-  <section class="portfolio" id="archive">
-    <h2>Portfolio – Social Archive</h2>
-    <div class="portfolio-items">
-      <div class="portfolio-item"><img src="/mnt/data/101_ESSAYS.jpg" alt="Book Flat"></div>
-      <div class="portfolio-item"><img src="/mnt/data/HUMAN_BEING.png" alt="Human Being Poster"></div>
-    </div>
-  </section>
-
-  <section class="about">
-    <h2>About Matte Noir</h2>
-    <p>Founded by T. Patrick Williams and Marc A. Reed, Matte Noir blends elite creative with strategic marketing to engineer culture-first legacies.</p>
   </section>
 
   <section class="blog">
-    <h2>Insights & Strategy</h2>
-    <div class="blog-posts">
-      <div class="blog-post">
-        <h3>Why Local Marketing & Branding Still Matters in a Global World</h3>
-        <p>Neighborhood nuance, cultural fluency, and hyper-targeting build unmatched loyalty. We help brands dominate where they’re rooted—then scale with soul.</p>
-      </div>
-    </div>
+    <h2>Strategy Blog</h2>
+    <p>In today’s global-first digital economy, local branding has never been more powerful. While many businesses chase mass visibility, the brands that dominate are rooted in culture, authenticity, and geographic nuance.</p>
+    <p>Local marketing isn't just about maps and miles—it’s about language, landmarks, and lived experience. Whether it's the block you’re from, the borough you claim, or the neighborhood vibe that shaped you—those roots are your brand's richest asset.</p>
+    <p>At Matte Noir, we specialize in taking those stories and turning them into content that scales. We geo-segment ads, localize copy, and apply cultural fluency to every asset. The result? Deeper loyalty, stronger engagement, and real community impact.</p>
+    <p>As we scale brands across platforms and borders, we remind our clients: stay global in ambition—but always local in tone. That’s where the future of marketing is headed.</p>
   </section>
 
   <section class="contact" id="contact">
-    <h2>Connect with Us</h2>
-    <p>Email us directly or book a consultation.</p>
+    <h2>Let's Connect</h2>
     <form action="https://formspree.io/f/xoqgdpee" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" rows="5" placeholder="Tell us about your project..."></textarea>
-      <button type="submit">Send Message</button>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Tell us about your brand..."></textarea>
+      <button type="submit">Submit Inquiry</button>
     </form>
   </section>
 
   <footer>
-    &copy; 2025 Matte Noir. All rights reserved. | @mattenoiragency
+    &copy; 2025 Matte Noir. Designed for visionaries.
   </footer>
 </body>
 </html>
