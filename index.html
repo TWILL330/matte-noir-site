@@ -1,165 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matte Noir | Full Site</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a;
-      color: #f3f1ec;
-      line-height: 1.6;
-    }
-    h1, h2, h3 { font-family: 'Playfair Display', serif; }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 2rem;
-      background: #0a0a0a;
-    }
-    nav img { height: 50px; filter: drop-shadow(0 0 10px rgba(212, 175, 135, 0.5)); }
-    nav ul { display: flex; list-style: none; gap: 2rem; }
-    nav ul li a {
-      color: #f3f1ec;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    nav ul li a:hover { color: #d4af87; }
-    header, section, footer {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    header {
-      text-align: center;
-    }
-    header h1 {
-      font-size: 3rem;
-      color: #d4af87;
-      margin-bottom: 1rem;
-    }
-    .pillars, .clients-grid, .portfolio-grid, .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .pillar, .client, .portfolio-item {
-      background: #1f1f1f;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
-    }
-    .pillar:hover, .client:hover, .portfolio-item:hover {
-      transform: translateY(-8px);
-    }
-    .pillar h2, .portfolio-item h3 { color: #d4af87; margin-bottom: 1rem; font-size: 1.3rem; }
-    .blog-post, .contact-box {
-      background: #1f1f1f;
-      padding: 2rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-    }
-    .blog-post h3 { color: #d4af87; margin-bottom: 1rem; }
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #2a2a2a;
-      color: #fff;
-    }
-    .contact-form button {
-      background: #d4af87;
-      color: #000;
-      border: none;
-      padding: 1rem 2rem;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      color: #999;
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <img src="file-NsJMds8GH7E2PPg7qPL4Rm" alt="Matte Noir Logo">
-    <ul>
-      <li><a href="#what-we-do">What We Do</a></li>
-      <li><a href="#clients">Clients</a></li>
-      <li><a href="#portfolio">Work</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Work Together</a></li>
-    </ul>
-  </nav>
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import Image from "next/image"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
 
-  <header>
-    <h1>We Build Cultural Blueprints</h1>
-    <p>Luxury brand systems for culture-first businesses.</p>
-  </header>
+export default function AboutPage() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="flex-1">
+        <section className="bg-matte-black py-20 md:py-32">
+          <div className="container mx-auto px-6 md:px-10">
+            <div className="max-w-4xl mx-auto mb-16">
+              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-matte-cream font-bold mb-8">
+                About <span className="text-matte-gold">Matte Noir</span>
+              </h1>
+              <p className="text-matte-white text-lg md:text-xl">
+                A premium, culture-first marketing agency built for bold brands that lead with style, depth, and strategy.
+              </p>
+            </div>
 
-  <section id="what-we-do">
-    <h2>What We Do</h2>
-    <div class="pillars">
-      <div class="pillar"><h2>Social OS</h2><p>Full-funnel marketing powered by paid media, CRM, analytics, and automation.</p></div>
-      <div class="pillar"><h2>Social Haus</h2><p>Design and brand identity, product visuals, and packaging that move culture.</p></div>
-      <div class="pillar"><h2>Social Archive</h2><p>Content and storytelling strategy informed by research, listening, and community.</p></div>
-      <div class="pillar"><h2>Social Noir</h2><p>Our invite-only tier. Strategy and creative execution fused for elite brands.</p></div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+              <div className="relative aspect-square overflow-hidden bg-matte-gray/20">
+                {/* Note: Add Travon's image here manually */}
+                <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg">
+                  Image of Travon Williams<br />(Please add the uploaded image)
+                </div>
+              </div>
+              <div>
+                <h2 className="font-playfair text-3xl text-matte-gold font-bold mb-4">
+                  Travon Williams
+                </h2>
+                <h3 className="text-matte-cream text-xl mb-6">
+                  Founder & Chief Creative Strategist
+                </h3>
+                <div className="space-y-4 text-matte-white">
+                  <p>
+                    Travon Williams is a visionary marketer, brand architect, and cultural strategist with over 15 years of experience leading paid media, digital campaigns, and performance-driven storytelling for global brands. He is the founder of Matte Noir, a luxury marketing agency engineered to amplify culture-first, data-smart brands through intentional design and strategic execution.
+                  </p>
+                  <p>
+                    Travon's work sits at the intersection of psychology, culture, and technology. He has managed multi-million-dollar advertising portfolios across healthcare, tech, fashion, and music, delivering scalable results while preserving brand soul. As a cancer survivor and former collegiate vocalist, his creative approach is both analytical and deeply human—shaped by resilience, beauty, and clarity of vision.
+                  </p>
+                  <p>
+                    Travon holds a Bachelor of Science in Biology (Pre-Med) from Mississippi State University, an ALB in Psychology from Harvard University, and is currently completing his MLA in Behavioral Psychology at Johns Hopkins University, where his research focuses on the cognitive and emotional effects of marketing and media on consumer behavior.
+                  </p>
+                  <p className="text-matte-gold italic font-playfair text-xl">
+                    His mission through Matte Noir:<br />
+                    To build brand ecosystems that are not only seen—but felt.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-20">
+              <h2 className="font-playfair text-3xl text-matte-cream font-bold mb-10 text-center">
+                Our <span className="text-matte-gold">Philosophy</span>
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
+                  <div className="text-matte-gold mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Cultural Intelligence</h3>
+                  <p className="text-matte-white">
+                    We embed cultural relevance and psychological insights into every strategy, creating brand narratives that resonate on a deeper level with your audience.
+                  </p>
+                </div>
+
+                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
+                  <div className="text-matte-gold mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Data-Driven Approach</h3>
+                  <p className="text-matte-white">
+                    Our strategies balance creative intuition with analytical rigor, leveraging data to refine messaging, optimize campaigns, and drive measurable growth.
+                  </p>
+                </div>
+
+                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
+                  <div className="text-matte-gold mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Luxury Execution</h3>
+                  <p className="text-matte-white">
+                    Every detail matters. We craft meticulous, elevated brand experiences that stand out in crowded markets while maintaining authentic connections.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center border border-matte-gold text-matte-gold px-8 py-3 hover:bg-matte-gold hover:text-matte-black transition-all duration-300"
+              >
+                <span>Work with us</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 ml-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
     </div>
-  </section>
-
-  <section id="clients">
-    <h2>Clients</h2>
-    <div class="clients-grid">
-      <div class="client"><p>Client A</p></div>
-      <div class="client"><p>Client B</p></div>
-      <div class="client"><p>Client C</p></div>
-      <div class="client"><p>Client D</p></div>
-    </div>
-  </section>
-
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-    <div class="portfolio-grid">
-      <div class="portfolio-item"><h3>Flyers</h3><p>Event posters, campaign art</p></div>
-      <div class="portfolio-item"><h3>Logos</h3><p>Marks, brand stamps, identity</p></div>
-      <div class="portfolio-item"><h3>Books & Editorial</h3><p>Publication design, book flats</p></div>
-      <div class="portfolio-item"><h3>Product Design</h3><p>Packaging for candles, goods, wellness</p></div>
-    </div>
-  </section>
-
-  <section id="blog">
-    <h2>Insights</h2>
-    <div class="blog-post">
-      <h3>Why Local Marketing Still Wins in a Global World</h3>
-      <p>Brands that root in community outlast trends. We use culture and geography to create brand ecosystems that scale.</p>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Work Together</h2>
-    <div class="contact-box">
-      <form class="contact-form" action="https://formspree.io/f/xoqgdpee" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <input type="text" name="budget" placeholder="Estimated Budget" />
-        <textarea name="message" rows="5" placeholder="Tell us about your project"></textarea>
-        <button type="submit">Let’s Build Together</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 Matte Noir. Designed for the culturally fluent.
-  </footer>
-</body>
-</html>
+  )
+}
