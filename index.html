@@ -3,186 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matte Noir | Luxury Brand Systems</title>
+  <title>Matte Noir | Full Site</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Helvetica Neue', sans-serif;
+      font-family: 'Inter', sans-serif;
       background-color: #0a0a0a;
-      color: #ffffff;
+      color: #f3f1ec;
       line-height: 1.6;
-      scroll-behavior: smooth;
     }
-    a { color: inherit; text-decoration: none; }
-    header {
-      background: linear-gradient(to right, #111, #222);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 4rem;
-      letter-spacing: 1px;
-    }
-    header p {
-      font-size: 1.3rem;
-      color: #d4af87;
-      margin-top: 1rem;
-    }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
     nav {
-      background-color: #0a0a0a;
-      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #222;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 1.5rem 2rem;
+      background: #0a0a0a;
     }
-    nav a.logo {
-      font-weight: bold;
-      color: #d4af87;
-      font-size: 1.2rem;
+    nav img { height: 50px; filter: drop-shadow(0 0 10px rgba(212, 175, 135, 0.5)); }
+    nav ul { display: flex; list-style: none; gap: 2rem; }
+    nav ul li a {
+      color: #f3f1ec;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-    nav ul li a:hover {
-      color: #d4af87;
-    }
-    section {
+    nav ul li a:hover { color: #d4af87; }
+    header, section, footer {
       padding: 4rem 2rem;
       max-width: 1200px;
       margin: auto;
     }
-    h2 {
+    header {
       text-align: center;
-      font-size: 2.5rem;
-      color: #d4af87;
-      margin-bottom: 2rem;
     }
-    .pillars, .portfolio-grid {
+    header h1 {
+      font-size: 3rem;
+      color: #d4af87;
+      margin-bottom: 1rem;
+    }
+    .pillars, .clients-grid, .portfolio-grid, .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
-    .pillar, .portfolio-item {
-      background: #1a1a1a;
+    .pillar, .client, .portfolio-item {
+      background: #1f1f1f;
       padding: 2rem;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
     }
-    .pillar h3 {
-      color: #d4af87;
-      margin-bottom: 1rem;
+    .pillar:hover, .client:hover, .portfolio-item:hover {
+      transform: translateY(-8px);
     }
-    .portfolio-item img {
+    .pillar h2, .portfolio-item h3 { color: #d4af87; margin-bottom: 1rem; font-size: 1.3rem; }
+    .blog-post, .contact-box {
+      background: #1f1f1f;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .blog-post h3 { color: #d4af87; margin-bottom: 1rem; }
+    .contact-form input, .contact-form textarea {
       width: 100%;
-      border-radius: 8px;
-    }
-    .blog article {
-      background-color: #1a1a1a;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 800px;
-      margin: auto;
-    }
-    .blog p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 600px;
-      margin: auto;
-    }
-    .contact input, .contact textarea {
       padding: 1rem;
+      margin-bottom: 1rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       background: #2a2a2a;
       color: #fff;
     }
-    .contact button {
+    .contact-form button {
       background: #d4af87;
       color: #000;
-      font-weight: bold;
-      padding: 1rem;
       border: none;
-      border-radius: 5px;
+      padding: 1rem 2rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
     }
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       color: #999;
-      background: #0a0a0a;
     }
   </style>
 </head>
 <body>
   <nav>
-    <a href="#" class="logo">MATTE NOIR</a>
+    <img src="file-NsJMds8GH7E2PPg7qPL4Rm" alt="Matte Noir Logo">
     <ul>
-      <li><a href="#pillars">Pillars</a></li>
+      <li><a href="#what-we-do">What We Do</a></li>
+      <li><a href="#clients">Clients</a></li>
       <li><a href="#portfolio">Work</a></li>
       <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact">Work Together</a></li>
     </ul>
   </nav>
 
   <header>
     <h1>We Build Cultural Blueprints</h1>
-    <p>Luxury brand systems for visionaries</p>
+    <p>Luxury brand systems for culture-first businesses.</p>
   </header>
 
-  <section id="pillars">
-    <h2>Our Pillars</h2>
+  <section id="what-we-do">
+    <h2>What We Do</h2>
     <div class="pillars">
-      <div class="pillar"><h3>Social OS</h3><p>Performance marketing. Paid media, CRM, automation, and growth strategy tailored to scale your success.</p></div>
-      <div class="pillar"><h3>Social Haus</h3><p>Brand design studio. From packaging to full identity systems, every touchpoint is designed with purpose and elegance.</p></div>
-      <div class="pillar"><h3>Social Archive</h3><p>Cultural storytelling. We listen, decode, and build archives that fuel long-term relevance and influence.</p></div>
-      <div class="pillar"><h3>Social Noir</h3><p>Our elite tier. Creative retainers for legacy brands seeking bold, holistic marketing orchestration.</p></div>
+      <div class="pillar"><h2>Social OS</h2><p>Full-funnel marketing powered by paid media, CRM, analytics, and automation.</p></div>
+      <div class="pillar"><h2>Social Haus</h2><p>Design and brand identity, product visuals, and packaging that move culture.</p></div>
+      <div class="pillar"><h2>Social Archive</h2><p>Content and storytelling strategy informed by research, listening, and community.</p></div>
+      <div class="pillar"><h2>Social Noir</h2><p>Our invite-only tier. Strategy and creative execution fused for elite brands.</p></div>
+    </div>
+  </section>
+
+  <section id="clients">
+    <h2>Clients</h2>
+    <div class="clients-grid">
+      <div class="client"><p>Client A</p></div>
+      <div class="client"><p>Client B</p></div>
+      <div class="client"><p>Client C</p></div>
+      <div class="client"><p>Client D</p></div>
     </div>
   </section>
 
   <section id="portfolio">
-    <h2>Selected Works</h2>
+    <h2>Portfolio</h2>
     <div class="portfolio-grid">
-      <div class="portfolio-item"><img src="FC15B096-9607-4F4A-A489-5067D8B5BEA0.png" alt="Project 1"></div>
-      <div class="portfolio-item"><img src="F7C8F74C-28F1-43AC-B829-6DF679C68097.png" alt="Project 2"></div>
-      <div class="portfolio-item"><img src="B0B3EF9A-93B0-4505-BCBA-57905AA4EBA8.png" alt="Project 3"></div>
-      <div class="portfolio-item"><img src="BE527DB4-17C4-416C-8476-1EA84EB058FB.png" alt="Project 4"></div>
+      <div class="portfolio-item"><h3>Flyers</h3><p>Event posters, campaign art</p></div>
+      <div class="portfolio-item"><h3>Logos</h3><p>Marks, brand stamps, identity</p></div>
+      <div class="portfolio-item"><h3>Books & Editorial</h3><p>Publication design, book flats</p></div>
+      <div class="portfolio-item"><h3>Product Design</h3><p>Packaging for candles, goods, wellness</p></div>
     </div>
   </section>
 
-  <section id="blog" class="blog">
+  <section id="blog">
     <h2>Insights</h2>
-    <article>
-      <p>In today’s global-first economy, local marketing remains a brand’s most powerful advantage. The nuance of geography, identity, and culture drives trust and loyalty that no algorithm can replicate.</p>
-      <p>At Matte Noir, we blend data with emotion to build systems that feel personal—because they are. We geo-segment, localize copy, and culturally audit every asset for resonance and power. That’s how we help brands own their block and scale their presence worldwide.</p>
-    </article>
+    <div class="blog-post">
+      <h3>Why Local Marketing Still Wins in a Global World</h3>
+      <p>Brands that root in community outlast trends. We use culture and geography to create brand ecosystems that scale.</p>
+    </div>
   </section>
 
-  <section id="contact" class="contact">
-    <h2>Let’s Connect</h2>
-    <form action="https://formspree.io/f/xoqgdpee" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Tell us about your vision..."></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <section id="contact">
+    <h2>Work Together</h2>
+    <div class="contact-box">
+      <form class="contact-form" action="https://formspree.io/f/xoqgdpee" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="budget" placeholder="Estimated Budget" />
+        <textarea name="message" rows="5" placeholder="Tell us about your project"></textarea>
+        <button type="submit">Let’s Build Together</button>
+      </form>
+    </div>
   </section>
 
   <footer>
-    &copy; 2025 Matte Noir. Crafted for the culturally fluent.
+    &copy; 2025 Matte Noir. Designed for the culturally fluent.
   </footer>
 </body>
 </html>
