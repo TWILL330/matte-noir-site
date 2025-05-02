@@ -1,125 +1,290 @@
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import Image from "next/image"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
+<!DOCTYPE html>
+<html lang="fr"> // Set to 'en' for English version initially if preferred
 
-export default function AboutPage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <section className="bg-matte-black py-20 md:py-32">
-          <div className="container mx-auto px-6 md:px-10">
-            <div className="max-w-4xl mx-auto mb-16">
-              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-matte-cream font-bold mb-8">
-                About <span className="text-matte-gold">Matte Noir</span>
-              </h1>
-              <p className="text-matte-white text-lg md:text-xl">
-                A premium, culture-first marketing agency built for bold brands that lead with style, depth, and strategy.
-              </p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Groupe - Bâtir l'avenir, ensemble</title> // Example Title
+    <meta name="description" content="VM Groupe - Votre partenaire de confiance en immobilier et construction. Découvrez nos services et projets."> // Example Meta Description
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to potential icon library (e.g., Font Awesome) -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+</head>
+
+<body>
+
+    <!-- === Header === -->
+    <header class="site-header">
+        <div class="container"> // Often wrap content in a container for centering/padding
+            <a href="/" class="logo">
+                <img src="images/vm-groupe-logo.png" alt="VM Groupe Logo"> // Replace with actual logo path
+            </a>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="/">Accueil</a></li> // Home
+                    <li><a href="#about-intro">À Propos</a></li> // About
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projets</a></li> // Projects
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="language-switcher">
+                <a href="#" class="lang-fr active">FR</a> / <a href="#" class="lang-en">EN</a>
             </div>
+            <!-- Add mobile menu toggle button here if needed -->
+        </div>
+    </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-              <div className="relative aspect-square overflow-hidden bg-matte-gray/20">
-                {/* Note: Add Travon's image here manually */}
-                <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg">
-                  Image of Travon Williams<br />(Please add the uploaded image)
-                </div>
-              </div>
-              <div>
-                <h2 className="font-playfair text-3xl text-matte-gold font-bold mb-4">
-                  Travon Williams
-                </h2>
-                <h3 className="text-matte-cream text-xl mb-6">
-                  Founder & Chief Creative Strategist
-                </h3>
-                <div className="space-y-4 text-matte-white">
-                  <p>
-                    Travon Williams is a visionary marketer, brand architect, and cultural strategist with over 15 years of experience leading paid media, digital campaigns, and performance-driven storytelling for global brands. He is the founder of Matte Noir, a luxury marketing agency engineered to amplify culture-first, data-smart brands through intentional design and strategic execution.
-                  </p>
-                  <p>
-                    Travon's work sits at the intersection of psychology, culture, and technology. He has managed multi-million-dollar advertising portfolios across healthcare, tech, fashion, and music, delivering scalable results while preserving brand soul. As a cancer survivor and former collegiate vocalist, his creative approach is both analytical and deeply human—shaped by resilience, beauty, and clarity of vision.
-                  </p>
-                  <p>
-                    Travon holds a Bachelor of Science in Biology (Pre-Med) from Mississippi State University, an ALB in Psychology from Harvard University, and is currently completing his MLA in Behavioral Psychology at Johns Hopkins University, where his research focuses on the cognitive and emotional effects of marketing and media on consumer behavior.
-                  </p>
-                  <p className="text-matte-gold italic font-playfair text-xl">
-                    His mission through Matte Noir:<br />
-                    To build brand ecosystems that are not only seen—but felt.
-                  </p>
-                </div>
-              </div>
+    <!-- === Main Content Area === -->
+    <main>
+
+        <!-- === Hero Section === -->
+        <section id="hero" class="hero">
+            <div class="video-background">
+                <!-- Video tag requires source, autoplay, loop, muted, playsinline attributes for background effect -->
+                 <video autoplay loop muted playsinline poster="images/hero-fallback.jpg">
+                     <source src="videos/hero-video.mp4" type="video/mp4"> // Replace with actual video path
+                     Your browser does not support the video tag.
+                 </video>
             </div>
-
-            <div className="mb-20">
-              <h2 className="font-playfair text-3xl text-matte-cream font-bold mb-10 text-center">
-                Our <span className="text-matte-gold">Philosophy</span>
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
-                  <div className="text-matte-gold mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Cultural Intelligence</h3>
-                  <p className="text-matte-white">
-                    We embed cultural relevance and psychological insights into every strategy, creating brand narratives that resonate on a deeper level with your audience.
-                  </p>
-                </div>
-
-                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
-                  <div className="text-matte-gold mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Data-Driven Approach</h3>
-                  <p className="text-matte-white">
-                    Our strategies balance creative intuition with analytical rigor, leveraging data to refine messaging, optimize campaigns, and drive measurable growth.
-                  </p>
-                </div>
-
-                <div className="bg-matte-gray/10 p-8 border border-matte-gray/20">
-                  <div className="text-matte-gold mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-playfair text-xl text-matte-gold mb-3">Luxury Execution</h3>
-                  <p className="text-matte-white">
-                    Every detail matters. We craft meticulous, elevated brand experiences that stand out in crowded markets while maintaining authentic connections.
-                  </p>
-                </div>
-              </div>
+            <div class="hero-overlay"></div> // For darkening video
+            <div class="hero-content container">
+                <h1>BÂTIR L'AVENIR, ENSEMBLE</h1> // Building the future, together
+                <p>Votre partenaire de confiance en immobilier et construction</p> // Your trusted partner...
+                <a href="#projects" class="cta-button">DÉCOUVRIR NOS PROJETS</a> // Discover our projects
             </div>
-
-            <div className="text-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center border border-matte-gold text-matte-gold px-8 py-3 hover:bg-matte-gold hover:text-matte-black transition-all duration-300"
-              >
-                <span>Work with us</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 ml-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </div>
         </section>
-      </main>
-      <SiteFooter />
-    </div>
-  )
-}
+
+        <!-- === Introduction / About Snippet === -->
+        <section id="about-intro" class="about-intro section-padding"> // Add padding classes as needed
+            <div class="container">
+                <div class="grid-layout-intro"> // Use CSS Grid or Flexbox for layout
+                    <div class="intro-text">
+                        <h2>Qui Sommes-Nous?</h2> // Who Are We?
+                        <p>Introduction à VM Groupe, mettant en avant la mission, l'expertise en développement immobilier et gestion de construction. Mots clés: innovation, qualité, durabilité, partenariat, focus client...</p>
+                        <p>Nous sommes votre partenaire de confiance pour réaliser vos ambitions immobilières.</p>
+                        <a href="/a-propos" class="learn-more-link">En Savoir Plus</a> // Learn More (Link to full About page)
+                    </div>
+                    <div class="intro-image">
+                        <img src="images/about-image.jpg" alt="Équipe VM Groupe ou projet représentatif"> // Replace with relevant image
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === Services Section === -->
+        <section id="services" class="services section-padding bg-light"> // Optional light background class
+            <div class="container">
+                <h2>NOS SERVICES</h2> // Our Services
+                <div class="services-grid"> // Use CSS Grid or Flexbox
+                    <article class="service-item">
+                        <!-- <i class="fas fa-building"></i> --> // Placeholder for icon
+                        <img src="images/icon-dev.png" alt="Icône Développement Immobilier" class="service-icon"> // Or use an image icon
+                        <h3>Développement Immobilier</h3> // Real Estate Development
+                        <p>Description du service de développement immobilier: identification d'opportunités, planification, exécution.</p>
+                    </article>
+                    <article class="service-item">
+                        <!-- <i class="fas fa-hard-hat"></i> --> // Placeholder for icon
+                        <img src="images/icon-mgmt.png" alt="Icône Gestion Construction" class="service-icon">
+                        <h3>Gestion de la Construction</h3> // Construction Management
+                        <p>Description de la gestion de projet: budget, échéancier, qualité, de A à Z.</p>
+                    </article>
+                    <article class="service-item">
+                        <!-- <i class="fas fa-lightbulb"></i> --> // Placeholder for icon
+                        <img src="images/icon-consult.png" alt="Icône Conseil Stratégie" class="service-icon">
+                        <h3>Conseil et Stratégie</h3> // Consulting and Strategy
+                        <p>Description des services de conseil: investissements, stratégies de développement.</p>
+                    </article>
+                    <!-- Add more services if needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- === Why Choose Us Section === -->
+        <section id="why-us" class="why-us section-padding">
+            <div class="container">
+                <h2>Pourquoi Choisir VM Groupe?</h2> // Why Choose VM Groupe?
+                <ul class="value-propositions">
+                    <li>
+                        <!-- <i class="fas fa-star"></i> --> // Icon
+                        <strong>Expertise & Expérience</strong>
+                        <p>Description brève de l'expertise.</p>
+                    </li>
+                    <li>
+                        <!-- <i class="fas fa-users"></i> --> // Icon
+                        <strong>Approche Personnalisée</strong>
+                        <p>Description de l'orientation client.</p>
+                    </li>
+                    <li>
+                        <!-- <i class="fas fa-check-circle"></i> --> // Icon
+                        <strong>Qualité & Rigueur</strong>
+                        <p>Description de l'engagement qualité.</p>
+                    </li>
+                     <li>
+                        <!-- <i class="fas fa-comments"></i> --> // Icon
+                        <strong>Transparence & Communication</strong>
+                        <p>Description de la communication.</p>
+                    </li>
+                     <li>
+                        <!-- <i class="fas fa-leaf"></i> --> // Icon
+                        <strong>Innovation & Durabilité</strong>
+                        <p>Description de l'engagement durable.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- === Projects Section === -->
+        <section id="projects" class="projects section-padding bg-light">
+            <div class="container">
+                <h2>NOS PROJETS / RÉALISATIONS</h2> // Our Projects / Achievements
+                <div class="projects-grid"> // Use CSS Grid or Flexbox
+                    <article class="project-item">
+                        <a href="/projet/details-projet-1"> // Link to project detail page
+                           <img src="images/project1.jpg" alt="Nom du Projet 1">
+                           <div class="project-info">
+                               <h3>Nom du Projet 1</h3>
+                               <span>Résidentiel</span> // Category
+                           </div>
+                        </a>
+                    </article>
+                    <article class="project-item">
+                        <a href="/projet/details-projet-2">
+                            <img src="images/project2.jpg" alt="Nom du Projet 2">
+                            <div class="project-info">
+                                <h3>Nom du Projet 2</h3>
+                                <span>Commercial</span>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="project-item">
+                         <a href="/projet/details-projet-3">
+                            <img src="images/project3.jpg" alt="Nom du Projet 3">
+                            <div class="project-info">
+                                <h3>Nom du Projet 3</h3>
+                                <span>Industriel</span>
+                             </div>
+                        </a>
+                    </article>
+                    <!-- Add more project items -->
+                </div>
+                <div class="text-center" style="margin-top: 30px;"> // Basic centering for the button
+                    <a href="/projets" class="cta-button secondary">Voir Tous Les Projets</a> // See All Projects
+                </div>
+            </div>
+        </section>
+
+        <!-- === Testimonials/Logos Section (Optional) === -->
+        <section id="testimonials" class="testimonials section-padding">
+             <div class="container">
+                 <h2>Ils Nous Font Confiance</h2> // They Trust Us
+                 <!-- Option 1: Testimonials -->
+                 <!-- <div class="testimonial-slider"> -->
+                     <!-- <blockquote class="testimonial-item"> -->
+                         <!-- <p>"Citation du client ici..."</p> -->
+                         <!-- <cite>Nom du Client, Entreprise</cite> -->
+                     <!-- </blockquote> -->
+                 <!-- </div> -->
+                 <!-- Option 2: Logos -->
+                 <div class="client-logos">
+                     <img src="images/logo-client-1.png" alt="Client Logo 1">
+                     <img src="images/logo-client-2.png" alt="Client Logo 2">
+                     <img src="images/logo-client-3.png" alt="Client Logo 3">
+                     <!-- Add more logos -->
+                 </div>
+             </div>
+        </section>
+
+        <!-- === Call to Action (Lower) === -->
+        <section id="contact-cta" class="contact-cta section-padding bg-dark text-light"> // Dark background, light text
+            <div class="container text-center">
+                <h2>Prêt à Démarrer Votre Projet?</h2> // Ready to Start Your Project?
+                <p>Contactez-nous dès aujourd'hui pour discuter de vos besoins et voir comment nous pouvons vous aider.</p>
+                <a href="#contact" class="cta-button">CONTACTEZ-NOUS</a> // Contact Us
+            </div>
+        </section>
+
+        <!-- === Contact Section (if integrated on homepage, otherwise separate page) === -->
+        <section id="contact" class="contact section-padding">
+            <div class="container">
+                <h2>Contactez-Nous</h2>
+                <div class="contact-form-container">
+                    <!-- Basic Form Structure - Needs backend processing -->
+                    <form action="/submit-form" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nom:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet:</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Envoyer le Message</button> // Send Message
+                    </form>
+                </div>
+                <div class="contact-details">
+                    <p><strong>Adresse:</strong> 123 Rue Exemple, Ville, QC J1J 1J1</p>
+                    <p><strong>Téléphone:</strong> <a href="tel:+15551234567">(555) 123-4567</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@vmgroupe.com">info@vmgroupe.com</a></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- === Footer === -->
+    <footer class="site-footer bg-dark text-light">
+        <div class="container footer-grid"> // Use CSS Grid or Flexbox
+            <div class="footer-col footer-about">
+                <img src="images/vm-groupe-logo-white.png" alt="VM Groupe Logo White" class="footer-logo"> // White version for dark bg
+                <p>Votre partenaire de confiance en immobilier et construction.</p>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/a-propos">À Propos</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projets">Projets</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/politique-confidentialite">Politique de Confidentialité</a></li> // Privacy Policy
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>Contact Info</h4>
+                <p>123 Rue Exemple, Ville, QC J1J 1J1</p>
+                <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                <p><a href="mailto:info@vmgroupe.com">info@vmgroupe.com</a></p>
+            </div>
+            <div class="footer-col footer-social">
+                <h4>Suivez-Nous</h4> // Follow Us
+                <ul class="social-icons">
+                    <li><a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li> <!-- Requires Font Awesome or similar -->
+                    <li><a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>© <span id="current-year"></span> VM Groupe. Tous droits réservés.</p> // Copyright - Year updated by JS
+        </div>
+    </footer>
+
+    <!-- Optional: JavaScript files -->
+    <!-- <script src="js/scripts.js"></script> -->
+    <script>
+        // Simple script to update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
