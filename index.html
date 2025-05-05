@@ -1,8 +1,9 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
+import Image from "next/image"
 
-export default function ContactPage() {
+export default function WorkPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -11,99 +12,121 @@ export default function ContactPage() {
           <div className="container mx-auto px-6 md:px-10">
             <div className="max-w-4xl mx-auto mb-16">
               <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-matte-cream font-bold mb-8">
-                Contact <span className="text-matte-gold">Matte Noir</span>
+                Our <span className="text-matte-gold">Work</span>
               </h1>
               <p className="text-matte-white text-lg md:text-xl">
-                Ready to elevate your brand? Reach out to discuss your vision, and let's create something extraordinary together.
+                Select case studies showcasing our strategic approach to elevating premium brands through cultural relevance and creative excellence.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-              <div className="bg-matte-gray/10 p-10 border border-matte-gray/20">
-                <h2 className="font-playfair text-2xl text-matte-gold font-bold mb-6">
-                  Send Us a Message
-                </h2>
-                <form className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-matte-white mb-2">Your Name</label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      className="w-full bg-matte-black border border-matte-gray/30 text-matte-white p-3 focus:border-matte-gold focus:outline-none"
-                      placeholder="Jane Doe"
-                    />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+              {/* Project 1 */}
+              <div className="group">
+                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
+                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
+                    Portfolio Project 1<br />(Add image here)
                   </div>
-                  <div>
-                    <label htmlFor="email" className="block text-matte-white mb-2">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      className="w-full bg-matte-black border border-matte-gray/30 text-matte-white p-3 focus:border-matte-gold focus:outline-none"
-                      placeholder="jane@example.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="subject" className="block text-matte-white mb-2">Subject</label>
-                    <input 
-                      type="text" 
-                      id="subject" 
-                      className="w-full bg-matte-black border border-matte-gray/30 text-matte-white p-3 focus:border-matte-gold focus:outline-none"
-                      placeholder="Project Inquiry"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-matte-white mb-2">Your Message</label>
-                    <textarea 
-                      id="message" 
-                      rows={5}
-                      className="w-full bg-matte-black border border-matte-gray/30 text-matte-white p-3 focus:border-matte-gold focus:outline-none resize-none"
-                      placeholder="Tell us about your project and how we can help..."
-                    />
-                  </div>
-                  <button 
-                    type="submit"
-                    className="inline-flex items-center bg-matte-gold text-matte-black px-8 py-3 hover:bg-matte-gold/90 transition-all duration-300"
-                  >
-                    Send Message
-                  </button>
-                </form>
-              </div>
-              
-              <div>
-                <h2 className="font-playfair text-2xl text-matte-gold font-bold mb-6">
-                  Get in Touch
-                </h2>
-                <div className="space-y-8 text-matte-white">
-                  <div>
-                    <h3 className="text-matte-cream text-lg mb-2">Email</h3>
-                    <a href="mailto:info@mattenoir.com" className="text-matte-gold hover:underline">info@mattenoir.com</a>
-                  </div>
-                  <div>
-                    <h3 className="text-matte-cream text-lg mb-2">Phone</h3>
-                    <a href="tel:+1234567890" className="text-matte-gold hover:underline">+1 (234) 567-890</a>
-                  </div>
-                  <div>
-                    <h3 className="text-matte-cream text-lg mb-2">Locations</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <p className="font-bold text-matte-gold">New York</p>
-                        <p>123 Madison Avenue, Suite 500</p>
-                        <p>New York, NY 10022</p>
-                      </div>
-                      <div>
-                        <p className="font-bold text-matte-gold">Los Angeles</p>
-                        <p>456 Wilshire Blvd, Floor 12</p>
-                        <p>Los Angeles, CA 90036</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-matte-cream text-lg mb-2">Hours</h3>
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
-                    <p>Weekends: By appointment only</p>
+                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-matte-black font-medium text-lg">View Project</span>
                   </div>
                 </div>
+                <h2 className="font-playfair text-2xl text-matte-gold">Lumière Luxury Skincare</h2>
+                <p className="text-matte-white mt-2">
+                  Rebranding & Digital Strategy | Beauty Industry
+                </p>
               </div>
+
+              {/* Project 2 */}
+              <div className="group">
+                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
+                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
+                    Portfolio Project 2<br />(Add image here)
+                  </div>
+                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-matte-black font-medium text-lg">View Project</span>
+                  </div>
+                </div>
+                <h2 className="font-playfair text-2xl text-matte-gold">Meridian Hotel Group</h2>
+                <p className="text-matte-white mt-2">
+                  Integrated Campaign | Hospitality
+                </p>
+              </div>
+
+              {/* Project 3 */}
+              <div className="group">
+                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
+                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
+                    Portfolio Project 3<br />(Add image here)
+                  </div>
+                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-matte-black font-medium text-lg">View Project</span>
+                  </div>
+                </div>
+                <h2 className="font-playfair text-2xl text-matte-gold">Onyx Technology Solutions</h2>
+                <p className="text-matte-white mt-2">
+                  Brand Positioning & Content Strategy | Tech
+                </p>
+              </div>
+
+              {/* Project 4 */}
+              <div className="group">
+                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
+                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
+                    Portfolio Project 4<br />(Add image here)
+                  </div>
+                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-matte-black font-medium text-lg">View Project</span>
+                  </div>
+                </div>
+                <h2 className="font-playfair text-2xl text-matte-gold">Sartorial Collective</h2>
+                <p className="text-matte-white mt-2">
+                  E-commerce Optimization & Paid Media | Fashion
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-matte-gray/10 p-10 border border-matte-gray/20 mb-16">
+              <h2 className="font-playfair text-3xl text-matte-gold text-center font-bold mb-8">
+                Clients We've Worked With
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
+                  <span className="text-matte-gold font-playfair text-xl">BRAND</span>
+                </div>
+                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
+                  <span className="text-matte-gold font-playfair text-xl">LOGO</span>
+                </div>
+                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
+                  <span className="text-matte-gold font-playfair text-xl">HERE</span>
+                </div>
+                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
+                  <span className="text-matte-gold font-playfair text-xl">CLIENT</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className="mb-8 text-matte-white max-w-2xl mx-auto">
+                <p className="text-xl">Ready to elevate your brand with strategic excellence?</p>
+              </div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center border border-matte-gold text-matte-gold px-8 py-3 hover:bg-matte-gold hover:text-matte-black transition-all duration-300"
+              >
+                <span>Start your project</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 ml-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
         </section>
