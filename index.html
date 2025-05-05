@@ -1,137 +1,128 @@
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import Link from "next/link"
-import Image from "next/image"
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Matte Noir | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-playfair {
+        font-family: 'Playfair Display', serif;
+      }
+      .bg-matte-black {
+        background-color: #0f0f0f;
+      }
+      .bg-matte-gold {
+        background-color: #daa520;
+      }
+      .bg-matte-cream {
+        background-color: #f5f3eb;
+      }
+      .text-matte-black {
+        color: #0f0f0f;
+      }
+      .text-matte-gold {
+        color: #daa520;
+      }
+      .text-matte-cream {
+        color: #f5f3eb;
+      }
+      .text-matte-white {
+        color: #f7f7f7;
+      }
+      @keyframes fadeUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-up {
+        animation: fadeUp 1s ease-out forwards;
+      }
+    </style>
+  </head>
 
-export default function WorkPage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <section className="bg-matte-black py-20 md:py-32">
-          <div className="container mx-auto px-6 md:px-10">
-            <div className="max-w-4xl mx-auto mb-16">
-              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-matte-cream font-bold mb-8">
-                Our <span className="text-matte-gold">Work</span>
-              </h1>
-              <p className="text-matte-white text-lg md:text-xl">
-                Select case studies showcasing our strategic approach to elevating premium brands through cultural relevance and creative excellence.
-              </p>
-            </div>
+  <body class="flex flex-col min-h-screen bg-matte-black text-matte-white">
+    <!-- Header -->
+    <header class="px-6 py-4 bg-matte-black text-matte-white flex items-center justify-between">
+      <img src="logo-matte-noir.png" alt="Matte Noir Logo" style="height: 48px;" />
+      <nav class="space-x-6">
+        <a href="/" class="hover:text-matte-gold">Home</a>
+        <a href="/work" class="hover:text-matte-gold">Work</a>
+        <a href="/about" class="hover:text-matte-gold">About</a>
+        <a href="/contact" class="hover:text-matte-gold">Contact</a>
+      </nav>
+    </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
-              {/* Project 1 */}
-              <div className="group">
-                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
-                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
-                    Portfolio Project 1<br />(Add image here)
-                  </div>
-                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-matte-black font-medium text-lg">View Project</span>
-                  </div>
-                </div>
-                <h2 className="font-playfair text-2xl text-matte-gold">Lumière Luxury Skincare</h2>
-                <p className="text-matte-white mt-2">
-                  Rebranding & Digital Strategy | Beauty Industry
-                </p>
-              </div>
-
-              {/* Project 2 */}
-              <div className="group">
-                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
-                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
-                    Portfolio Project 2<br />(Add image here)
-                  </div>
-                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-matte-black font-medium text-lg">View Project</span>
-                  </div>
-                </div>
-                <h2 className="font-playfair text-2xl text-matte-gold">Meridian Hotel Group</h2>
-                <p className="text-matte-white mt-2">
-                  Integrated Campaign | Hospitality
-                </p>
-              </div>
-
-              {/* Project 3 */}
-              <div className="group">
-                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
-                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
-                    Portfolio Project 3<br />(Add image here)
-                  </div>
-                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-matte-black font-medium text-lg">View Project</span>
-                  </div>
-                </div>
-                <h2 className="font-playfair text-2xl text-matte-gold">Onyx Technology Solutions</h2>
-                <p className="text-matte-white mt-2">
-                  Brand Positioning & Content Strategy | Tech
-                </p>
-              </div>
-
-              {/* Project 4 */}
-              <div className="group">
-                <div className="relative aspect-[4/3] overflow-hidden bg-matte-gray/20 mb-4">
-                  <div className="absolute inset-0 flex items-center justify-center text-matte-white text-lg bg-matte-black/70">
-                    Portfolio Project 4<br />(Add image here)
-                  </div>
-                  <div className="absolute inset-0 bg-matte-gold/80 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-matte-black font-medium text-lg">View Project</span>
-                  </div>
-                </div>
-                <h2 className="font-playfair text-2xl text-matte-gold">Sartorial Collective</h2>
-                <p className="text-matte-white mt-2">
-                  E-commerce Optimization & Paid Media | Fashion
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-matte-gray/10 p-10 border border-matte-gray/20 mb-16">
-              <h2 className="font-playfair text-3xl text-matte-gold text-center font-bold mb-8">
-                Clients We've Worked With
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
-                  <span className="text-matte-gold font-playfair text-xl">BRAND</span>
-                </div>
-                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
-                  <span className="text-matte-gold font-playfair text-xl">LOGO</span>
-                </div>
-                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
-                  <span className="text-matte-gold font-playfair text-xl">HERE</span>
-                </div>
-                <div className="h-24 flex items-center justify-center border border-matte-gray/30 opacity-70 hover:opacity-100 transition-opacity">
-                  <span className="text-matte-gold font-playfair text-xl">CLIENT</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <div className="mb-8 text-matte-white max-w-2xl mx-auto">
-                <p className="text-xl">Ready to elevate your brand with strategic excellence?</p>
-              </div>
-              <Link
-                href="/contact"
-                className="inline-flex items-center border border-matte-gold text-matte-gold px-8 py-3 hover:bg-matte-gold hover:text-matte-black transition-all duration-300"
-              >
-                <span>Start your project</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 ml-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            </div>
+    <!-- Hero -->
+    <main class="flex-1">
+      <section class="relative bg-matte-black text-matte-cream py-32 px-6 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div class="animate-fade-up">
+          <img
+            src="logo-matte-noir.png"
+            alt="Matte Noir Logo"
+            class="mx-auto mb-6 w-48 h-auto opacity-90"
+          />
+          <h1 class="text-4xl md:text-6xl font-playfair font-bold leading-tight mb-4">
+            Building Brands That <span class="text-matte-gold">Move Culture</span>
+          </h1>
+          <p class="text-lg md:text-xl text-matte-white/80 mb-10 max-w-2xl mx-auto">
+            A culture-first luxury marketing agency helping brands become icons through storytelling, media, and strategy.
+          </p>
+          <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a
+              href="/work"
+              class="border border-matte-gold text-matte-gold px-6 py-3 hover:bg-matte-gold hover:text-matte-black transition"
+            >
+              View Our Work
+            </a>
+            <a
+              href="/contact"
+              class="border border-matte-cream text-matte-cream px-6 py-3 hover:bg-matte-cream hover:text-matte-black transition"
+            >
+              Start a Project
+            </a>
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
-  )
-}
+        </div>
+      </section>
+
+      <!-- Mission Statement -->
+      <section class="bg-matte-cream text-matte-black py-24 px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-playfair font-semibold mb-6">Strategy Meets Soul</h2>
+        <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+          We work with beauty, tech, fashion, hospitality, and wellness brands to develop campaigns that don’t just sell—they resonate. Through identity systems, media execution, and branded storytelling, we craft experiences that are both beautiful and brave.
+        </p>
+      </section>
+
+      <!-- CTA -->
+      <section class="bg-matte-gold text-matte-black py-16 text-center px-6">
+        <h3 class="text-2xl md:text-3xl font-playfair mb-4">Let’s Build Something Iconic</h3>
+        <a
+          href="/contact"
+          class="inline-block mt-4 border border-matte-black px-6 py-3 hover:bg-matte-black hover:text-matte-gold transition"
+        >
+          Contact Us
+        </a>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="px-6 py-8 bg-matte-black text-center text-sm text-matte-white">
+      &copy; 2025 Matte Noir. All rights reserved.
+    </footer>
+  </body>
+</html>
