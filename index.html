@@ -1,128 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Matte Noir | Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .font-playfair {
-        font-family: 'Playfair Display', serif;
-      }
-      .bg-matte-black {
-        background-color: #0f0f0f;
-      }
-      .bg-matte-gold {
-        background-color: #daa520;
-      }
-      .bg-matte-cream {
-        background-color: #f5f3eb;
-      }
-      .text-matte-black {
-        color: #0f0f0f;
-      }
-      .text-matte-gold {
-        color: #daa520;
-      }
-      .text-matte-cream {
-        color: #f5f3eb;
-      }
-      .text-matte-white {
-        color: #f7f7f7;
-      }
-      @keyframes fadeUp {
-        0% {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .animate-fade-up {
-        animation: fadeUp 1s ease-out forwards;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <title>Matte Noir – One Page Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+    .bg-matte-black { background-color: #0f0f0f; }
+    .bg-matte-gold { background-color: #daa520; }
+    .bg-matte-cream { background-color: #f5f3eb; }
+    .bg-matte-gray { background-color: #1f1f1f; }
+    .text-matte-black { color: #0f0f0f; }
+    .text-matte-gold { color: #daa520; }
+    .text-matte-white { color: #f7f7f7; }
+    .text-matte-cream { color: #f5f3eb; }
+    nav a { margin-right: 1rem; }
+  </style>
+</head>
+<body class="bg-matte-black text-matte-white">
+  <!-- Navigation -->
+  <nav class="p-6 bg-matte-black sticky top-0 z-50 border-b border-matte-gold">
+    <a href="#home" class="text-matte-gold font-bold">Home</a>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+    <a href="#thank-you">Thank You</a>
+    <a href="#mobile-menu">Menu</a>
+  </nav>
 
-  <body class="flex flex-col min-h-screen bg-matte-black text-matte-white">
-    <!-- Header -->
-    <header class="px-6 py-4 bg-matte-black text-matte-white flex items-center justify-between">
-      <img src="logo-matte-noir.png" alt="Matte Noir Logo" style="height: 48px;" />
-      <nav class="space-x-6">
-        <a href="/" class="hover:text-matte-gold">Home</a>
-        <a href="/work" class="hover:text-matte-gold">Work</a>
-        <a href="/about" class="hover:text-matte-gold">About</a>
-        <a href="/contact" class="hover:text-matte-gold">Contact</a>
-      </nav>
-    </header>
+  <!-- Hero -->
+  <section id="home" class="py-20 bg-matte-black text-center text-matte-white">
+    <h1 class="text-4xl font-bold text-matte-gold mb-4">Matte Noir</h1>
+    <p class="text-lg">A culture-first luxury marketing agency building brands that move culture.</p>
+  </section>
 
-    <!-- Hero -->
-    <main class="flex-1">
-      <section class="relative bg-matte-black text-matte-cream py-32 px-6 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div class="animate-fade-up">
-          <img
-            src="logo-matte-noir.png"
-            alt="Matte Noir Logo"
-            class="mx-auto mb-6 w-48 h-auto opacity-90"
-          />
-          <h1 class="text-4xl md:text-6xl font-playfair font-bold leading-tight mb-4">
-            Building Brands That <span class="text-matte-gold">Move Culture</span>
-          </h1>
-          <p class="text-lg md:text-xl text-matte-white/80 mb-10 max-w-2xl mx-auto">
-            A culture-first luxury marketing agency helping brands become icons through storytelling, media, and strategy.
-          </p>
-          <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a
-              href="/work"
-              class="border border-matte-gold text-matte-gold px-6 py-3 hover:bg-matte-gold hover:text-matte-black transition"
-            >
-              View Our Work
-            </a>
-            <a
-              href="/contact"
-              class="border border-matte-cream text-matte-cream px-6 py-3 hover:bg-matte-cream hover:text-matte-black transition"
-            >
-              Start a Project
-            </a>
-          </div>
-        </div>
-      </section>
+  <!-- About -->
+  <section id="about" class="py-20 bg-matte-black text-center text-matte-white">
+    <h2 class="text-3xl font-bold text-matte-gold mb-4">About Matte Noir</h2>
+    <p class="max-w-3xl mx-auto text-lg">
+      Matte Noir is led by T. Patrick Williams and focuses on elevating premium brands through story-rich campaigns, strategic design, and bold execution.
+    </p>
+  </section>
 
-      <!-- Mission Statement -->
-      <section class="bg-matte-cream text-matte-black py-24 px-6 text-center">
-        <h2 class="text-3xl md:text-4xl font-playfair font-semibold mb-6">Strategy Meets Soul</h2>
-        <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-          We work with beauty, tech, fashion, hospitality, and wellness brands to develop campaigns that don’t just sell—they resonate. Through identity systems, media execution, and branded storytelling, we craft experiences that are both beautiful and brave.
-        </p>
-      </section>
+  <!-- Work -->
+  <section id="work" class="py-20 bg-matte-cream text-center text-matte-black">
+    <h2 class="text-3xl font-bold mb-8">Our Work</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <div class="border border-black p-6">
+        <h3 class="text-xl font-semibold">Lumière Skincare</h3>
+        <p>Rebranding & Digital Strategy | Beauty</p>
+      </div>
+      <div class="border border-black p-6">
+        <h3 class="text-xl font-semibold">Meridian Hotels</h3>
+        <p>Integrated Campaign | Hospitality</p>
+      </div>
+      <div class="border border-black p-6">
+        <h3 class="text-xl font-semibold">Onyx Tech</h3>
+        <p>Brand Positioning & Content | Tech Sector</p>
+      </div>
+      <div class="border border-black p-6">
+        <h3 class="text-xl font-semibold">Sartorial Collective</h3>
+        <p>Paid Media Optimization | Fashion</p>
+      </div>
+    </div>
+  </section>
 
-      <!-- CTA -->
-      <section class="bg-matte-gold text-matte-black py-16 text-center px-6">
-        <h3 class="text-2xl md:text-3xl font-playfair mb-4">Let’s Build Something Iconic</h3>
-        <a
-          href="/contact"
-          class="inline-block mt-4 border border-matte-black px-6 py-3 hover:bg-matte-black hover:text-matte-gold transition"
-        >
-          Contact Us
-        </a>
-      </section>
-    </main>
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-matte-black text-center text-matte-white">
+    <h2 class="text-3xl font-bold text-matte-gold mb-4">Contact Us</h2>
+    <form action="https://formspree.io/f/xovddvko" method="POST" class="max-w-lg mx-auto space-y-4 text-left">
+      <input name="name" type="text" placeholder="Your Name" class="w-full p-3 bg-matte-gray border border-white" required />
+      <input name="email" type="email" placeholder="Your Email" class="w-full p-3 bg-matte-gray border border-white" required />
+      <textarea name="message" rows="5" placeholder="Your Message" class="w-full p-3 bg-matte-gray border border-white" required></textarea>
+      <button type="submit" class="w-full p-3 border border-matte-gold text-matte-gold hover:bg-matte-gold hover:text-black transition">Send Message</button>
+    </form>
+  </section>
 
-    <!-- Footer -->
-    <footer class="px-6 py-8 bg-matte-black text-center text-sm text-matte-white">
-      &copy; 2025 Matte Noir. All rights reserved.
-    </footer>
-  </body>
+  <!-- Thank You -->
+  <section id="thank-you" class="py-20 bg-matte-gold text-center text-matte-black">
+    <h2 class="text-3xl font-bold mb-4">Thank You!</h2>
+    <p>We've received your message and will be in touch within 24 hours.</p>
+  </section>
+
+  <!-- Mobile Menu -->
+  <section id="mobile-menu" class="py-20 bg-matte-black text-center text-matte-white">
+    <h2 class="text-3xl font-bold text-matte-gold mb-4">Mobile Menu Preview</h2>
+    <div class="text-lg space-y-4">
+      <a href="#home" class="block hover:text-matte-gold">Home</a>
+      <a href="#about" class="block hover:text-matte-gold">About</a>
+      <a href="#work" class="block hover:text-matte-gold">Work</a>
+      <a href="#contact" class="block hover:text-matte-gold">Contact</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 bg-matte-black text-center text-sm text-matte-white border-t border-matte-gold">
+    &copy; 2025 Matte Noir. All rights reserved.
+  </footer>
+</body>
 </html>
