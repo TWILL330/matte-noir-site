@@ -1,0 +1,122 @@
+[
+  {
+    "id": "t3_kri001",
+    "source_type": "post",
+    "subreddit": "consulting",
+    "author": "ops_director_22",
+    "title": "Resource utilization is destroying our margins — does anyone use dedicated PSA software?",
+    "body": "We're a 47-person strategy consulting firm and our utilization reporting is still done in Excel. Partners have no real-time view of who's available, so we're constantly over-staffing and eating scope creep silently. We looked at Smartsheet and Monday but neither feels built for professional services. Has anyone actually committed to a PSA platform? What was the ROI story you told leadership?",
+    "url": "https://reddit.com/r/consulting/comments/kri001",
+    "created_utc": 1704067200,
+    "score": 112,
+    "num_comments": 41
+  },
+  {
+    "id": "t3_kri002",
+    "source_type": "post",
+    "subreddit": "projectmanagement",
+    "author": "pm_lead_chicago",
+    "title": "We finally left Wrike — here's what we learned after 18 months",
+    "body": "After fighting Wrike for proper resource forecasting and project profitability tracking, we moved to a platform purpose-built for services firms. The thing nobody tells you: the data migration is brutal, but the margin visibility on the other side is worth it. We can now see project health in real time instead of finding out we lost money three weeks after close.",
+    "url": "https://reddit.com/r/projectmanagement/comments/kri002",
+    "created_utc": 1704153600,
+    "score": 198,
+    "num_comments": 73
+  },
+  {
+    "id": "t1_kri003",
+    "source_type": "comment",
+    "subreddit": "consulting",
+    "author": "ex_mavenlink_user",
+    "title": null,
+    "body": "We evaluated Mavenlink before they rebranded to Kantata. Honestly the forecasting and resource management modules are strong — especially for firms doing fixed-fee work where you need to watch burn rate weekly. The sales cycle was long and onboarding took about 90 days before our PMs felt comfortable.",
+    "url": "https://reddit.com/r/consulting/comments/kri002/comment/ex_mv",
+    "created_utc": 1704240000,
+    "score": 34,
+    "num_comments": null
+  },
+  {
+    "id": "t3_kri004",
+    "source_type": "post",
+    "subreddit": "ITManagers",
+    "author": "it_services_vp",
+    "title": "Evaluating PSA tools for a 200-person IT services org — Kantata vs Certinia vs Polaris",
+    "body": "We're a managed services provider running about 200 billable consultants across 40 active engagements. We've outgrown our current setup (FinancialForce + spreadsheets) and are in formal vendor evaluation. Key requirements: real-time utilization, automated time capture, integration with Salesforce CPQ for quote-to-cash. Anyone gone through this recently? Happy to share our scoring matrix.",
+    "url": "https://reddit.com/r/ITManagers/comments/kri004",
+    "created_utc": 1704326400,
+    "score": 87,
+    "num_comments": 52
+  },
+  {
+    "id": "t1_kri005",
+    "source_type": "comment",
+    "subreddit": "agile",
+    "author": "scrum_master_nyc",
+    "title": null,
+    "body": "Workfront is overkill for most agencies I've worked at. If you're under 150 people you'll spend 6 months configuring it and half your PMs will revert to Slack and Notion anyway. The resourcing view is clunky and real-time capacity planning basically doesn't exist without custom reports.",
+    "url": "https://reddit.com/r/agile/comments/some_thread/comment/kri005",
+    "created_utc": 1704412800,
+    "score": 61,
+    "num_comments": null
+  },
+  {
+    "id": "t3_kri006",
+    "source_type": "post",
+    "subreddit": "smallbusiness",
+    "author": "agency_owner_pdx",
+    "title": "How do you track whether a client engagement is actually profitable mid-project?",
+    "body": "Running a 12-person digital strategy agency. We do fixed-fee retainers mostly. Right now I find out a project lost money after it closes, which is obviously too late. My bookkeeper does project accounting in QuickBooks but there's a 2-week lag. Is there software that surfaces real-time project profitability without requiring a full PSA implementation?",
+    "url": "https://reddit.com/r/smallbusiness/comments/kri006",
+    "created_utc": 1704499200,
+    "score": 74,
+    "num_comments": 38
+  },
+  {
+    "id": "t1_kri007",
+    "source_type": "comment",
+    "subreddit": "marketing",
+    "author": "agency_resource_mgr",
+    "title": null,
+    "body": "The thing that's killing us isn't finding the work, it's resourcing it. We have 8 account teams and no single view of who has capacity next sprint. Every Monday is a fire drill. We tried Resource Guru but it doesn't connect to project financials so you still have two separate systems. Looking for something that ties resource scheduling directly to project budget.",
+    "url": "https://reddit.com/r/marketing/comments/agency_ops/comment/kri007",
+    "created_utc": 1704585600,
+    "score": 28,
+    "num_comments": null
+  },
+  {
+    "id": "t3_kri008",
+    "source_type": "post",
+    "subreddit": "Entrepreneur",
+    "author": "it_consulting_founder",
+    "title": "Scaling an IT consulting practice from 10 to 50 people — what breaks first?",
+    "body": "Two years ago we were 10 people and could run everything in Harvest and a shared Google Sheet. Now we're at 48 and the wheels are coming off. We have no forecasting, no utilization baseline, project managers are siloed, and finance has basically no visibility until month close. What systems did you put in place to get through this growth phase?",
+    "url": "https://reddit.com/r/Entrepreneur/comments/kri008",
+    "created_utc": 1704672000,
+    "score": 156,
+    "num_comments": 89
+  },
+  {
+    "id": "t1_kri009",
+    "source_type": "comment",
+    "subreddit": "projectmanagement",
+    "author": "forecast_pm",
+    "title": null,
+    "body": "The core problem with most PM tools is they treat resource forecasting as an afterthought. You set up a project plan, assign people, and then the moment scope shifts the whole forecast is garbage. What we actually need is a system that re-calculates remaining capacity and margin impact automatically when a task slips — not one that just shows you a Gantt.",
+    "url": "https://reddit.com/r/projectmanagement/comments/forecasting/comment/kri009",
+    "created_utc": 1704758400,
+    "score": 45,
+    "num_comments": null
+  },
+  {
+    "id": "t3_kri010",
+    "source_type": "post",
+    "subreddit": "consulting",
+    "author": "mgmt_consulting_ops",
+    "title": "Post-merger PSA integration — anyone consolidate two firms onto one platform?",
+    "body": "We just completed an acquisition — 60-person strategy boutique joining our 200-person firm. Both have different PSA setups (we're on Kimble, they're on spreadsheets). Leadership wants everything consolidated in 6 months. Has anyone gone through a PSA consolidation at this scale? Biggest risk I see is the resource model and rate card differences.",
+    "url": "https://reddit.com/r/consulting/comments/kri010",
+    "created_utc": 1704844800,
+    "score": 93,
+    "num_comments": 47
+  }
+]

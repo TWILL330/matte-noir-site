@@ -39,3 +39,13 @@ class RecordListResponse(BaseModel):
     page: int
     page_size: int
     records: list[RedditRecordRead]
+
+
+class ImportResponse(BaseModel):
+    import_run_id: int
+    filename: str
+    total: int
+    imported: int
+    skipped: int
+    errors: int
+    status: str  # "complete" | "failed"
