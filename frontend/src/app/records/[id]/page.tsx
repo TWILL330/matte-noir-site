@@ -5,7 +5,7 @@ import RecordDetail from '@/components/RecordDetail'
 
 export default async function RecordPage({ params }: { params: { id: string } }) {
   const id = Number(params.id)
-  if (isNaN(id)) notFound()
+  if (!Number.isInteger(id) || id <= 0) notFound()
 
   let record
   try {
@@ -16,7 +16,10 @@ export default async function RecordPage({ params }: { params: { id: string } })
 
   return (
     <div className="max-w-2xl">
-      <Link href="/" className="mb-4 block text-sm text-indigo-600 hover:underline">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-indigo-600 hover:underline"
+      >
         ← Back to dashboard
       </Link>
       <RecordDetail record={record} />

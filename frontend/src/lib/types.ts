@@ -1,4 +1,5 @@
 export type SourceType = 'post' | 'comment'
+export type IntentStage = 'awareness' | 'consideration' | 'decision' | 'frustration' | 'advocacy'
 
 export interface RedditRecord {
   id: number
@@ -14,14 +15,13 @@ export interface RedditRecord {
   num_comments: number | null
   imported_at: string
 
-  // Tags
   industries: string[]
   buyer_roles: string[]
   pain_points: string[]
   competitors: string[]
   intent_stage: string | null
 
-  // Scores — 0.0–1.0
+  // Scores are integers 0–100
   icp_fit_score: number | null
   pain_severity_score: number | null
   purchase_intent_score: number | null
@@ -36,6 +36,15 @@ export interface RecordListResponse {
   records: RedditRecord[]
 }
 
+export interface Facets {
+  industries: string[]
+  buyer_roles: string[]
+  pain_points: string[]
+  competitors: string[]
+  intent_stages: string[]
+  subreddits: string[]
+}
+
 export interface RecordFilters {
   q?: string
   subreddit?: string
@@ -44,6 +53,9 @@ export interface RecordFilters {
   pain_point?: string
   competitor?: string
   intent_stage?: string
+  min_icp_fit?: number
+  min_pain_severity?: number
+  min_purchase_intent?: number
   min_abm_priority?: number
   page?: number
   page_size?: number
