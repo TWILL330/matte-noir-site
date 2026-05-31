@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matte Noir — Narration Studio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #161616;
+      --surface2:  #1e1e1e;
+      --border:    #2a2a2a;
+      --accent:    #c8a96e;
+      --accent-dim:#8c6f3f;
+      --text:      #e8e2d9;
+      --muted:     #6b6460;
+      --danger:    #c0392b;
+      --radius:    8px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    header p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-top: 0.4rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      width: 100%;
+      max-width: 780px;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      padding: 0.9rem 1rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: var(--accent-dim); }
+    textarea::placeholder { color: var(--muted); }
+
+    .sliders {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .slider-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .slider-group label span.val {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.5rem;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    #generateBtn {
+      background: var(--accent);
+      color: #0d0d0d;
+    }
+    #generateBtn:hover:not(:disabled) { opacity: 0.85; }
+
+    #downloadBtn {
+      background: transparent;
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      display: none;
+    }
+    #downloadBtn:hover:not(:disabled) { background: var(--accent-dim); color: #0d0d0d; }
+
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #errorMsg {
+      display: none;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--danger);
+      background: rgba(192,57,43,0.1);
+      border: 1px solid rgba(192,57,43,0.3);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.9rem;
+    }
+
+    .audio-wrap {
+      margin-top: 1.5rem;
+      display: none;
+    }
+    audio {
+      width: 100%;
+      filter: invert(1) hue-rotate(180deg) brightness(0.85);
+      border-radius: var(--radius);
+    }
+
+    /* History */
+    #historyList { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.7rem 1rem;
+      gap: 1rem;
+    }
+    .history-item .snippet {
+      font-size: 0.82rem;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    .history-item .meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .replay-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+    }
+    .replay-btn:hover { border-color: var(--accent-dim); color: var(--accent); }
+
+    #emptyHistory {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Matte Noir</h1>
+  <p>Narration Studio — powered by ElevenLabs</p>
+</header>
+
+<!-- Script Input -->
+<div class="card">
+  <h2>Script</h2>
+  <textarea id="scriptInput" placeholder="Paste your narration script here…"></textarea>
+
+  <div class="sliders">
+    <div class="slider-group">
+      <label>Stability <span class="val" id="stabilityVal">0.50</span></label>
+      <input type="range" id="stability" min="0" max="1" step="0.01" value="0.5" />
+    </div>
+    <div class="slider-group">
+      <label>Similarity <span class="val" id="similarityVal">0.75</span></label>
+      <input type="range" id="similarity" min="0" max="1" step="0.01" value="0.75" />
+    </div>
+    <div class="slider-group">
+      <label>Style <span class="val" id="styleVal">0.30</span></label>
+      <input type="range" id="style" min="0" max="1" step="0.01" value="0.3" />
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="generateBtn">Generate Narration</button>
+    <div class="spinner" id="spinner"></div>
+    <button id="downloadBtn">&#8659; Download MP3</button>
+  </div>
+
+  <div id="errorMsg"></div>
+
+  <div class="audio-wrap" id="audioWrap">
+    <audio id="audioPlayer" controls></audio>
+  </div>
+</div>
+
+<!-- History -->
+<div class="card">
+  <h2>Generation History</h2>
+  <ul id="historyList">
+    <li id="emptyHistory">No narrations generated yet.</li>
+  </ul>
+</div>
+
+<script>
+  // Slider live labels
+  function bindSlider(id, labelId) {
+    const el = document.getElementById(id);
+    const lbl = document.getElementById(labelId);
+    el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
+  }
+  bindSlider('stability', 'stabilityVal');
+  bindSlider('similarity', 'similarityVal');
+  bindSlider('style', 'styleVal');
+
+  let currentBlob = null;
+  const historyData = [];
+
+  const generateBtn = document.getElementById('generateBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const spinner     = document.getElementById('spinner');
+  const audioPlayer = document.getElementById('audioPlayer');
+  const audioWrap   = document.getElementById('audioWrap');
+  const errorMsg    = document.getElementById('errorMsg');
+
+  generateBtn.addEventListener('click', async () => {
+    const text = document.getElementById('scriptInput').value.trim();
+    if (!text) { showError('Please enter a script before generating.'); return; }
+
+    setLoading(true);
+    hideError();
+
+    try {
+      const response = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text,
+          stability:  parseFloat(document.getElementById('stability').value),
+          similarity: parseFloat(document.getElementById('similarity').value),
+          style:      parseFloat(document.getElementById('style').value),
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(err.error || `HTTP ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      currentBlob = blob;
+      const url = URL.createObjectURL(blob);
+
+      audioPlayer.src = url;
+      audioWrap.style.display = 'block';
+      audioPlayer.play();
+
+      downloadBtn.style.display = 'inline-block';
+      downloadBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `narration-${Date.now()}.mp3`;
+        a.click();
+      };
+
+      addHistoryItem(text, {
+        stability:  parseFloat(document.getElementById('stability').value),
+        similarity: parseFloat(document.getElementById('similarity').value),
+        style:      parseFloat(document.getElementById('style').value),
+      }, url);
+
+    } catch (e) {
+      showError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  function setLoading(on) {
+    generateBtn.disabled = on;
+    spinner.style.display = on ? 'block' : 'none';
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = 'block';
+  }
+  function hideError() { errorMsg.style.display = 'none'; }
+
+  function addHistoryItem(text, settings, url) {
+    const emptyEl = document.getElementById('emptyHistory');
+    if (emptyEl) emptyEl.remove();
+
+    const snippet = text.length > 80 ? text.slice(0, 80) + '…' : text;
+    const item = document.createElement('li');
+    item.className = 'history-item';
+    item.innerHTML = `
+      <span class="snippet" title="${text.replace(/"/g,'&quot;')}">${escapeHtml(snippet)}</span>
+      <span class="meta">S:${settings.stability.toFixed(2)} | Sim:${settings.similarity.toFixed(2)} | St:${settings.style.toFixed(2)}</span>
+      <button class="replay-btn">&#9654; Replay</button>
+    `;
+    item.querySelector('.replay-btn').addEventListener('click', () => {
+      audioPlayer.src = url;
+      audioWrap.style.display = 'block';
+      audioPlayer.play();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const list = document.getElementById('historyList');
+    list.insertBefore(item, list.firstChild);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>
