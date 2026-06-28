@@ -146,9 +146,14 @@ textarea{resize:vertical}
     </div>
     <div class="card-inner" style="display:flex;flex-direction:column;gap:14px">
       <div>
-        <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Hooklayer API Key</label>
-        <input type="password" id="s-hl-key" placeholder="hl_..." style="font-family:'Space Mono',monospace"/>
-        <p style="font-size:11px;color:#444;margin-top:5px">Get yours at hooklayer.dev → Account → API Keys</p>
+        <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">RapidAPI Key <span style="color:#c9a84c">(TikTok search)</span></label>
+        <input type="password" id="s-rapid-key" placeholder="your RapidAPI key..." style="font-family:'Space Mono',monospace"/>
+        <p style="font-size:11px;color:#444;margin-top:5px">rapidapi.com → subscribe to <strong style="color:#666">TikTok Scraper7</strong> (free tier available)</p>
+      </div>
+      <div>
+        <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Anthropic API Key <span style="color:#c9a84c">(AI scoring)</span></label>
+        <input type="password" id="s-anthropic-key" placeholder="sk-ant-..." style="font-family:'Space Mono',monospace"/>
+        <p style="font-size:11px;color:#444;margin-top:5px">console.anthropic.com → API Keys (pay-as-you-go, pennies per use)</p>
       </div>
       <div>
         <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Video Generator (Optional)</label>
@@ -694,14 +699,15 @@ const G = {
 //  API CLIENT
 // ═══════════════════════════════════════════════════════════
 async function callApi(tool, params = {}) {
-  const key = localStorage.getItem('hl_key') || '';
+  const rapidKey = localStorage.getItem('rapid_key') || '';
+  const anthropicKey = localStorage.getItem('anthropic_key') || '';
   const res = await fetch('/api', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tool, params, key }),
+    body: JSON.stringify({ tool, params, rapidKey, anthropicKey }),
   });
   const json = await res.json();
-  if (!res.ok || !json.success) throw new Error(json.error || json.hint || 'API error');
+  if (!res.ok || !json.success) throw new Error(json.error || 'API error');
   return json.data;
 }
 
@@ -747,14 +753,15 @@ function switchTab(name) {
 function openSettings() {
   const m = document.getElementById('modal-settings');
   m.style.display = 'flex';
-  document.getElementById('s-hl-key').value = localStorage.getItem('hl_key') || '';
+  document.getElementById('s-rapid-key').value = localStorage.getItem('rapid_key') || '';
+  document.getElementById('s-anthropic-key').value = localStorage.getItem('anthropic_key') || '';
   document.getElementById('s-gen-key').value = localStorage.getItem('gen_key') || '';
   document.getElementById('s-gen-type').value = localStorage.getItem('gen_type') || 'runway';
 }
 function closeSettings() { document.getElementById('modal-settings').style.display = 'none'; }
 function saveSettings() {
-  const k = document.getElementById('s-hl-key').value.trim();
-  localStorage.setItem('hl_key', k);
+  localStorage.setItem('rapid_key', document.getElementById('s-rapid-key').value.trim());
+  localStorage.setItem('anthropic_key', document.getElementById('s-anthropic-key').value.trim());
   localStorage.setItem('gen_key', document.getElementById('s-gen-key').value.trim());
   localStorage.setItem('gen_type', document.getElementById('s-gen-type').value);
   refreshApiStatus();
@@ -766,11 +773,16 @@ function syncGenPlaceholder() {
   document.getElementById('s-gen-key').placeholder = ph[document.getElementById('s-gen-type').value] || 'API key…';
 }
 function refreshApiStatus() {
-  const configured = !!localStorage.getItem('hl_key');
+  const hasRapid = !!localStorage.getItem('rapid_key');
+  const hasAI = !!localStorage.getItem('anthropic_key');
   const el = document.getElementById('api-status');
-  el.innerHTML = configured
-    ? '<div style="width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0"></div><span>API configured</span>'
-    : '<div style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span>Not configured</span>';
+  if (hasRapid && hasAI) {
+    el.innerHTML = '<div style="width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0"></div><span>API configured</span>';
+  } else if (hasRapid || hasAI) {
+    el.innerHTML = '<div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div><span>' + (hasRapid ? 'AI key missing' : 'RapidAPI key missing') + '</span>';
+  } else {
+    el.innerHTML = '<div style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span>Not configured</span>';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1597,7 +1609,7 @@ function fallbackCopy(text) {
 }
 
 function errBox(msg) {
-  const isKey = /not configured|HOOKLAYER|API key|401/.test(msg);
+  const isKey = /not configured|API key|401|RapidAPI|Anthropic/.test(msg);
   return `<div style="margin-top:8px;padding:10px 12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px">
     <div style="font-size:12px;font-weight:600;color:#ef4444;margin-bottom:3px">Error</div>
     <div style="font-size:11px;color:#888">${h(msg)}</div>
@@ -1613,7 +1625,7 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshApiStatus();
 
   // Prompt settings on first visit
-  if (!localStorage.getItem('hl_key')) {
+  if (!localStorage.getItem('rapid_key') && !localStorage.getItem('anthropic_key')) {
     setTimeout(openSettings, 600);
   }
 
