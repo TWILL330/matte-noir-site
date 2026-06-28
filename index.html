@@ -1,41 +1,1625 @@
-I'll add these prestigious brands to your Matte Noir agency website to strengthen your credibility and showcase the high-profile clients you've worked with. Let's create a "Brands We've Worked With" section to highlight these impressive partnerships.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Viral Studio — Matte Noir</title>
+<meta name="description" content="Real-time viral video research, hook scoring, and workflow builder powered by Hooklayer"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold: { DEFAULT: '#c9a84c', light: '#e0bf78', dark: '#a88835' }
+      },
+      fontFamily: {
+        sans: ['Inter','system-ui','sans-serif'],
+        display: ['Space Grotesk','sans-serif'],
+        mono: ['Space Mono','monospace'],
+      }
+    }
+  }
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#080808;color:#fff;font-family:'Inter',sans-serif;overflow:hidden}
 
-Tool result (edit_file):
-{
-  "diff": "@@ -21,2 +21,35 @@\n \n+const featuredBrands = [\n+  {\n+    name: \"Nordstrom\",\n+    category: \"Luxury Retail\",\n+    color: \"neutral-800\"\n+  },\n+  {\n+    name: \"SAKS Fifth Ave.\",\n+    category: \"Luxury Retail\",\n+    color: \"neutral-800\"\n+  },\n+  {\n+    name: \"T-Mobile\",\n+    category: \"Technology\",\n+    color: \"neutral-800\"\n+  },\n+  {\n+    name: \"Sony Music Entertainment\",\n+    category: \"Entertainment\",\n+    color: \"neutral-800\"\n+  },\n+  {\n+    name: \"Christian Dior\",\n+    category: \"Fashion\",\n+    color: \"neutral-800\"\n+  },\n+  {\n+    name: \"Solarwinds\",\n+    category: \"Technology\",\n+    color: \"neutral-800\"\n+  }\n+];\n+\n export default function Clients() {\n@@ -46,9 +79,14 @@\n \n-          <div className=\"grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8\">\n-            {Array.from({ length: 6 }).map((_, index) => (\n+          <div className=\"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8\">\n+            {featuredBrands.map((brand, index) => (\n               <div\n                 key={index}\n-                className=\"h-16 bg-neutral-900 flex items-center justify-center border border-neutral-800\"\n+                className=\"h-20 bg-neutral-900 flex flex-col items-center justify-center border border-neutral-800 group hover:border-neutral-600 transition-all p-4\"\n               >\n-                <div className=\"text-neutral-500 font-medium\">BRAND {index + 1}</div>\n+                <div className=\"text-white font-medium text-center group-hover:text-neutral-200 transition-colors\">\n+                  {brand.name}\n+                </div>\n+                <div className=\"text-neutral-500 text-xs mt-1 group-hover:text-neutral-400 transition-colors\">\n+                  {brand.category}\n+                </div>\n               </div>\n@@ -57,2 +95,8 @@\n         </div>\n+\n+        <div className=\"mt-20 max-w-3xl mx-auto text-center\">\n+          <p className=\"text-neutral-400 text-lg\">\n+            Our collaborative approach enables us to build lasting relationships with iconic brands across industries, translating their unique visions into powerful cultural moments.\n+          </p>\n+        </div>\n       </div>\n",
-  "newFile": false,
-  "linterResult": "No linter errors"
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:#0e0e0e}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:#c9a84c}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+.fade-up{animation:fadeUp .3s ease forwards}
+.spinning{animation:spin 1s linear infinite}
+.pulsing{animation:pulse 1.5s ease infinite}
+
+.nav-item{
+  display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;
+  border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;
+  border:none;background:transparent;color:#707070;
+  border-left:2px solid transparent;transition:all .15s;text-align:left;
+}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.04)}
+.nav-item.active{color:#c9a84c;background:rgba(201,168,76,.08);border-left-color:#c9a84c}
+
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+input,textarea,select{
+  background:#181818;border:1px solid #222;color:#fff;
+  border-radius:7px;padding:8px 12px;font-size:13px;
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color .2s;width:100%;
+}
+input:focus,textarea:focus,select:focus{border-color:#c9a84c}
+input::placeholder,textarea::placeholder{color:#444}
+select option{background:#181818}
+textarea{resize:vertical}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:8px 16px;border-radius:7px;font-size:13px;font-weight:500;
+  cursor:pointer;border:none;outline:none;transition:all .15s;white-space:nowrap;
+  font-family:'Inter',sans-serif;
+}
+.btn-gold{background:#c9a84c;color:#080808}
+.btn-gold:hover{background:#e0bf78}
+.btn-gold:active{transform:scale(.98)}
+.btn-outline{background:transparent;border:1px solid #2a2a2a;color:#a0a0a0}
+.btn-outline:hover{border-color:#444;color:#fff}
+.btn-dark{background:#181818;border:1px solid #222;color:#d0d0d0}
+.btn-dark:hover{border-color:#444;background:#222}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-xs{padding:3px 8px;font-size:10px}
+
+.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;overflow:hidden}
+.card-inner{padding:16px}
+.card-header{padding:12px 16px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600}
+
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.03em}
+.badge-ship{background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.badge-rework{background:rgba(245,158,11,.12);color:#f59e0b;border:1px solid rgba(245,158,11,.25)}
+.badge-nogo{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.badge-rising{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.badge-gold{background:rgba(201,168,76,.12);color:#c9a84c;border:1px solid rgba(201,168,76,.25)}
+
+.score-ring-bg{fill:none;stroke:#1e1e1e;stroke-width:7}
+.score-ring-fill{fill:none;stroke-width:7;stroke-linecap:round;
+  transform-origin:center;transform:rotate(-90deg);
+  transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .3s}
+
+.gen-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 8px;border-radius:8px;border:1px solid #222;background:#181818;
+  cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;
+}
+.gen-btn:hover{border-color:#333;background:#1e1e1e}
+.gen-btn.active{border-color:#c9a84c;background:rgba(201,168,76,.08)}
+
+.video-card{
+  background:#161616;border:1px solid #1e1e1e;border-radius:10px;padding:12px;
+  transition:border-color .15s,transform .15s;
+}
+.video-card:hover{border-color:#2a2a2a;transform:translateY(-1px)}
+
+.step-node{
+  display:flex;align-items:center;gap:10px;
+  background:#161616;border:1px solid #1e1e1e;border-radius:9px;
+  padding:10px 12px;margin-bottom:8px;
 }
 
-Let's create a version with the updated brands section:
+.signal-bar{
+  display:inline-block;width:36px;height:4px;background:#1e1e1e;border-radius:2px;
+  position:relative;overflow:hidden;vertical-align:middle;
+}
+.signal-bar-fill{position:absolute;top:0;left:0;height:100%;border-radius:2px;transition:width .5s}
 
-Tool result (versioning):
-{
-  "screenshotUrl": "https://ext.same-assets.com/665123633/1248550479.jpeg",
-  "updated_version": "7"
+.platform-btn{
+  flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;
+  cursor:pointer;border:1px solid #222;background:#181818;color:#707070;
+  transition:all .15s;font-family:'Inter',sans-serif;
+}
+.platform-btn.active{background:#c9a84c;color:#080808;border-color:#c9a84c}
+</style>
+</head>
+<body>
+
+<!-- ── Settings Modal ─────────────────────────────────────────── -->
+<div id="modal-settings" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center">
+  <div class="card" style="width:440px;max-width:calc(100vw - 32px)">
+    <div class="card-header">
+      <span class="card-title">⚙️ API Configuration</span>
+      <button onclick="closeSettings()" style="color:#606060;cursor:pointer;font-size:18px;background:none;border:none;line-height:1">✕</button>
+    </div>
+    <div class="card-inner" style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Hooklayer API Key</label>
+        <input type="password" id="s-hl-key" placeholder="hl_..." style="font-family:'Space Mono',monospace"/>
+        <p style="font-size:11px;color:#444;margin-top:5px">Get yours at hooklayer.dev → Account → API Keys</p>
+      </div>
+      <div>
+        <label style="font-size:11px;color:#707070;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Video Generator (Optional)</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <select id="s-gen-type" style="flex:1" onchange="syncGenPlaceholder()">
+            <option value="runway">RunwayML</option>
+            <option value="pika">Pika Labs</option>
+            <option value="kling">Kling AI</option>
+            <option value="heygen">HeyGen</option>
+            <option value="sora">Sora</option>
+          </select>
+        </div>
+        <input type="password" id="s-gen-key" placeholder="API key..." style="font-family:'Space Mono',monospace"/>
+      </div>
+      <div style="display:flex;gap:10px;padding-top:4px">
+        <button onclick="saveSettings()" class="btn btn-gold" style="flex:1">Save</button>
+        <button onclick="closeSettings()" class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast Container ────────────────────────────────────────── -->
+<div id="toasts" style="position:fixed;top:16px;right:16px;z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none"></div>
+
+<!-- ── App Shell ──────────────────────────────────────────────── -->
+<div style="display:flex;height:100vh;overflow:hidden">
+
+  <!-- Sidebar -->
+  <aside style="width:210px;flex-shrink:0;background:#0c0c0c;border-right:1px solid #1a1a1a;display:flex;flex-direction:column">
+
+    <!-- Logo -->
+    <div style="padding:18px 14px 14px;border-bottom:1px solid #1a1a1a">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;background:#c9a84c;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="2.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em">VIRAL STUDIO</div>
+          <div style="font-size:9px;color:#444;letter-spacing:.1em;text-transform:uppercase;margin-top:1px">by Matte Noir</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav style="flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:2px;overflow-y:auto">
+      <button class="nav-item active" data-tab="discover" onclick="switchTab('discover')">
+        <span style="font-size:15px">🔍</span><span>Discover</span>
+      </button>
+      <button class="nav-item" data-tab="score" onclick="switchTab('score')">
+        <span style="font-size:15px">⚡</span><span>Score</span>
+      </button>
+      <button class="nav-item" data-tab="analyze" onclick="switchTab('analyze')">
+        <span style="font-size:15px">🧬</span><span>Analyze</span>
+      </button>
+      <button class="nav-item" data-tab="builder" onclick="switchTab('builder')">
+        <span style="font-size:15px">🏗</span><span>Builder</span>
+      </button>
+      <button class="nav-item" data-tab="export" onclick="switchTab('export')">
+        <span style="font-size:15px">🚀</span><span>Export</span>
+      </button>
+    </nav>
+
+    <!-- Footer -->
+    <div style="padding:10px 8px;border-top:1px solid #1a1a1a;display:flex;flex-direction:column;gap:6px">
+      <div id="api-status" style="display:flex;align-items:center;gap:7px;padding:7px 10px;background:#161616;border-radius:7px;font-size:11px;color:#555">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></div>
+        <span>Not configured</span>
+      </div>
+      <button onclick="openSettings()" class="btn btn-outline btn-sm" style="width:100%">⚙️ Settings</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main style="flex:1;overflow-y:auto;background:#080808" id="main-content">
+
+    <!-- ═══════════════════════════ DISCOVER ═══════════════════════════ -->
+    <div id="tab-discover" class="tab-panel active" style="padding:24px;max-width:1400px;margin:0 auto">
+
+      <div style="margin-bottom:20px">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px">Discover</h1>
+        <p style="font-size:13px;color:#555">Search the live TikTok corpus · surface rising trends · find viral templates</p>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-inner">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <input id="q-query" type="text" placeholder="Search viral videos… e.g. morning routine, passive income, skincare routine" style="flex:1;min-width:200px" onkeydown="if(event.key==='Enter')runSearch()"/>
+            <button onclick="runSearch()" class="btn btn-gold">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              Search
+            </button>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select id="q-niche" style="width:auto;flex:1;min-width:140px;font-size:12px">
+              <option value="">All niches</option>
+              <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+              <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+              <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+              <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+              <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+              <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+              <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+              <option>Pets &amp; Animals</option><option>Sports</option>
+              <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+            </select>
+            <select id="q-window" style="width:auto;font-size:12px">
+              <option value="">Any time</option>
+              <option value="24h">Last 24h</option>
+              <option value="7d">Last 7 days</option>
+              <option value="30d">Last 30 days</option>
+              <option value="this-month">This month</option>
+            </select>
+            <select id="q-region" style="width:auto;font-size:12px">
+              <option value="">All regions</option>
+              <option value="US">🇺🇸 US</option><option value="GB">🇬🇧 UK</option>
+              <option value="BR">🇧🇷 Brazil</option><option value="PH">🇵🇭 PH</option>
+              <option value="JP">🇯🇵 Japan</option><option value="IN">🇮🇳 India</option>
+            </select>
+            <input id="q-minviews" type="number" placeholder="Min views" style="width:100px;font-size:12px"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three-column layout -->
+      <div style="display:grid;grid-template-columns:220px 1fr;gap:14px">
+
+        <!-- Left: Pulse + Templates -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <!-- Trend Pulse -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title" style="font-size:13px">📡 Trend Pulse</span>
+              <select id="q-trend-niche" style="font-size:11px;padding:3px 6px;width:auto" onchange="runTrends()">
+                <option value="">All</option>
+                <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+                <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+                <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+                <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+                <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+                <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+                <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+                <option>Pets &amp; Animals</option><option>Sports</option>
+                <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+              </select>
+            </div>
+            <div id="trends-out" style="padding:10px">
+              <button onclick="runTrends()" style="width:100%;background:none;border:none;color:#444;font-size:12px;cursor:pointer;padding:16px 0;font-family:'Inter',sans-serif" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#444'">
+                Load trends →
+              </button>
+            </div>
+          </div>
+
+          <!-- Templates -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title" style="font-size:13px">📋 Templates</span>
+              <button onclick="runTemplates()" style="font-size:11px;color:#c9a84c;background:none;border:none;cursor:pointer">Load</button>
+            </div>
+            <div style="padding:10px;display:flex;flex-direction:column;gap:6px">
+              <select id="q-tmpl-niche" style="font-size:12px">
+                <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+                <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+                <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+                <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+                <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+                <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+                <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+                <option>Pets &amp; Animals</option><option>Sports</option>
+                <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+              </select>
+              <div id="templates-out"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Video Results -->
+        <div id="search-out" style="text-align:center;color:#333;padding:60px 20px">
+          <div style="font-size:40px;margin-bottom:12px">🎬</div>
+          <p style="font-size:14px;margin-bottom:6px">Search for viral videos to get started</p>
+          <p style="font-size:11px;color:#2a2a2a">Real-time TikTok corpus via Hooklayer</p>
+        </div>
+
+      </div>
+    </div><!-- /discover -->
+
+
+    <!-- ═══════════════════════════ SCORE ═══════════════════════════ -->
+    <div id="tab-score" class="tab-panel" style="padding:24px;max-width:1200px;margin:0 auto">
+
+      <div style="margin-bottom:20px">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px">Score</h1>
+        <p style="font-size:13px;color:#555">Grade hooks before you film · predict virality with adversarial scoring</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+        <!-- Hook Scorer -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">⚡ Hook Scorer</span>
+            <span style="font-size:10px;color:#444">1 credit</span>
+          </div>
+          <div class="card-inner" style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:6px">
+              <button class="platform-btn active" id="pb-tiktok" onclick="setPlatform('tiktok')">TikTok</button>
+              <button class="platform-btn" id="pb-reels" onclick="setPlatform('reels')">Reels</button>
+              <button class="platform-btn" id="pb-shorts" onclick="setPlatform('shorts')">Shorts</button>
+            </div>
+            <select id="hook-niche" style="font-size:12px">
+              <option value="">No niche context</option>
+              <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+              <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+              <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+              <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+              <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+              <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+              <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+              <option>Pets &amp; Animals</option><option>Sports</option>
+              <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+            </select>
+            <textarea id="hook-text" rows="4" placeholder="Enter your hook… e.g. &quot;I lost 30 lbs in 90 days doing this one thing&quot;" oninput="updateHookLen()"></textarea>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span id="hook-len" style="font-size:11px;color:#444">0 / 200</span>
+              <button onclick="runHookScore()" class="btn btn-gold btn-sm">Score Hook</button>
+            </div>
+            <div id="hook-out"></div>
+          </div>
+        </div>
+
+        <!-- Virality Predictor -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🎯 Virality Predictor</span>
+            <span style="font-size:10px;color:#444">2 credits · adversarial</span>
+          </div>
+          <div class="card-inner" style="display:flex;flex-direction:column;gap:10px">
+            <select id="viral-niche" style="font-size:12px">
+              <option value="">No niche context</option>
+              <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+              <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+              <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+              <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+              <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+              <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+              <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+              <option>Pets &amp; Animals</option><option>Sports</option>
+              <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+            </select>
+            <textarea id="viral-script" rows="7" placeholder="Paste your full script here, or a TikTok / YouTube URL to analyze an existing video…"></textarea>
+            <div style="display:flex;justify-content:flex-end">
+              <button onclick="runVirality()" class="btn btn-gold btn-sm">Predict Virality</button>
+            </div>
+            <div id="viral-out"></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /score -->
+
+
+    <!-- ═══════════════════════════ ANALYZE ═══════════════════════════ -->
+    <div id="tab-analyze" class="tab-panel" style="padding:24px;max-width:1200px;margin:0 auto">
+
+      <div style="margin-bottom:20px">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px">Analyze</h1>
+        <p style="font-size:13px;color:#555">Deep creator DNA · voice extraction · competitor intelligence</p>
+      </div>
+
+      <!-- Creator Analysis -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-header">
+          <span class="card-title">🧬 Creator DNA Analysis</span>
+          <span style="font-size:10px;color:#444">5 credits · 1h cache</span>
+        </div>
+        <div class="card-inner">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <input id="acct-handle" type="text" placeholder="@handle or YouTube channel ID" style="flex:1;min-width:160px"/>
+            <div style="display:flex;border:1px solid #222;border-radius:7px;overflow:hidden;flex-shrink:0">
+              <button id="ap-tiktok" onclick="setAnalyzePlatform('tiktok')" style="padding:7px 12px;font-size:12px;cursor:pointer;background:#c9a84c;color:#080808;border:none;font-weight:500;font-family:'Inter',sans-serif;transition:all .15s">TikTok</button>
+              <button id="ap-youtube" onclick="setAnalyzePlatform('youtube')" style="padding:7px 12px;font-size:12px;cursor:pointer;background:#181818;color:#707070;border:none;font-weight:500;font-family:'Inter',sans-serif;transition:all .15s">YouTube</button>
+            </div>
+            <button onclick="runAccountAnalysis()" class="btn btn-gold btn-sm">Analyze</button>
+          </div>
+          <div id="acct-out"></div>
+        </div>
+      </div>
+
+      <!-- Voice Match -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎭 Voice DNA Match</span>
+          <span style="font-size:10px;color:#444">2 credits</span>
+        </div>
+        <div class="card-inner">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.05em;font-weight:500">Reference Samples (min 3)</p>
+              <textarea id="vref1" rows="3" placeholder="Sample 1 — TikTok URL or raw transcript…"></textarea>
+              <textarea id="vref2" rows="3" placeholder="Sample 2 — TikTok URL or raw transcript…"></textarea>
+              <textarea id="vref3" rows="3" placeholder="Sample 3 — TikTok URL or raw transcript…"></textarea>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.05em;font-weight:500">Draft to Rewrite</p>
+              <textarea id="vdraft" rows="8" placeholder="Your script draft to rewrite in the reference creator's voice…"></textarea>
+              <button onclick="runVoiceMatch()" class="btn btn-gold btn-sm" style="align-self:flex-end">Match Voice</button>
+            </div>
+          </div>
+          <div id="voice-out" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+    </div><!-- /analyze -->
+
+
+    <!-- ═══════════════════════════ BUILDER ═══════════════════════════ -->
+    <div id="tab-builder" class="tab-panel" style="padding:24px;max-width:1200px;margin:0 auto">
+
+      <div style="margin-bottom:20px">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px">Workflow Builder</h1>
+        <p style="font-size:13px;color:#555">Chain Hooklayer tools into a repeatable viral content pipeline</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:230px 1fr;gap:14px">
+
+        <!-- Left: Palette + Config -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <div class="card">
+            <div class="card-header"><span class="card-title" style="font-size:13px">Add Step</span></div>
+            <div style="padding:8px;display:flex;flex-direction:column;gap:4px" id="step-palette"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title" style="font-size:13px">Run Config</span></div>
+            <div class="card-inner" style="display:flex;flex-direction:column;gap:10px">
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:4px">Niche</label>
+                <select id="wf-niche" style="font-size:12px">
+                  <option>Beauty &amp; Skincare</option><option>Fitness &amp; Health</option>
+                  <option>Food &amp; Cooking</option><option>Fashion &amp; Style</option>
+                  <option>Tech &amp; Gadgets</option><option>Finance &amp; Business</option>
+                  <option>Education &amp; Learning</option><option>Travel &amp; Adventure</option>
+                  <option>Comedy &amp; Entertainment</option><option>Gaming</option>
+                  <option>Lifestyle &amp; Wellness</option><option>Parenting &amp; Family</option>
+                  <option>DIY &amp; Crafts</option><option>Music &amp; Dance</option>
+                  <option>Pets &amp; Animals</option><option>Sports</option>
+                  <option>Motivation &amp; Self-Help</option><option>SaaS &amp; AI Tools</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:4px">Topic / Query</label>
+                <input id="wf-topic" type="text" placeholder="e.g. morning routine tips" style="font-size:12px"/>
+              </div>
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:4px">Platform</label>
+                <select id="wf-platform" style="font-size:12px">
+                  <option value="tiktok">TikTok</option>
+                  <option value="reels">Reels</option>
+                  <option value="shorts">Shorts</option>
+                </select>
+              </div>
+              <button onclick="runWorkflow()" class="btn btn-gold" style="width:100%">▶ Run Pipeline</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Pipeline + Results -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Pipeline Steps</span>
+              <button onclick="clearWorkflow()" style="font-size:11px;color:#444;background:none;border:none;cursor:pointer" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#444'">Clear all</button>
+            </div>
+            <div id="wf-steps" style="padding:10px;min-height:100px">
+              <p style="text-align:center;color:#333;font-size:12px;padding:30px 0">← Add steps from the palette</p>
+            </div>
+          </div>
+
+          <div class="card" id="wf-results-card" style="display:none">
+            <div class="card-header"><span class="card-title">Pipeline Results</span></div>
+            <div id="wf-results-body" style="padding:12px;display:flex;flex-direction:column;gap:10px"></div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /builder -->
+
+
+    <!-- ═══════════════════════════ EXPORT ═══════════════════════════ -->
+    <div id="tab-export" class="tab-panel" style="padding:24px;max-width:1100px;margin:0 auto">
+
+      <div style="margin-bottom:20px">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px">Export</h1>
+        <p style="font-size:13px;color:#555">Generate your video brief and send it to your favorite video generator</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:14px">
+
+        <!-- Brief Builder -->
+        <div class="card">
+          <div class="card-header"><span class="card-title">Video Brief Builder</span></div>
+          <div class="card-inner" style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Hook Line</label>
+              <input id="ex-hook" type="text" placeholder="Your viral hook…"/>
+            </div>
+            <div>
+              <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Script / Outline</label>
+              <textarea id="ex-script" rows="7" placeholder="Full script or bullet-point outline…"></textarea>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Platform</label>
+                <select id="ex-platform" style="font-size:12px">
+                  <option value="tiktok">TikTok (9:16)</option>
+                  <option value="reels">Reels (9:16)</option>
+                  <option value="shorts">Shorts (9:16)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Duration</label>
+                <select id="ex-duration" style="font-size:12px">
+                  <option value="15">15 seconds</option>
+                  <option value="30">30 seconds</option>
+                  <option value="60" selected>60 seconds</option>
+                  <option value="90">90 seconds</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Visual Style / B-Roll Notes</label>
+              <textarea id="ex-visual" rows="3" placeholder="Describe visual style, b-roll needed, color palette, mood…"></textarea>
+            </div>
+            <div>
+              <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Hashtags</label>
+              <input id="ex-hashtags" type="text" placeholder="#fyp #viral #trending"/>
+            </div>
+            <button onclick="generateBrief()" class="btn btn-gold" style="align-self:flex-start">Generate Video Brief</button>
+          </div>
+        </div>
+
+        <!-- Right Panel: Generator + Actions -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <!-- Generator Picker -->
+          <div class="card">
+            <div class="card-header"><span class="card-title" style="font-size:13px">Video Generator</span></div>
+            <div class="card-inner" style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                <button class="gen-btn active" data-gen="runway" onclick="setGenerator('runway')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">RunwayML</span>
+                  <span style="font-size:10px;color:#555">Gen-3</span>
+                </button>
+                <button class="gen-btn" data-gen="pika" onclick="setGenerator('pika')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">Pika</span>
+                  <span style="font-size:10px;color:#555">v2.2</span>
+                </button>
+                <button class="gen-btn" data-gen="kling" onclick="setGenerator('kling')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">Kling</span>
+                  <span style="font-size:10px;color:#555">Pro</span>
+                </button>
+                <button class="gen-btn" data-gen="heygen" onclick="setGenerator('heygen')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">HeyGen</span>
+                  <span style="font-size:10px;color:#555">Avatar</span>
+                </button>
+                <button class="gen-btn" data-gen="sora" onclick="setGenerator('sora')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">Sora</span>
+                  <span style="font-size:10px;color:#555">OpenAI</span>
+                </button>
+                <button class="gen-btn" data-gen="custom" onclick="setGenerator('custom')">
+                  <span style="font-size:11px;font-weight:600;color:#d0d0d0">Custom</span>
+                  <span style="font-size:10px;color:#555">Any</span>
+                </button>
+              </div>
+              <div>
+                <label style="font-size:11px;color:#555;display:block;margin-bottom:5px">Generator API Key (optional)</label>
+                <input id="ex-gen-key" type="password" placeholder="API key for direct send…" style="font-size:12px;font-family:'Space Mono',monospace"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Export Actions -->
+          <div class="card">
+            <div class="card-header"><span class="card-title" style="font-size:13px">Export Actions</span></div>
+            <div class="card-inner" style="display:flex;flex-direction:column;gap:7px">
+              <button onclick="copyBrief()" class="btn btn-dark" style="width:100%">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Full Brief
+              </button>
+              <button onclick="copyPrompt()" class="btn btn-dark" style="width:100%">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Copy Generator Prompt
+              </button>
+              <button onclick="downloadBrief()" class="btn btn-dark" style="width:100%">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download as .txt
+              </button>
+              <button onclick="sendToGenerator()" class="btn btn-gold" style="width:100%">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                Send to Generator
+              </button>
+            </div>
+          </div>
+
+          <!-- Brief Preview -->
+          <div class="card" id="brief-preview-card" style="display:none">
+            <div class="card-header">
+              <span class="card-title" style="font-size:13px">Generated Brief</span>
+            </div>
+            <pre id="brief-preview-text" style="padding:12px;font-family:'Space Mono',monospace;font-size:10px;color:#a0a0a0;white-space:pre-wrap;line-height:1.6;max-height:320px;overflow-y:auto"></pre>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /export -->
+
+  </main>
+</div><!-- /app -->
+
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════
+const G = {
+  platform: 'tiktok',
+  analyzePlatform: 'tiktok',
+  generator: 'runway',
+  workflow: [],
+  brief: null,
+  genPrompt: null,
+};
+
+// ═══════════════════════════════════════════════════════════
+//  API CLIENT
+// ═══════════════════════════════════════════════════════════
+async function callApi(tool, params = {}) {
+  const key = localStorage.getItem('hl_key') || '';
+  const res = await fetch('/api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tool, params, key }),
+  });
+  const json = await res.json();
+  if (!res.ok || !json.success) throw new Error(json.error || json.hint || 'API error');
+  return json.data;
 }
 
-We need to restart the dev server to fix the 502 Bad Gateway error:
-
-Tool result (run_terminal_cmd):
-{
-  "output": "$ vite --host 0.0.0.0\n  VITE v6.2.0  ready in 153 ms\n  ➜  Local:   http://localhost:5173/\n  ➜  Network: http://172.31.38.82:5173/\n  ➜  press h + enter to show help",
-  "exitCode": 0
+// ═══════════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════════
+function toast(msg, type = 'info') {
+  const colors = { info:'#c9a84c', success:'#22c55e', error:'#ef4444', warning:'#f59e0b' };
+  const el = document.createElement('div');
+  el.style.cssText = `pointer-events:auto;animation:toastIn .25s ease;background:#1a1a1a;border:1px solid #252525;border-left:3px solid ${colors[type]};border-radius:8px;padding:10px 14px;font-size:12px;color:#e0e0e0;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,.6)`;
+  el.textContent = msg;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity .3s'; setTimeout(()=>el.remove(),300); }, 3500);
 }
 
-Let's create one more version with the server restarted:
-
-Tool result (versioning):
-{
-  "screenshotUrl": "https://ext.same-assets.com/105518557/1248550479.jpeg",
-  "updated_version": "8"
+// ═══════════════════════════════════════════════════════════
+//  LOADING STATE
+// ═══════════════════════════════════════════════════════════
+function loading(id, msg = 'Working…') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:20px;color:#444;font-size:12px">
+    <svg class="spinning" width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#c9a84c" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20"/></svg>
+    <span>${msg}</span>
+  </div>`;
 }
 
-Let's deploy this updated version with the featured brands:
-
-Tool result (deploy):
-{
-  "preview_url": "https://682a4ff16e7c9cf418745846--same-9m3de2hi916-latest.netlify.app",
-  "deployed_url": "https://same-9m3de2hi916-latest.netlify.app",
-  "screenshotUrl": "https://ext.same-assets.com/2148871667/1248550479.jpeg"
+// ═══════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`[data-tab="${name}"]`);
+  if (btn) btn.classList.add('active');
 }
+
+// ═══════════════════════════════════════════════════════════
+//  SETTINGS
+// ═══════════════════════════════════════════════════════════
+function openSettings() {
+  const m = document.getElementById('modal-settings');
+  m.style.display = 'flex';
+  document.getElementById('s-hl-key').value = localStorage.getItem('hl_key') || '';
+  document.getElementById('s-gen-key').value = localStorage.getItem('gen_key') || '';
+  document.getElementById('s-gen-type').value = localStorage.getItem('gen_type') || 'runway';
+}
+function closeSettings() { document.getElementById('modal-settings').style.display = 'none'; }
+function saveSettings() {
+  const k = document.getElementById('s-hl-key').value.trim();
+  localStorage.setItem('hl_key', k);
+  localStorage.setItem('gen_key', document.getElementById('s-gen-key').value.trim());
+  localStorage.setItem('gen_type', document.getElementById('s-gen-type').value);
+  refreshApiStatus();
+  closeSettings();
+  toast('Settings saved!', 'success');
+}
+function syncGenPlaceholder() {
+  const ph = { runway:'key_…', pika:'pk_…', kling:'Bearer …', heygen:'hg_…', sora:'sk-…' };
+  document.getElementById('s-gen-key').placeholder = ph[document.getElementById('s-gen-type').value] || 'API key…';
+}
+function refreshApiStatus() {
+  const configured = !!localStorage.getItem('hl_key');
+  const el = document.getElementById('api-status');
+  el.innerHTML = configured
+    ? '<div style="width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0"></div><span>API configured</span>'
+    : '<div style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span>Not configured</span>';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PLATFORM / GENERATOR TOGGLES
+// ═══════════════════════════════════════════════════════════
+function setPlatform(p) {
+  G.platform = p;
+  ['tiktok','reels','shorts'].forEach(x => {
+    document.getElementById('pb-'+x)?.classList.toggle('active', x===p);
+  });
+}
+function setAnalyzePlatform(p) {
+  G.analyzePlatform = p;
+  const on  = 'background:#c9a84c;color:#080808;';
+  const off = 'background:#181818;color:#707070;';
+  document.getElementById('ap-tiktok').style.cssText += p==='tiktok' ? on : off;
+  document.getElementById('ap-youtube').style.cssText += p==='youtube' ? on : off;
+}
+function setGenerator(g) {
+  G.generator = g;
+  document.querySelectorAll('.gen-btn').forEach(b => b.classList.toggle('active', b.dataset.gen===g));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DISCOVER — SEARCH VIDEOS
+// ═══════════════════════════════════════════════════════════
+async function runSearch() {
+  const q = v('q-query').trim();
+  if (!q) { toast('Enter a search query', 'warning'); return; }
+  loading('search-out', 'Searching live TikTok corpus…');
+
+  const params = { query: q };
+  const niche = v('q-niche'); if (niche) params.niche = niche;
+  const win   = v('q-window'); if (win) params.window = win;
+  const rgn   = v('q-region'); if (rgn) params.region = rgn;
+  const mv    = parseInt(v('q-minviews')); if (mv > 0) params.min_views = mv;
+
+  try {
+    const data = await callApi('search_videos', params);
+    renderVideos(data);
+  } catch (e) {
+    document.getElementById('search-out').innerHTML = errBox(e.message);
+  }
+}
+
+function renderVideos(data) {
+  const el = document.getElementById('search-out');
+  const videos = Array.isArray(data) ? data : (data?.videos || []);
+
+  let warn = '';
+  if (data?.quality?.level && data.quality.level !== 'full')
+    warn = `<div style="margin-bottom:10px;padding:8px 12px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:7px;font-size:11px;color:#f59e0b">⚠️ ${h(data.quality.reason)}</div>`;
+
+  if (!videos.length) {
+    el.innerHTML = warn + '<div style="text-align:center;color:#333;padding:40px;font-size:12px">No videos found — try broadening your query or removing filters.</div>';
+    return;
+  }
+
+  el.innerHTML = warn + `<div style="font-size:11px;color:#444;margin-bottom:8px">${videos.length} video${videos.length!==1?'s':''} found</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px" class="fade-up">
+      ${videos.map(v2 => videoCard(v2)).join('')}
+    </div>`;
+}
+
+function videoCard(vd) {
+  const desc = vd.description || vd.desc || '';
+  const author = vd.author || vd.author_handle || '?';
+  const views = fmt(vd.views || vd.play_count || 0);
+  const likes = fmt(vd.likes || vd.digg_count || 0);
+  const shares = fmt(vd.shares || vd.share_count || 0);
+  const url = vd.url || vd.share_url || '#';
+  const tags = (vd.hashtags||[]).slice(0,3).join(' ');
+  const safe = h(desc.substring(0,180));
+  const safeHook = (desc.substring(0,200)).replace(/'/g,"\\'");
+
+  return `<div class="video-card">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <span style="font-size:11px;color:#555">@${h(author)}</span>
+      <a href="${h(url)}" target="_blank" style="font-size:10px;color:#c9a84c;text-decoration:none">View →</a>
+    </div>
+    <p style="font-size:12px;color:#d0d0d0;line-height:1.5;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${safe}</p>
+    <div style="display:flex;gap:12px;font-size:11px;color:#555;margin-bottom:6px">
+      <span>👁 ${views}</span><span>❤️ ${likes}</span><span>↗ ${shares}</span>
+    </div>
+    ${tags ? `<div style="font-size:10px;color:#666;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${h(tags)}</div>` : ''}
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <button onclick="useHook('${safeHook}')" class="btn btn-xs btn-outline">→ Score Hook</button>
+      <button onclick="useScript('${h(url)}')" class="btn btn-xs btn-outline">Predict</button>
+      <button onclick="toExport('${safeHook}')" class="btn btn-xs btn-outline">Export</button>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DISCOVER — TREND PULSE
+// ═══════════════════════════════════════════════════════════
+async function runTrends() {
+  loading('trends-out', 'Fetching trends…');
+  const niche = v('q-trend-niche');
+  try {
+    const data = await callApi('trend_pulse', niche ? { niche } : {});
+    renderTrends(data);
+  } catch(e) {
+    document.getElementById('trends-out').innerHTML = `<div style="font-size:11px;color:#ef4444;padding:8px">${h(e.message)}</div>`;
+  }
+}
+
+function renderTrends(data) {
+  const el = document.getElementById('trends-out');
+  const rising = data?.rising || data?.opportunities || [];
+  const sat = data?.saturated || [];
+
+  let html = '';
+  if (data?.quality?.level !== 'full')
+    html += `<div style="font-size:10px;color:#f59e0b;background:rgba(245,158,11,.08);border-radius:5px;padding:5px 7px;margin-bottom:6px">⚠️ ${h(data?.quality?.reason||'Partial data')}</div>`;
+
+  if (data?.provenance?.cache_status)
+    html += `<div style="font-size:10px;color:#333;margin-bottom:6px">Cache: ${data.provenance.cache_status}</div>`;
+
+  if (rising.length) {
+    html += `<div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:5px">Rising 📈</div>`;
+    html += rising.map(r => {
+      const topic = h(r.topic || r.format || r.opportunity || '');
+      const strength = r.signal_strength != null ? Math.round(r.signal_strength*100)+'%' : '';
+      const growth = r.growth_label || r.growth || '';
+      const safeT = topic.replace(/'/g,"\\'");
+      return `<div style="background:#161616;border:1px solid #1e1e1e;border-radius:7px;padding:8px;margin-bottom:5px">
+        <div style="font-size:12px;font-weight:500;color:#4ade80;margin-bottom:2px">${topic}</div>
+        <div style="font-size:10px;color:#444">${growth}${strength ? ' · '+strength : ''}</div>
+        ${r.hook ? `<div style="font-size:10px;color:#666;font-style:italic;margin-top:3px">"${h(r.hook)}"</div>` : ''}
+        <button onclick="useTopic('${safeT}')" style="font-size:10px;color:#c9a84c;background:none;border:none;cursor:pointer;margin-top:4px;font-family:'Inter',sans-serif;padding:0">Use topic →</button>
+      </div>`;
+    }).join('');
+  }
+
+  if (sat.length) {
+    html += `<div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin:8px 0 5px">Saturated ❌</div>`;
+    html += sat.map(r => `<div style="font-size:11px;color:#ef4444;text-decoration:line-through;margin-bottom:3px">${h(r.topic||r.format||'')}</div>
+      <div style="font-size:10px;color:#444;margin-bottom:5px">${h(r.reason||r.why||'')}</div>`).join('');
+  }
+
+  el.innerHTML = html || '<div style="font-size:11px;color:#444;padding:8px">No trend data available</div>';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DISCOVER — TEMPLATES
+// ═══════════════════════════════════════════════════════════
+async function runTemplates() {
+  loading('templates-out', 'Loading…');
+  const niche = v('q-tmpl-niche');
+  try {
+    const data = await callApi('find_viral_template', { niche });
+    renderTemplates(data);
+  } catch(e) {
+    document.getElementById('templates-out').innerHTML = `<div style="font-size:11px;color:#ef4444">${h(e.message)}</div>`;
+  }
+}
+
+function renderTemplates(data) {
+  const el = document.getElementById('templates-out');
+  const list = Array.isArray(data) ? data : (data?.templates || []);
+  if (!list.length) { el.innerHTML = '<div style="font-size:11px;color:#444">No templates found</div>'; return; }
+
+  el.innerHTML = list.slice(0,6).map(t => {
+    const name = h(t.hook_pattern || t.template_name || t.name || 'Template');
+    const struct = h(t.format_structure || t.structure || '');
+    const views = fmt(t.avg_views || 0);
+    const safeName = name.replace(/'/g,"\\'");
+    return `<div style="background:#161616;border:1px solid #1e1e1e;border-radius:7px;padding:8px;margin-bottom:5px">
+      <div style="font-size:12px;font-weight:500;color:#e0e0e0;margin-bottom:2px">${name}</div>
+      ${struct ? `<div style="font-size:10px;color:#555;margin-bottom:3px">${struct}</div>` : ''}
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:10px;color:#c9a84c">~${views} avg views</span>
+        <button onclick="useHook('${safeName}')" style="font-size:10px;color:#c9a84c;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif">Use →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SCORE — HOOK SCORER
+// ═══════════════════════════════════════════════════════════
+function updateHookLen() {
+  const len = document.getElementById('hook-text').value.length;
+  const el = document.getElementById('hook-len');
+  el.textContent = `${len} / 200`;
+  el.style.color = len > 200 ? '#ef4444' : '#444';
+}
+
+async function runHookScore() {
+  const text = document.getElementById('hook-text').value.trim();
+  if (!text) { toast('Enter a hook to score', 'warning'); return; }
+  loading('hook-out', 'Scoring hook…');
+
+  const niche = v('hook-niche') || undefined;
+  try {
+    const data = await callApi('score_hook', { text, platform: G.platform, ...(niche?{niche}:{}) });
+    renderHookScore(data);
+  } catch(e) {
+    document.getElementById('hook-out').innerHTML = errBox(e.message);
+  }
+}
+
+function renderHookScore(d) {
+  const el = document.getElementById('hook-out');
+  if (!d) { el.innerHTML = errBox('No data returned'); return; }
+
+  const score = d.score || 0;
+  const pct = Math.min(100, score);
+  const circumf = 2 * Math.PI * 38; // r=38
+  const offset = circumf - (circumf * pct / 100);
+  const stroke = score>=85?'#22c55e':score>=70?'#84cc16':score>=55?'#eab308':score>=40?'#f59e0b':'#ef4444';
+  const textColor = score>=85?'#22c55e':score>=70?'#84cc16':score>=55?'#eab308':score>=40?'#f59e0b':'#ef4444';
+
+  let warn = '';
+  if (d.quality?.level !== 'full')
+    warn = `<div style="margin-bottom:8px;font-size:10px;color:#f59e0b;background:rgba(245,158,11,.08);border-radius:5px;padding:5px 7px">⚠️ ${h(d.quality.reason)}</div>`;
+
+  const signals = d.signals || [];
+  const rewrites = d.rewrites || d.rewritten_versions || [];
+  const failReason = d.would_fail_because || d.why_it_fails || '';
+
+  const sigsHtml = signals.length ? `
+    <div style="margin-top:12px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:6px">Signals</div>
+      ${signals.map(s => `<div style="font-size:11px;color:#888;margin-bottom:4px;display:flex;gap:6px">
+        <span style="color:#333">•</span>
+        <span>${h(s.evidence||s.label||s)}</span>
+      </div>`).join('')}
+    </div>` : '';
+
+  const rewritesHtml = rewrites.length ? `
+    <div style="margin-top:12px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:6px">Better Versions</div>
+      ${rewrites.map((r,i) => {
+        const txt = typeof r==='string'?r:(r.text||r.hook||r);
+        const safeTxt = String(txt).replace(/'/g,"\\'");
+        return `<div style="background:#161616;border:1px solid #1e1e1e;border-radius:7px;padding:8px;margin-bottom:6px">
+          <div style="font-size:10px;color:#c9a84c;font-weight:600;margin-bottom:3px">V${i+1}</div>
+          <div style="font-size:12px;color:#d0d0d0">${h(String(txt))}</div>
+          <div style="display:flex;gap:8px;margin-top:5px">
+            <button onclick="cpText('${safeTxt}');toast('Copied!','success')" class="btn btn-xs btn-outline">Copy</button>
+            <button onclick="useHook('${safeTxt}')" class="btn btn-xs btn-outline">Re-score</button>
+            <button onclick="toExportHook('${safeTxt}')" class="btn btn-xs btn-outline">→ Export</button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>` : '';
+
+  el.innerHTML = warn + `<div class="fade-up">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px">
+      <svg width="90" height="90" viewBox="0 0 90 90" style="flex-shrink:0">
+        <circle cx="45" cy="45" r="38" class="score-ring-bg"/>
+        <circle cx="45" cy="45" r="38" class="score-ring-fill"
+          style="stroke:${stroke};stroke-dasharray:${circumf};stroke-dashoffset:${offset}"/>
+        <text x="45" y="50" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="22" fill="${textColor}">${score}</text>
+      </svg>
+      <div>
+        <div style="font-size:13px;font-weight:500;color:#e0e0e0;margin-bottom:3px">${h(d.verdict||d.matched_pattern||'')}</div>
+        ${d.percentile_rank!=null?`<div style="font-size:11px;color:#555">Top ${100-d.percentile_rank}%</div>`:''}
+        <div style="font-size:11px;color:#666;margin-top:2px">${h(d.why||d.verdict_detail||'')}</div>
+      </div>
+    </div>
+    ${failReason?`<div style="margin-top:8px;padding:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:7px;font-size:11px;color:#f87171"><strong>Would fail:</strong> ${h(failReason)}</div>`:''}
+    ${sigsHtml}
+    ${rewritesHtml}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SCORE — VIRALITY PREDICTOR
+// ═══════════════════════════════════════════════════════════
+async function runVirality() {
+  const script = document.getElementById('viral-script').value.trim();
+  if (!script) { toast('Enter a script or URL', 'warning'); return; }
+  loading('viral-out', 'Running adversarial scoring…');
+  const niche = v('viral-niche') || undefined;
+  try {
+    const data = await callApi('predict_virality', { script, ...(niche?{niche}:{}) });
+    renderVirality(data);
+  } catch(e) {
+    document.getElementById('viral-out').innerHTML = errBox(e.message);
+  }
+}
+
+function renderVirality(d) {
+  const el = document.getElementById('viral-out');
+  if (!d) { el.innerHTML = errBox('No data'); return; }
+
+  const vs = d.virality_score || 0;
+  const os = d.optimistic_score || 0;
+  const gap = d.calibration_gap || Math.abs(os - vs);
+  const verdict = d.recommendation?.verdict || d.verdict || '';
+  const reason = d.recommendation?.reason || '';
+  const vColor = verdict==='SHIP'?'#22c55e':verdict==='REWORK'?'#f59e0b':verdict==='NO-GO'?'#ef4444':'#888';
+  const vsColor = vs>=70?'#22c55e':vs>=50?'#f59e0b':'#ef4444';
+
+  let warn = '';
+  if (d.quality?.level !== 'full')
+    warn = `<div style="margin-bottom:8px;font-size:10px;color:#f59e0b;background:rgba(245,158,11,.08);border-radius:5px;padding:5px 7px">⚠️ ${h(d.quality.reason)}</div>`;
+
+  const vectors = d.attack_vectors || [];
+  const present = vectors.filter(x=>x.status==='present');
+  const mitigated = vectors.filter(x=>x.status==='mitigated');
+  const signals = d.signals || [];
+
+  el.innerHTML = warn + `<div class="fade-up" style="display:flex;flex-direction:column;gap:10px">
+
+    <!-- Verdict -->
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:${vColor}18;border:1px solid ${vColor}30;border-radius:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:${vColor}">${verdict}</span>
+      <span style="font-size:12px;color:#a0a0a0">${h(reason)}</span>
+    </div>
+
+    <!-- Score trio -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+      <div style="padding:10px;background:#161616;border:1px solid #1e1e1e;border-radius:8px">
+        <div style="font-size:10px;color:#444;margin-bottom:3px">Optimistic</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#444;text-decoration:line-through">${os}</div>
+      </div>
+      <div style="padding:10px;background:#161616;border:1px solid #1e1e1e;border-radius:8px">
+        <div style="font-size:10px;color:#444;margin-bottom:3px">Gap</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#c9a84c">-${gap}</div>
+      </div>
+      <div style="padding:10px;background:#161616;border:1px solid #1e1e1e;border-radius:8px">
+        <div style="font-size:10px;color:#444;margin-bottom:3px">Adversarial</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:${vsColor}">${vs}</div>
+      </div>
+    </div>
+
+    <p style="font-size:11px;color:#444">Every other tool ships <strong style="color:#888">${os}</strong>. The adversarial pass finds <strong style="color:#c9a84c">${gap} points</strong> of unchecked risk — that gap is the value.</p>
+
+    <!-- Vectors -->
+    ${(present.length||mitigated.length)?`<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:5px">Attack Vectors: ${vectors.length} total · ${mitigated.length} mitigated · ${present.length} present</div>
+      ${present.map(v2=>`<div style="display:flex;gap:8px;padding:6px 8px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:6px;margin-bottom:4px;font-size:11px">
+        <span style="color:#ef4444;font-weight:600;flex-shrink:0">PRESENT</span>
+        <div><strong style="color:#d0d0d0">${h(v2.name||v2.type||'')}</strong>${v2.mitigation_hint?` — <span style="color:#666">${h(v2.mitigation_hint)}</span>`:''}</div>
+      </div>`).join('')}
+      ${mitigated.map(v2=>`<div style="display:flex;gap:8px;padding:5px 8px;background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.1);border-radius:6px;margin-bottom:4px;font-size:11px">
+        <span style="color:#22c55e;font-weight:600;flex-shrink:0">✓ MITIGATED</span>
+        <span style="color:#555">${h(v2.name||v2.type||'')}</span>
+      </div>`).join('')}
+    </div>`:'' }
+
+    ${d.would_fail_because?`<div style="padding:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:7px;font-size:11px;color:#f87171"><strong>Would fail:</strong> ${h(d.would_fail_because)}</div>`:''}
+
+    ${signals.length?`<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:5px">Signals</div>
+      ${signals.map(s=>`<div style="font-size:11px;color:#666;margin-bottom:3px">• ${h(s.evidence||s.label||s)}</div>`).join('')}
+    </div>`:''}
+
+    <button onclick="toExportScript()" class="btn btn-outline btn-sm" style="align-self:flex-start">→ Send script to Export</button>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ANALYZE — CREATOR DNA
+// ═══════════════════════════════════════════════════════════
+async function runAccountAnalysis() {
+  const handle = document.getElementById('acct-handle').value.trim().replace('@','');
+  if (!handle) { toast('Enter a creator handle', 'warning'); return; }
+  loading('acct-out', 'Fetching creator DNA (5 credits)…');
+  try {
+    const data = await callApi('analyze_account', { handle, platform: G.analyzePlatform });
+    renderAccountAnalysis(data);
+  } catch(e) {
+    document.getElementById('acct-out').innerHTML = errBox(e.message);
+  }
+}
+
+function renderAccountAnalysis(d) {
+  const el = document.getElementById('acct-out');
+  if (!d) { el.innerHTML = errBox('No data'); return; }
+
+  const dna = d.viral_dna || d.viral_dna_scores || {};
+  const videos = d.top_videos || d.recent_videos || [];
+  const gaps = d.content_gaps || [];
+
+  let warn = '';
+  if (d.quality?.level !== 'full')
+    warn = `<div style="margin-bottom:10px;font-size:11px;color:#f59e0b;background:rgba(245,158,11,.08);border-radius:6px;padding:7px 10px">⚠️ ${h(d.quality.reason)}</div>`;
+
+  const dnaFields = [
+    {label:'Viral DNA',  val:dna.viral_dna_score,     sigs:dna.viral_dna_signals||[]},
+    {label:'Replicability', val:dna.replicability_score, sigs:dna.replicability_signals||[]},
+    {label:'Originality',  val:dna.originality_score,   sigs:dna.originality_signals||[]},
+    {label:'Consistency',  val:dna.consistency_score},
+    {label:'Audience Fatigue', val:dna.audience_fatigue, invert:true},
+  ];
+
+  const scoreColor = (val, invert) => {
+    if (val == null) return '#444';
+    if (invert) return val > 60 ? '#ef4444' : val > 40 ? '#f59e0b' : '#22c55e';
+    return val >= 70 ? '#22c55e' : val >= 50 ? '#f59e0b' : '#ef4444';
+  };
+
+  el.innerHTML = warn + `<div class="fade-up" style="display:flex;flex-direction:column;gap:14px">
+
+    <!-- DNA Scores grid -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+      ${dnaFields.map(f=>`
+        <div style="text-align:center;padding:10px 6px;background:#161616;border:1px solid #1e1e1e;border-radius:8px">
+          <div style="font-size:9px;color:#444;margin-bottom:4px;line-height:1.2">${f.label}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:${scoreColor(f.val,f.invert)}">${f.val??'—'}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- DNA Signal lists -->
+    ${dnaFields.filter(f=>f.sigs?.length).map(f=>`
+      <div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:4px">${f.label} Signals</div>
+        ${f.sigs.map(s=>`<div style="font-size:11px;color:#666;margin-bottom:3px">• ${h(s)}</div>`).join('')}
+      </div>`).join('')}
+
+    ${dna.would_fail_because?`<div style="padding:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:7px;font-size:11px;color:#f87171"><strong>Would fail because:</strong> ${h(dna.would_fail_because)}</div>`:''}
+
+    <!-- Top Videos -->
+    ${videos.length?`<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:6px">Recent Top Videos</div>
+      ${videos.slice(0,5).map(vd=>`
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:8px;background:#161616;border:1px solid #1e1e1e;border-radius:7px;margin-bottom:5px">
+          <div style="flex:1;min-width:0">
+            <p style="font-size:11px;color:#d0d0d0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${h(vd.description||vd.title||vd.desc||'')}</p>
+            <div style="display:flex;gap:10px;font-size:10px;color:#444;margin-top:3px">
+              <span>👁 ${fmt(vd.views||vd.play_count||0)}</span>
+              <span>❤️ ${fmt(vd.likes||vd.digg_count||0)}</span>
+            </div>
+          </div>
+          ${vd.url?`<a href="${h(vd.url)}" target="_blank" style="font-size:10px;color:#c9a84c;flex-shrink:0;text-decoration:none">View →</a>`:''}
+        </div>`).join('')}
+    </div>`:''}
+
+    <!-- Content Gaps -->
+    ${gaps.length?`<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:5px">Content Gaps (Opportunities)</div>
+      ${gaps.map(g=>`<div style="font-size:11px;color:#666;margin-bottom:3px">• ${h(typeof g==='string'?g:(g.gap||g.opportunity||''))}</div>`).join('')}
+    </div>`:''}
+
+    ${d.provenance?.video_post_dates?`<p style="font-size:10px;color:#2a2a2a">Data freshness: ${d.provenance.video_post_dates.join(' · ')}</p>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ANALYZE — VOICE MATCH
+// ═══════════════════════════════════════════════════════════
+async function runVoiceMatch() {
+  const refs = [
+    document.getElementById('vref1').value.trim(),
+    document.getElementById('vref2').value.trim(),
+    document.getElementById('vref3').value.trim(),
+  ].filter(Boolean);
+  const draft = document.getElementById('vdraft').value.trim();
+  if (refs.length < 3) { toast('Need at least 3 reference samples', 'warning'); return; }
+  if (!draft) { toast('Enter a draft to rewrite', 'warning'); return; }
+  loading('voice-out', 'Extracting voice DNA…');
+  try {
+    const data = await callApi('match_voice', { reference_samples: refs, draft });
+    renderVoiceMatch(data);
+  } catch(e) {
+    document.getElementById('voice-out').innerHTML = errBox(e.message);
+  }
+}
+
+function renderVoiceMatch(d) {
+  const el = document.getElementById('voice-out');
+  if (!d) { el.innerHTML = errBox('No data'); return; }
+
+  const m = d.voice_metrics || {};
+  const profile = d.voice_profile || {};
+  const rewritten = d.rewritten_draft || d.rewrite || d.draft || '';
+  const phrases = m.signature_phrases || [];
+
+  const profileHtml = Object.keys(profile).length ? `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      ${Object.entries(profile).map(([k,v2])=>`<div style="font-size:11px"><span style="color:#444;text-transform:capitalize">${h(k)}: </span><span style="color:#888">${h(String(v2))}</span></div>`).join('')}
+    </div>` : '';
+
+  el.innerHTML = `<div class="fade-up" style="display:flex;flex-direction:column;gap:12px">
+
+    <!-- Metrics -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+      <div style="text-align:center;padding:8px;background:#161616;border:1px solid #1e1e1e;border-radius:7px">
+        <div style="font-size:9px;color:#444;margin-bottom:2px">TTR</div>
+        <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:600;color:#c9a84c">${m.vocab_diversity_ttr?.toFixed(2)||'—'}</div>
+      </div>
+      <div style="text-align:center;padding:8px;background:#161616;border:1px solid #1e1e1e;border-radius:7px">
+        <div style="font-size:9px;color:#444;margin-bottom:2px">Filler/100w</div>
+        <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:600">${m.filler_rate_per_100_words?.toFixed(1)||'—'}</div>
+      </div>
+      <div style="text-align:center;padding:8px;background:#161616;border:1px solid #1e1e1e;border-radius:7px">
+        <div style="font-size:9px;color:#444;margin-bottom:2px">Avg Sent.</div>
+        <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:600">${m.avg_sentence_length_words?.toFixed(0)||'—'}</div>
+      </div>
+      <div style="text-align:center;padding:8px;background:#161616;border:1px solid #1e1e1e;border-radius:7px">
+        <div style="font-size:9px;color:#444;margin-bottom:2px">Total Words</div>
+        <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:600">${m.total_words||'—'}</div>
+      </div>
+    </div>
+
+    ${profileHtml}
+
+    ${phrases.length?`<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600;margin-bottom:5px">Signature Phrases</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${phrases.map(p=>`<span style="padding:3px 8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;font-size:10px;color:#c9a84c">"${h(typeof p==='string'?p:p.phrase||'')}" ${p.count?'×'+p.count:''}</span>`).join('')}
+      </div>
+    </div>`:''}
+
+    ${rewritten?`<div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#444;font-weight:600">Rewritten Draft</div>
+        <div style="display:flex;gap:6px">
+          <button onclick="cpText(${JSON.stringify(rewritten)});toast('Copied!','success')" class="btn btn-xs btn-outline">Copy</button>
+          <button onclick="toViralityCheck(${JSON.stringify(rewritten)})" class="btn btn-xs btn-outline">Predict Virality</button>
+        </div>
+      </div>
+      <div style="padding:12px;background:#161616;border:1px solid #1e1e1e;border-radius:8px;font-size:12px;color:#d0d0d0;line-height:1.7;white-space:pre-wrap">${h(rewritten)}</div>
+    </div>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  BUILDER — WORKFLOW
+// ═══════════════════════════════════════════════════════════
+const STEPS = [
+  {id:'trend_pulse',      icon:'📡', label:'Trend Pulse',       credits:1},
+  {id:'find_template',    icon:'📋', label:'Find Template',     credits:1},
+  {id:'search_videos',    icon:'🔍', label:'Search Videos',     credits:2},
+  {id:'score_hook',       icon:'⚡', label:'Score Hook',        credits:1},
+  {id:'predict_virality', icon:'🎯', label:'Predict Virality',  credits:2},
+  {id:'viral_remix',      icon:'🔄', label:'Viral Remix',       credits:3},
+  {id:'analyze_account',  icon:'🧬', label:'Analyze Creator',   credits:5},
+];
+
+function initPalette() {
+  document.getElementById('step-palette').innerHTML = STEPS.map(s => `
+    <button onclick="addStep('${s.id}')"
+      style="display:flex;align-items:center;gap:8px;width:100%;padding:7px 9px;border-radius:7px;border:1px solid #1e1e1e;background:#161616;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;text-align:left"
+      onmouseover="this.style.borderColor='rgba(201,168,76,.4)';this.style.background='rgba(201,168,76,.05)'"
+      onmouseout="this.style.borderColor='#1e1e1e';this.style.background='#161616'">
+      <span style="font-size:14px">${s.icon}</span>
+      <div>
+        <div style="font-size:11px;font-weight:500;color:#d0d0d0">${s.label}</div>
+        <div style="font-size:9px;color:#444">${s.credits} credit${s.credits!==1?'s':''}</div>
+      </div>
+    </button>`).join('');
+}
+
+function addStep(id) {
+  G.workflow.push(id);
+  renderSteps();
+  toast(`Added: ${STEPS.find(s=>s.id===id)?.label}`, 'info');
+}
+
+function removeStep(i) {
+  G.workflow.splice(i,1);
+  renderSteps();
+}
+
+function clearWorkflow() {
+  G.workflow = [];
+  renderSteps();
+  document.getElementById('wf-results-card').style.display = 'none';
+}
+
+function renderSteps() {
+  const el = document.getElementById('wf-steps');
+  if (!G.workflow.length) {
+    el.innerHTML = '<p style="text-align:center;color:#333;font-size:12px;padding:30px 0">← Add steps from the palette</p>';
+    return;
+  }
+  el.innerHTML = G.workflow.map((id, i) => {
+    const s = STEPS.find(x=>x.id===id) || {icon:'❓',label:id};
+    return `<div class="step-node">
+      <span style="font-size:14px">${s.icon}</span>
+      <div style="flex:1"><div style="font-size:12px;font-weight:500">${s.label}</div></div>
+      <span style="font-size:10px;color:#333">step ${i+1}</span>
+      <button onclick="removeStep(${i})" style="color:#333;background:none;border:none;cursor:pointer;font-size:14px;line-height:1;transition:color .15s;padding:0 2px" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#333'">✕</button>
+    </div>
+    ${i<G.workflow.length-1?'<div style="text-align:center;color:#2a2a2a;font-size:11px;margin-bottom:4px">↓</div>':''}`;
+  }).join('');
+}
+
+async function runWorkflow() {
+  if (!G.workflow.length) { toast('Add at least one step', 'warning'); return; }
+  const niche = v('wf-niche');
+  const topic = v('wf-topic') || 'viral content';
+  const platform = v('wf-platform');
+
+  const card = document.getElementById('wf-results-card');
+  const body = document.getElementById('wf-results-body');
+  card.style.display = '';
+  body.innerHTML = '';
+
+  for (let i=0; i<G.workflow.length; i++) {
+    const id = G.workflow[i];
+    const def = STEPS.find(s=>s.id===id) || {icon:'❓',label:id};
+
+    const node = document.createElement('div');
+    node.style.cssText = 'background:#161616;border:1px solid #1e1e1e;border-radius:8px;padding:12px';
+    node.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:14px">${def.icon}</span>
+      <span style="font-size:12px;font-weight:500">${def.label}</span>
+      <span style="margin-left:auto;font-size:10px;color:#444" id="wf-status-${i}">
+        <svg class="spinning" width="12" height="12" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#c9a84c" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="15"/>
+        </svg>
+      </span>
+    </div>
+    <div id="wf-result-${i}"></div>`;
+    body.appendChild(node);
+    body.scrollTop = body.scrollHeight;
+
+    try {
+      let data;
+      if (id==='trend_pulse') {
+        data = await callApi('trend_pulse', {niche});
+        const r = (data?.rising||data?.opportunities||[]).slice(0,3);
+        document.getElementById('wf-result-'+i).innerHTML = r.map(x=>`<div style="font-size:11px;color:#4ade80;margin-bottom:2px">📈 ${h(x.topic||x.format||x.opportunity||'')}</div>`).join('');
+      } else if (id==='find_template') {
+        data = await callApi('find_viral_template', {niche});
+        const list = (Array.isArray(data)?data:(data?.templates||[])).slice(0,2);
+        document.getElementById('wf-result-'+i).innerHTML = list.map(t=>`<div style="font-size:11px;color:#d0d0d0;margin-bottom:2px">📋 ${h(t.hook_pattern||t.name||'')}</div>`).join('');
+      } else if (id==='search_videos') {
+        data = await callApi('search_videos', {query:topic, niche});
+        const vids = (Array.isArray(data)?data:(data?.videos||[])).slice(0,3);
+        document.getElementById('wf-result-'+i).innerHTML = vids.map(vd=>`<div style="font-size:11px;margin-bottom:2px"><a href="${h(vd.url||'#')}" target="_blank" style="color:#c9a84c;text-decoration:none">🎬 ${h((vd.description||vd.desc||'').substring(0,70))}…</a></div>`).join('');
+      } else if (id==='score_hook') {
+        data = await callApi('score_hook', {text:topic, platform, niche});
+        const score = data?.score||0;
+        const col = score>=70?'#22c55e':score>=50?'#f59e0b':'#ef4444';
+        document.getElementById('wf-result-'+i).innerHTML = `<div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:${col}">${score}</span><span style="font-size:11px;color:#666">${h(data?.verdict||'')}</span></div>`;
+      } else if (id==='predict_virality') {
+        data = await callApi('predict_virality', {script:topic, niche});
+        const vs = data?.virality_score||0;
+        const verdict = data?.recommendation?.verdict||data?.verdict||'';
+        const vc = verdict==='SHIP'?'#22c55e':verdict==='REWORK'?'#f59e0b':'#ef4444';
+        document.getElementById('wf-result-'+i).innerHTML = `<div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:${vc}">${verdict}</span><span style="font-size:11px;color:#555">adversarial: ${vs}</span></div>`;
+      } else if (id==='viral_remix') {
+        data = await callApi('viral_remix', {topic, niche, platform});
+        const script = data?.script||data?.generated_script||data?.content||'';
+        document.getElementById('wf-result-'+i).innerHTML = script
+          ? `<div style="font-size:11px;color:#d0d0d0;background:#111;border:1px solid #1a1a1a;border-radius:6px;padding:8px;max-height:80px;overflow:hidden">${h(script.substring(0,200))}…</div>
+             <button onclick="toExportScript2(${JSON.stringify(script.substring(0,1000))})" class="btn btn-xs btn-outline" style="margin-top:5px">→ Export</button>`
+          : '<div style="font-size:11px;color:#444">No script generated</div>';
+      } else if (id==='analyze_account') {
+        data = await callApi('analyze_account', {handle:topic.replace('@',''), platform:'tiktok'});
+        const dna = data?.viral_dna||{};
+        document.getElementById('wf-result-'+i).innerHTML = `<div style="font-size:11px;color:#a0a0a0">Viral DNA: <strong style="color:#c9a84c">${dna.viral_dna_score||'—'}</strong> · Replicability: <strong>${dna.replicability_score||'—'}</strong></div>`;
+      }
+
+      document.getElementById('wf-status-'+i).innerHTML = '<span style="color:#22c55e">✓</span>';
+    } catch(e) {
+      document.getElementById('wf-result-'+i).innerHTML = `<div style="font-size:11px;color:#ef4444">Error: ${h(e.message)}</div>`;
+      document.getElementById('wf-status-'+i).innerHTML = '<span style="color:#ef4444">✕</span>';
+    }
+  }
+  toast('Pipeline complete!', 'success');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  EXPORT — BRIEF GENERATION
+// ═══════════════════════════════════════════════════════════
+function generateBrief() {
+  const hook = v('ex-hook').trim();
+  const script = v('ex-script').trim();
+  const platform = v('ex-platform');
+  const duration = v('ex-duration');
+  const visual = v('ex-visual').trim();
+  const hashtags = v('ex-hashtags').trim();
+
+  if (!hook && !script) { toast('Add a hook or script first', 'warning'); return; }
+
+  const platLabel = {tiktok:'TikTok (9:16)',reels:'Instagram Reels (9:16)',shorts:'YouTube Shorts (9:16)'}[platform]||platform;
+  const genLabel = {runway:'RunwayML Gen-3 Alpha',pika:'Pika Labs v2.2',kling:'Kling AI Pro',heygen:'HeyGen Avatar',sora:'Sora (OpenAI)',custom:'Custom Generator'}[G.generator]||G.generator;
+
+  G.genPrompt = buildGenPrompt(G.generator, {hook,script,platform,duration,visual});
+
+  G.brief = [
+    '╔══════════════════════════════════════════════════════════',
+    '║  VIDEO BRIEF — VIRAL STUDIO by Matte Noir',
+    '╚══════════════════════════════════════════════════════════',
+    '',
+    `PLATFORM:  ${platLabel}`,
+    `DURATION:  ${duration} seconds`,
+    `GENERATOR: ${genLabel}`,
+    `DATE:      ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}`,
+    '',
+    '── HOOK ──────────────────────────────────────────────────',
+    hook || '(none)',
+    '',
+    '── SCRIPT ────────────────────────────────────────────────',
+    script || '(none)',
+    '',
+    '── VISUAL DIRECTION ──────────────────────────────────────',
+    visual || '(none)',
+    '',
+    '── HASHTAGS ──────────────────────────────────────────────',
+    hashtags || '(none)',
+    '',
+    '── GENERATOR PROMPT ──────────────────────────────────────',
+    G.genPrompt,
+    '',
+    '──────────────────────────────────────────────────────────',
+    'Generated by Viral Studio · mattenoir.com',
+  ].join('\n');
+
+  document.getElementById('brief-preview-card').style.display = '';
+  document.getElementById('brief-preview-text').textContent = G.brief;
+  toast('Brief generated!', 'success');
+}
+
+function buildGenPrompt(gen, {hook,script,platform,duration,visual}) {
+  const base = (hook||'') + (script ? '\n\n' + script : '');
+  const vis = visual || 'cinematic, high quality, professional lighting, vertical format';
+
+  const prompts = {
+    runway:  `${base.substring(0,500)}\n\nVisual direction: ${vis}\nFormat: 9:16 vertical, ${duration}s, cinematic\nCamera: dynamic movement, close-up reveals, trending TikTok style`,
+    pika:    `${base.substring(0,300)} | ${vis} | vertical 9:16 | ${duration}s | cinematic | TikTok style`,
+    kling:   `[Text to Video]\nPrompt: ${base.substring(0,500)}\nStyle: ${vis}\nAspect ratio: 9:16\nDuration: ${duration} seconds`,
+    heygen:  `[Avatar Script]\n${script||hook}\n\nTone: energetic, natural, direct-to-camera\nDuration: ~${duration} seconds\nAvatar: speaking head, professional background`,
+    sora:    `A ${duration}-second ${platform} vertical video: "${(hook||script||'').substring(0,250)}"\nVisual style: ${vis}\nFormat: 9:16 portrait, social-media ready`,
+    custom:  `${hook?'HOOK: '+hook+'\n\n':''}${script?'SCRIPT:\n'+script+'\n\n':''}VISUAL DIRECTION:\n${vis}\n\nFORMAT: ${platform} 9:16, ${duration}s`,
+  };
+
+  return prompts[gen] || prompts.custom;
+}
+
+function copyBrief()  { if (!G.brief) generateBrief(); if (G.brief) { cpText(G.brief); toast('Brief copied!','success'); } }
+function copyPrompt() { if (!G.genPrompt) generateBrief(); if (G.genPrompt) { cpText(G.genPrompt); toast('Generator prompt copied!','success'); } }
+
+function downloadBrief() {
+  if (!G.brief) generateBrief();
+  if (!G.brief) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([G.brief], {type:'text/plain'}));
+  a.download = `viral-brief-${Date.now()}.txt`;
+  a.click();
+  toast('Brief downloaded!', 'success');
+}
+
+function sendToGenerator() {
+  const key = v('ex-gen-key').trim() || localStorage.getItem('gen_key') || '';
+  if (!key) { toast('Add your generator API key to send directly', 'warning'); return; }
+  if (!G.brief) generateBrief();
+  toast(`${G.generator.toUpperCase()} integration coming soon — use "Copy Prompt" for now`, 'info');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CROSS-PANEL HELPERS
+// ═══════════════════════════════════════════════════════════
+function useHook(text) {
+  document.getElementById('hook-text').value = text;
+  updateHookLen();
+  switchTab('score');
+  toast('Hook loaded → Score tab', 'success');
+}
+function useScript(url) {
+  document.getElementById('viral-script').value = url;
+  switchTab('score');
+  toast('URL loaded → Virality Predictor', 'success');
+}
+function toExport(text) {
+  document.getElementById('ex-hook').value = text;
+  switchTab('export');
+  toast('Loaded → Export tab', 'success');
+}
+function toExportHook(text) {
+  document.getElementById('ex-hook').value = text;
+  switchTab('export');
+  toast('Hook sent to Export', 'success');
+}
+function toExportScript() {
+  const script = document.getElementById('viral-script').value;
+  document.getElementById('ex-script').value = script;
+  switchTab('export');
+  toast('Script sent to Export', 'success');
+}
+function toExportScript2(text) {
+  document.getElementById('ex-script').value = text;
+  switchTab('export');
+  toast('Script sent to Export', 'success');
+}
+function useTopic(topic) {
+  document.getElementById('q-query').value = topic;
+  document.getElementById('wf-topic').value = topic;
+  toast('Topic set: ' + topic, 'info');
+}
+function toViralityCheck(script) {
+  document.getElementById('viral-script').value = script;
+  switchTab('score');
+  toast('Draft sent to Virality Predictor', 'success');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════════════════════
+function v(id) { return (document.getElementById(id)||{}).value || ''; }
+
+function fmt(n) {
+  n = Number(n) || 0;
+  if (n >= 1e9) return (n/1e9).toFixed(1)+'B';
+  if (n >= 1e6) return (n/1e6).toFixed(1)+'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
+  return String(n);
+}
+
+function h(str) {
+  return String(str||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+function cpText(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text));
+  } else { fallbackCopy(text); }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+}
+
+function errBox(msg) {
+  const isKey = /not configured|HOOKLAYER|API key|401/.test(msg);
+  return `<div style="margin-top:8px;padding:10px 12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px">
+    <div style="font-size:12px;font-weight:600;color:#ef4444;margin-bottom:3px">Error</div>
+    <div style="font-size:11px;color:#888">${h(msg)}</div>
+    ${isKey?`<button onclick="openSettings()" class="btn btn-xs btn-outline" style="margin-top:6px">⚙️ Configure API Key</button>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  initPalette();
+  refreshApiStatus();
+
+  // Prompt settings on first visit
+  if (!localStorage.getItem('hl_key')) {
+    setTimeout(openSettings, 600);
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('modal-settings').addEventListener('click', function(e) {
+    if (e.target === this) closeSettings();
+  });
+});
+</script>
+</body>
+</html>
