@@ -8,20 +8,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/tailwind.min.css"/>
 <script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        gold: { DEFAULT: '#c9a84c', light: '#e0bf78', dark: '#a88835' }
-      },
-      fontFamily: {
-        sans: ['Inter','system-ui','sans-serif'],
-        display: ['Space Grotesk','sans-serif'],
-        mono: ['Space Mono','monospace'],
-      }
-    }
+/* Tailwind CDN fallback for environments where local CSS may not load */
+if (typeof document !== 'undefined') {
+  var _twLink = document.querySelector('link[href="/tailwind.min.css"]');
+  if (_twLink) {
+    _twLink.onerror = function() {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.tailwindcss.com';
+      document.head.appendChild(s);
+      s.onload = function() {
+        if (typeof tailwind !== 'undefined') tailwind.config = {
+          theme: { extend: { colors: { gold: { DEFAULT: '#c9a84c', light: '#e0bf78', dark: '#a88835' } }, fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Space Grotesk','sans-serif'], mono: ['Space Mono','monospace'] } } }
+        };
+      };
+    };
   }
 }
 </script>

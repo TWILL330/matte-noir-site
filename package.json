@@ -2,12 +2,17 @@
   "name": "viral-studio",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
   }
 }
