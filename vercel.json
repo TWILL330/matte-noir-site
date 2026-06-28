@@ -1,7 +1,13 @@
 {
   "version": 2,
+  "builds": [
+    { "src": "api/index.js", "use": "@vercel/node" },
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "tailwind.min.css", "use": "@vercel/static" }
+  ],
   "routes": [
     { "src": "/api(.*)", "dest": "/api/index.js" },
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/tailwind\\.min\\.css", "dest": "/tailwind.min.css" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
