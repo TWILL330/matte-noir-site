@@ -17,6 +17,7 @@
       --text:      #e8e2d9;
       --muted:     #6b6460;
       --danger:    #c0392b;
+      --success:   #4caf7d;
       --radius:    8px;
     }
 
@@ -66,6 +67,56 @@
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.25rem;
+    }
+
+    /* PDF Drop Zone */
+    .pdf-zone {
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .pdf-zone:hover, .pdf-zone.drag-over {
+      border-color: var(--accent-dim);
+      background: rgba(200,169,110,0.04);
+    }
+    .pdf-zone.loaded {
+      border-color: var(--success);
+      background: rgba(76,175,125,0.05);
+    }
+    .pdf-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .pdf-zone .zone-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .pdf-zone .zone-label strong { color: var(--accent); }
+    .pdf-zone .zone-label .file-name {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.75rem;
+      color: var(--success);
+    }
+    .pdf-spinner {
+      display: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 0.4rem;
     }
 
     textarea {
@@ -250,7 +301,17 @@
 <!-- Script Input -->
 <div class="card">
   <h2>Script</h2>
-  <textarea id="scriptInput" placeholder="Paste your narration script here…"></textarea>
+
+  <div class="pdf-zone" id="pdfZone">
+    <input type="file" id="pdfInput" accept=".pdf" />
+    <div class="zone-label">
+      <div class="pdf-spinner" id="pdfSpinner"></div>
+      <strong>Upload PDF</strong> or drag &amp; drop
+      <span class="file-name" id="pdfFileName"></span>
+    </div>
+  </div>
+
+  <textarea id="scriptInput" placeholder="Paste your narration script here, or upload a PDF above…"></textarea>
 
   <div class="sliders">
     <div class="slider-group">
@@ -299,8 +360,47 @@
   bindSlider('similarity', 'similarityVal');
   bindSlider('style', 'styleVal');
 
+  // PDF upload
+  const pdfZone     = document.getElementById('pdfZone');
+  const pdfInput    = document.getElementById('pdfInput');
+  const pdfSpinner  = document.getElementById('pdfSpinner');
+  const pdfFileName = document.getElementById('pdfFileName');
+  const scriptInput = document.getElementById('scriptInput');
+
+  pdfInput.addEventListener('change', () => {
+    if (pdfInput.files[0]) handlePdf(pdfInput.files[0]);
+  });
+  pdfZone.addEventListener('dragover', e => { e.preventDefault(); pdfZone.classList.add('drag-over'); });
+  pdfZone.addEventListener('dragleave', () => pdfZone.classList.remove('drag-over'));
+  pdfZone.addEventListener('drop', e => {
+    e.preventDefault();
+    pdfZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) handlePdf(file);
+  });
+
+  async function handlePdf(file) {
+    pdfSpinner.style.display = 'block';
+    pdfFileName.textContent = '';
+    pdfZone.classList.remove('loaded');
+    hideError();
+    const form = new FormData();
+    form.append('file', file);
+    try {
+      const res = await fetch('/extract-pdf', { method: 'POST', body: form });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      scriptInput.value = data.text;
+      pdfFileName.textContent = `✓ ${file.name}`;
+      pdfZone.classList.add('loaded');
+    } catch (e) {
+      showError(`PDF error: ${e.message}`);
+    } finally {
+      pdfSpinner.style.display = 'none';
+    }
+  }
+
   let currentBlob = null;
-  const historyData = [];
 
   const generateBtn = document.getElementById('generateBtn');
   const downloadBtn = document.getElementById('downloadBtn');
@@ -310,7 +410,7 @@
   const errorMsg    = document.getElementById('errorMsg');
 
   generateBtn.addEventListener('click', async () => {
-    const text = document.getElementById('scriptInput').value.trim();
+    const text = scriptInput.value.trim();
     if (!text) { showError('Please enter a script before generating.'); return; }
 
     setLoading(true);

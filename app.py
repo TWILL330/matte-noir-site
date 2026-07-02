@@ -2,6 +2,7 @@ import os
 import io
 import requests
 from flask import Flask, request, jsonify, send_file, render_template
+from pypdf import PdfReader
 
 app = Flask(__name__)
 
@@ -14,6 +15,25 @@ _history = []
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/extract-pdf", methods=["POST"])
+def extract_pdf():
+    if "file" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    f = request.files["file"]
+    if not f.filename.lower().endswith(".pdf"):
+        return jsonify({"error": "File must be a PDF"}), 400
+    try:
+        reader = PdfReader(io.BytesIO(f.read()))
+        text = "\n\n".join(
+            page.extract_text() or "" for page in reader.pages
+        ).strip()
+        if not text:
+            return jsonify({"error": "Could not extract text from this PDF"}), 422
+        return jsonify({"text": text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/generate", methods=["POST"])
