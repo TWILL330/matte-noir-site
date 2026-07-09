@@ -11,6 +11,7 @@
       --bg:        #0d0d0d;
       --surface:   #161616;
       --surface2:  #1e1e1e;
+      --surface3:  #242424;
       --border:    #2a2a2a;
       --accent:    #c8a96e;
       --accent-dim:#8c6f3f;
@@ -18,6 +19,7 @@
       --muted:     #6b6460;
       --danger:    #c0392b;
       --success:   #4caf7d;
+      --info:      #5b9bd5;
       --radius:    8px;
     }
 
@@ -29,7 +31,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem 4rem;
+      padding: 2rem 1rem 5rem;
     }
 
     header {
@@ -43,12 +45,7 @@
       text-transform: uppercase;
       color: var(--accent);
     }
-    header p {
-      color: var(--muted);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      margin-top: 0.4rem;
-    }
+    header p { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
 
     .card {
       background: var(--surface);
@@ -56,239 +53,209 @@
       border-radius: var(--radius);
       padding: 1.75rem;
       width: 100%;
-      max-width: 780px;
-      margin-bottom: 1.5rem;
+      max-width: 800px;
+      margin-bottom: 1.25rem;
     }
-
-    .card h2 {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+    .card-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.25rem;
     }
 
-    /* PDF Drop Zone */
-    .pdf-zone {
+    /* Upload zone */
+    .upload-zone {
       border: 1.5px dashed var(--border);
       border-radius: var(--radius);
-      padding: 1.25rem 1rem;
+      padding: 1.5rem 1rem;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      margin-bottom: 1rem;
       position: relative;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .pdf-zone:hover, .pdf-zone.drag-over {
+    .upload-zone:hover, .upload-zone.drag-over {
       border-color: var(--accent-dim);
       background: rgba(200,169,110,0.04);
     }
-    .pdf-zone.loaded {
-      border-color: var(--success);
-      background: rgba(76,175,125,0.05);
+    .upload-zone.loaded { border-color: var(--success); background: rgba(76,175,125,0.05); }
+    .upload-zone input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
     }
-    .pdf-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-    .pdf-zone .zone-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      pointer-events: none;
-    }
-    .pdf-zone .zone-label strong { color: var(--accent); }
-    .pdf-zone .zone-label .file-name {
-      display: block;
-      margin-top: 0.3rem;
-      font-size: 0.75rem;
-      color: var(--success);
-    }
-    .pdf-spinner {
-      display: none;
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+    .upload-zone .uz-label { font-size: 0.82rem; color: var(--muted); pointer-events: none; }
+    .upload-zone .uz-label strong { color: var(--accent); }
+    .upload-zone .uz-label .uz-sub { font-size: 0.72rem; margin-top: 0.25rem; display: block; }
+    .upload-zone .uz-file { display: block; margin-top: 0.35rem; font-size: 0.74rem; color: var(--success); pointer-events: none; }
+    .uz-spinner {
+      display: none; width: 16px; height: 16px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
       margin: 0 auto 0.4rem;
     }
 
-    textarea {
+    /* Doc viewer */
+    .doc-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .doc-toolbar .char-count { font-size: 0.72rem; color: var(--muted); }
+    .doc-toolbar .char-count.warn { color: #e67e22; }
+    .doc-toolbar .char-count.over { color: var(--danger); }
+
+    #docView {
       width: 100%;
-      min-height: 180px;
+      min-height: 220px;
+      max-height: 400px;
+      overflow-y: auto;
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      padding: 1rem;
+      font-size: 0.92rem;
+      line-height: 1.75;
       color: var(--text);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      padding: 0.9rem 1rem;
-      resize: vertical;
+      white-space: pre-wrap;
+      word-break: break-word;
+      cursor: text;
+      user-select: text;
+      -webkit-user-select: text;
       outline: none;
       transition: border-color 0.2s;
+      resize: vertical;
     }
-    textarea:focus { border-color: var(--accent-dim); }
-    textarea::placeholder { color: var(--muted); }
+    #docView:focus { border-color: var(--accent-dim); }
+    #docView[contenteditable="true"] { cursor: text; }
+    #docView:empty::before {
+      content: attr(data-placeholder);
+      color: var(--muted);
+      pointer-events: none;
+    }
 
+    .sel-bar {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .sel-bar.visible { display: flex; }
+    .sel-bar .sel-count { flex: 1; }
+
+    /* Sliders */
     .sliders {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.25rem;
-      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
     }
-
     .slider-group label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
+      display: flex; justify-content: space-between;
+      font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.45rem;
     }
-    .slider-group label span.val {
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-    }
-
+    .slider-group label .val { color: var(--accent); font-variant-numeric: tabular-nums; }
     input[type="range"] {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      outline: none;
-      cursor: pointer;
+      -webkit-appearance: none; width: 100%; height: 4px;
+      background: var(--border); border-radius: 2px; outline: none; cursor: pointer;
     }
     input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: none;
+      -webkit-appearance: none; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--accent); border: none;
     }
     input[type="range"]::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: none;
+      width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: none;
     }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.75rem;
-      flex-wrap: wrap;
+    .toggle-row {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 1.25rem; font-size: 0.8rem; color: var(--muted);
+    }
+    .toggle { position: relative; width: 36px; height: 20px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; border-radius: 20px;
+      background: var(--border); transition: background 0.2s; cursor: pointer;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute; width: 14px; height: 14px;
+      left: 3px; top: 3px; border-radius: 50%;
+      background: var(--muted); transition: transform 0.2s, background 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent-dim); }
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(16px); background: var(--accent);
     }
 
+    /* Buttons */
+    .btn-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
     button {
-      cursor: pointer;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.65rem 1.5rem;
-      transition: opacity 0.2s, background 0.2s;
+      cursor: pointer; border: none; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.65rem 1.3rem; transition: opacity 0.2s, background 0.2s;
+      min-height: 44px;
     }
-    button:disabled { opacity: 0.45; cursor: not-allowed; }
-
-    #generateBtn {
-      background: var(--accent);
-      color: #0d0d0d;
-    }
-    #generateBtn:hover:not(:disabled) { opacity: 0.85; }
-
-    #downloadBtn {
-      background: transparent;
-      border: 1px solid var(--accent-dim);
-      color: var(--accent);
-      display: none;
-    }
-    #downloadBtn:hover:not(:disabled) { background: var(--accent-dim); color: #0d0d0d; }
+    button:disabled { opacity: 0.38; cursor: not-allowed; }
+    .btn-primary { background: var(--accent); color: #0d0d0d; }
+    .btn-primary:hover:not(:disabled) { opacity: 0.85; }
+    .btn-secondary { background: transparent; border: 1px solid var(--accent-dim); color: var(--accent); }
+    .btn-secondary:hover:not(:disabled) { background: var(--accent-dim); color: #0d0d0d; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--accent-dim); color: var(--accent); }
 
     .spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+      display: none; width: 18px; height: 18px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #errorMsg {
-      display: none;
-      margin-top: 1rem;
-      font-size: 0.82rem;
-      color: var(--danger);
-      background: rgba(192,57,43,0.1);
-      border: 1px solid rgba(192,57,43,0.3);
-      border-radius: var(--radius);
-      padding: 0.6rem 0.9rem;
+    /* Error / info */
+    .msg-box {
+      display: none; margin-top: 1rem; font-size: 0.8rem;
+      border-radius: var(--radius); padding: 0.6rem 0.9rem;
     }
+    .msg-box.error { color: var(--danger); background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); }
+    .msg-box.info  { color: var(--info); background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.25); }
 
-    .audio-wrap {
-      margin-top: 1.5rem;
-      display: none;
+    /* Audio */
+    .audio-wrap { margin-top: 1.25rem; display: none; }
+    audio { width: 100%; filter: invert(1) hue-rotate(180deg) brightness(0.85); border-radius: var(--radius); }
+    .audio-actions { display: flex; gap: 0.75rem; margin-top: 0.6rem; }
+
+    /* Q&A */
+    .qa-input-row { display: flex; gap: 0.6rem; margin-bottom: 1rem; }
+    .qa-input-row input {
+      flex: 1; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text); font-size: 0.9rem;
+      padding: 0.6rem 0.9rem; outline: none; min-height: 44px;
+      transition: border-color 0.2s;
     }
-    audio {
-      width: 100%;
-      filter: invert(1) hue-rotate(180deg) brightness(0.85);
-      border-radius: var(--radius);
+    .qa-input-row input:focus { border-color: var(--accent-dim); }
+    .qa-input-row input::placeholder { color: var(--muted); }
+    .qa-answer {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem; font-size: 0.88rem;
+      line-height: 1.65; color: var(--text); display: none; white-space: pre-wrap;
     }
 
     /* History */
-    #historyList { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-
+    #historyList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
     .history-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0.7rem 1rem;
-      gap: 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.65rem 1rem; gap: 0.75rem;
     }
     .history-item .snippet {
-      font-size: 0.82rem;
-      color: var(--text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      flex: 1;
+      font-size: 0.8rem; color: var(--text);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
     }
-    .history-item .meta {
-      font-size: 0.7rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .replay-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.35rem 0.75rem;
-      font-size: 0.72rem;
-    }
-    .replay-btn:hover { border-color: var(--accent-dim); color: var(--accent); }
-
-    #emptyHistory {
-      font-size: 0.82rem;
-      color: var(--muted);
-      text-align: center;
-      padding: 1rem 0;
-    }
+    .history-item .meta { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+    #emptyHistory { font-size: 0.8rem; color: var(--muted); text-align: center; padding: 0.75rem 0; }
   </style>
 </head>
 <body>
@@ -298,20 +265,48 @@
   <p>Narration Studio — powered by ElevenLabs</p>
 </header>
 
-<!-- Script Input -->
+<!-- Upload -->
 <div class="card">
-  <h2>Script</h2>
+  <div class="card-title">Document</div>
+  <div class="upload-zone" id="uploadZone">
+    <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.gif,.webp" />
+    <div class="uz-label">
+      <div class="uz-spinner" id="uzSpinner"></div>
+      <strong>Upload PDF or Image</strong>
+      <span class="uz-sub">Drag &amp; drop or click — PDF, JPG, PNG, WEBP supported</span>
+    </div>
+    <span class="uz-file" id="uzFile"></span>
+  </div>
+</div>
 
-  <div class="pdf-zone" id="pdfZone">
-    <input type="file" id="pdfInput" accept=".pdf" />
-    <div class="zone-label">
-      <div class="pdf-spinner" id="pdfSpinner"></div>
-      <strong>Upload PDF</strong> or drag &amp; drop
-      <span class="file-name" id="pdfFileName"></span>
+<!-- Document Viewer -->
+<div class="card">
+  <div class="card-title">Script</div>
+  <div class="doc-toolbar">
+    <div class="char-count" id="charCount">0 characters</div>
+    <div style="display:flex;gap:0.5rem">
+      <button class="btn-ghost" style="font-size:0.7rem;padding:0.3rem 0.7rem;min-height:0" onclick="clearDoc()">Clear</button>
     </div>
   </div>
 
-  <textarea id="scriptInput" placeholder="Paste your narration script here, or upload a PDF above…"></textarea>
+  <div id="docView"
+       contenteditable="true"
+       data-placeholder="Paste your script here, or upload a PDF / image above…"
+       spellcheck="false"></div>
+
+  <div class="sel-bar" id="selBar">
+    <span class="sel-count" id="selCount"></span>
+    <button class="btn-secondary" style="font-size:0.72rem;padding:0.35rem 0.8rem;min-height:0" id="narrateSelBtn">
+      ▶ Narrate Selection
+    </button>
+  </div>
+
+  <div class="msg-box error" id="docError"></div>
+</div>
+
+<!-- Narrate -->
+<div class="card">
+  <div class="card-title">Voice</div>
 
   <div class="sliders">
     <div class="slider-group">
@@ -328,114 +323,196 @@
     </div>
   </div>
 
-  <div class="actions">
-    <button id="generateBtn">Generate Narration</button>
-    <div class="spinner" id="spinner"></div>
-    <button id="downloadBtn">&#8659; Download MP3</button>
+  <div class="toggle-row">
+    <label class="toggle">
+      <input type="checkbox" id="naturalToggle" checked />
+      <span class="toggle-slider"></span>
+    </label>
+    Natural reading — auto-pauses at headings &amp; paragraphs
   </div>
 
-  <div id="errorMsg"></div>
+  <div class="btn-row">
+    <button class="btn-primary" id="narrateAllBtn">▶ Narrate All</button>
+    <div class="spinner" id="spinner"></div>
+  </div>
+
+  <div class="msg-box error" id="narrateError"></div>
 
   <div class="audio-wrap" id="audioWrap">
     <audio id="audioPlayer" controls></audio>
+    <div class="audio-actions">
+      <button class="btn-secondary" id="downloadBtn" style="display:none">&#8659; Download MP3</button>
+    </div>
   </div>
+</div>
+
+<!-- Q&A -->
+<div class="card">
+  <div class="card-title">Ask the Document</div>
+  <div class="qa-input-row">
+    <input type="text" id="qaInput" placeholder="What is this document about?" />
+    <button class="btn-primary" id="qaBtn" style="white-space:nowrap">Ask</button>
+    <div class="spinner" id="qaSpinner"></div>
+  </div>
+  <div class="qa-answer" id="qaAnswer"></div>
+  <div class="msg-box error" id="qaError"></div>
+  <div class="msg-box info" id="qaInfo"></div>
 </div>
 
 <!-- History -->
 <div class="card">
-  <h2>Generation History</h2>
+  <div class="card-title">Generation History</div>
   <ul id="historyList">
     <li id="emptyHistory">No narrations generated yet.</li>
   </ul>
 </div>
 
 <script>
-  // Slider live labels
-  function bindSlider(id, labelId) {
-    const el = document.getElementById(id);
-    const lbl = document.getElementById(labelId);
-    el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
+  // ── Utilities ──────────────────────────────────────────────────────────────
+
+  function showMsg(el, msg) { el.textContent = msg; el.style.display = 'block'; }
+  function hideMsg(el)      { el.style.display = 'none'; }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
-  bindSlider('stability', 'stabilityVal');
-  bindSlider('similarity', 'similarityVal');
-  bindSlider('style', 'styleVal');
 
-  // PDF upload
-  const pdfZone     = document.getElementById('pdfZone');
-  const pdfInput    = document.getElementById('pdfInput');
-  const pdfSpinner  = document.getElementById('pdfSpinner');
-  const pdfFileName = document.getElementById('pdfFileName');
-  const scriptInput = document.getElementById('scriptInput');
+  // ── Sliders ────────────────────────────────────────────────────────────────
 
-  pdfInput.addEventListener('change', () => {
-    if (pdfInput.files[0]) handlePdf(pdfInput.files[0]);
-  });
-  pdfZone.addEventListener('dragover', e => { e.preventDefault(); pdfZone.classList.add('drag-over'); });
-  pdfZone.addEventListener('dragleave', () => pdfZone.classList.remove('drag-over'));
-  pdfZone.addEventListener('drop', e => {
-    e.preventDefault();
-    pdfZone.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file) handlePdf(file);
+  ['stability','similarity','style'].forEach(id => {
+    const el = document.getElementById(id);
+    const lbl = document.getElementById(id + 'Val');
+    el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
   });
 
-  async function handlePdf(file) {
-    pdfSpinner.style.display = 'block';
-    pdfFileName.textContent = '';
-    pdfZone.classList.remove('loaded');
-    hideError();
-    const form = new FormData();
-    form.append('file', file);
-    try {
-      const res = await fetch('/extract-pdf', { method: 'POST', body: form });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      scriptInput.value = data.text;
-      pdfFileName.textContent = `✓ ${file.name}`;
-      pdfZone.classList.add('loaded');
-    } catch (e) {
-      showError(`PDF error: ${e.message}`);
-    } finally {
-      pdfSpinner.style.display = 'none';
+  // ── Doc view ───────────────────────────────────────────────────────────────
+
+  const docView  = document.getElementById('docView');
+  const charCount = document.getElementById('charCount');
+  const selBar   = document.getElementById('selBar');
+  const selCount = document.getElementById('selCount');
+  const narrateSelBtn = document.getElementById('narrateSelBtn');
+
+  function getDocText() { return docView.innerText || ''; }
+
+  function setDocText(text) {
+    docView.innerText = text;
+    updateCharCount();
+  }
+
+  function clearDoc() { docView.innerText = ''; updateCharCount(); hideMsg(document.getElementById('docError')); }
+
+  function updateCharCount() {
+    const n = getDocText().length;
+    const el = charCount;
+    el.textContent = `${n.toLocaleString()} characters`;
+    el.className = 'char-count' + (n > 9000 ? ' over' : n > 5000 ? ' warn' : '');
+  }
+
+  docView.addEventListener('input', updateCharCount);
+
+  // Selection detection
+  function getSelection_() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return '';
+    const range = sel.getRangeAt(0);
+    if (!docView.contains(range.commonAncestorContainer)) return '';
+    return sel.toString().trim();
+  }
+
+  function onSelectionChange() {
+    const text = getSelection_();
+    if (text.length > 0) {
+      selCount.textContent = `${text.length.toLocaleString()} characters selected`;
+      selBar.classList.add('visible');
+    } else {
+      selBar.classList.remove('visible');
     }
   }
 
-  let currentBlob = null;
+  document.addEventListener('selectionchange', onSelectionChange);
+  docView.addEventListener('touchend', () => setTimeout(onSelectionChange, 100));
 
-  const generateBtn = document.getElementById('generateBtn');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const spinner     = document.getElementById('spinner');
-  const audioPlayer = document.getElementById('audioPlayer');
-  const audioWrap   = document.getElementById('audioWrap');
-  const errorMsg    = document.getElementById('errorMsg');
+  // ── Upload ─────────────────────────────────────────────────────────────────
 
-  generateBtn.addEventListener('click', async () => {
-    const text = scriptInput.value.trim();
-    if (!text) { showError('Please enter a script before generating.'); return; }
+  const uploadZone = document.getElementById('uploadZone');
+  const fileInput  = document.getElementById('fileInput');
+  const uzSpinner  = document.getElementById('uzSpinner');
+  const uzFile     = document.getElementById('uzFile');
+  const docError   = document.getElementById('docError');
 
-    setLoading(true);
-    hideError();
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  async function handleFile(file) {
+    uzSpinner.style.display = 'block';
+    uzFile.textContent = '';
+    uploadZone.classList.remove('loaded');
+    hideMsg(docError);
+
+    const form = new FormData();
+    form.append('file', file);
 
     try {
-      const response = await fetch('/generate', {
+      const res  = await fetch('/extract', { method: 'POST', body: form });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      setDocText(data.text);
+      uzFile.textContent = `✓ ${file.name}`;
+      uploadZone.classList.add('loaded');
+    } catch (e) {
+      showMsg(docError, e.message);
+    } finally {
+      uzSpinner.style.display = 'none';
+    }
+  }
+
+  // ── Generate ───────────────────────────────────────────────────────────────
+
+  const audioWrap   = document.getElementById('audioWrap');
+  const audioPlayer = document.getElementById('audioPlayer');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const spinner     = document.getElementById('spinner');
+  const narrateError = document.getElementById('narrateError');
+
+  async function generate(text) {
+    if (!text.trim()) { showMsg(narrateError, 'No text to narrate.'); return; }
+    if (text.length > 10000) {
+      showMsg(narrateError, `Text is ${text.length.toLocaleString()} characters — ElevenLabs limit is ~10,000. Select a shorter passage.`);
+      return;
+    }
+
+    document.getElementById('narrateAllBtn').disabled = true;
+    narrateSelBtn.disabled = true;
+    spinner.style.display  = 'inline-block';
+    hideMsg(narrateError);
+
+    try {
+      const res = await fetch('/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text,
+          natural:    document.getElementById('naturalToggle').checked,
           stability:  parseFloat(document.getElementById('stability').value),
           similarity: parseFloat(document.getElementById('similarity').value),
           style:      parseFloat(document.getElementById('style').value),
         }),
       });
 
-      if (!response.ok) {
-        const err = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(err.error || `HTTP ${response.status}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(err.error || `HTTP ${res.status}`);
       }
 
-      const blob = await response.blob();
-      currentBlob = blob;
-      const url = URL.createObjectURL(blob);
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
 
       audioPlayer.src = url;
       audioWrap.style.display = 'block';
@@ -444,60 +521,93 @@
       downloadBtn.style.display = 'inline-block';
       downloadBtn.onclick = () => {
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `narration-${Date.now()}.mp3`;
-        a.click();
+        a.href = url; a.download = `narration-${Date.now()}.mp3`; a.click();
       };
 
-      addHistoryItem(text, {
-        stability:  parseFloat(document.getElementById('stability').value),
-        similarity: parseFloat(document.getElementById('similarity').value),
-        style:      parseFloat(document.getElementById('style').value),
-      }, url);
-
+      addHistory(text, url);
     } catch (e) {
-      showError(e.message);
+      showMsg(narrateError, e.message);
     } finally {
-      setLoading(false);
+      document.getElementById('narrateAllBtn').disabled = false;
+      narrateSelBtn.disabled = false;
+      spinner.style.display  = 'none';
     }
+  }
+
+  document.getElementById('narrateAllBtn').addEventListener('click', () => {
+    generate(getDocText());
   });
 
-  function setLoading(on) {
-    generateBtn.disabled = on;
-    spinner.style.display = on ? 'block' : 'none';
+  narrateSelBtn.addEventListener('click', () => {
+    const text = getSelection_();
+    if (text) generate(text);
+  });
+
+  // ── Q&A ────────────────────────────────────────────────────────────────────
+
+  const qaInput   = document.getElementById('qaInput');
+  const qaBtn     = document.getElementById('qaBtn');
+  const qaAnswer  = document.getElementById('qaAnswer');
+  const qaError   = document.getElementById('qaError');
+  const qaInfo    = document.getElementById('qaInfo');
+  const qaSpinner = document.getElementById('qaSpinner');
+
+  async function askQuestion() {
+    const question = qaInput.value.trim();
+    if (!question) return;
+
+    qaBtn.disabled = true;
+    qaSpinner.style.display = 'inline-block';
+    qaAnswer.style.display  = 'none';
+    hideMsg(qaError); hideMsg(qaInfo);
+
+    try {
+      const res = await fetch('/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, text: getDocText() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      qaAnswer.textContent    = data.answer;
+      qaAnswer.style.display  = 'block';
+    } catch (e) {
+      const msg = e.message;
+      if (msg.includes('ANTHROPIC_API_KEY')) {
+        showMsg(qaInfo, 'Q&A requires an Anthropic API key. Add ANTHROPIC_API_KEY to your .env and restart the server.');
+      } else {
+        showMsg(qaError, msg);
+      }
+    } finally {
+      qaBtn.disabled = false;
+      qaSpinner.style.display = 'none';
+    }
   }
 
-  function showError(msg) {
-    errorMsg.textContent = msg;
-    errorMsg.style.display = 'block';
-  }
-  function hideError() { errorMsg.style.display = 'none'; }
+  qaBtn.addEventListener('click', askQuestion);
+  qaInput.addEventListener('keydown', e => { if (e.key === 'Enter') askQuestion(); });
 
-  function addHistoryItem(text, settings, url) {
-    const emptyEl = document.getElementById('emptyHistory');
-    if (emptyEl) emptyEl.remove();
+  // ── History ─────────────────────────────────────────────────────────────────
 
-    const snippet = text.length > 80 ? text.slice(0, 80) + '…' : text;
-    const item = document.createElement('li');
-    item.className = 'history-item';
-    item.innerHTML = `
-      <span class="snippet" title="${text.replace(/"/g,'&quot;')}">${escapeHtml(snippet)}</span>
-      <span class="meta">S:${settings.stability.toFixed(2)} | Sim:${settings.similarity.toFixed(2)} | St:${settings.style.toFixed(2)}</span>
-      <button class="replay-btn">&#9654; Replay</button>
+  function addHistory(text, url) {
+    const empty = document.getElementById('emptyHistory');
+    if (empty) empty.remove();
+
+    const snippet = text.length > 90 ? text.slice(0, 90) + '…' : text;
+    const li = document.createElement('li');
+    li.className = 'history-item';
+    li.innerHTML = `
+      <span class="snippet" title="${escHtml(text.slice(0,200))}">${escHtml(snippet)}</span>
+      <button class="btn-ghost" style="font-size:0.7rem;padding:0.3rem 0.7rem;min-height:0;white-space:nowrap">▶ Replay</button>
     `;
-    item.querySelector('.replay-btn').addEventListener('click', () => {
+    li.querySelector('button').addEventListener('click', () => {
       audioPlayer.src = url;
       audioWrap.style.display = 'block';
       audioPlayer.play();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
     const list = document.getElementById('historyList');
-    list.insertBefore(item, list.firstChild);
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    list.insertBefore(li, list.firstChild);
   }
 </script>
 </body>
