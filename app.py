@@ -28,6 +28,32 @@ def anthropic_client():
     return anthropic.Anthropic(api_key=ANTHROPIC_API_KEY) if ANTHROPIC_API_KEY else None
 
 
+def chunk_text(text, max_chars=4500):
+    """Split text at sentence boundaries into chunks no larger than max_chars."""
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    chunks, current = [], ""
+    for sentence in sentences:
+        if len(sentence) > max_chars:
+            if current:
+                chunks.append(current.strip())
+                current = ""
+            while len(sentence) > max_chars:
+                split_at = sentence.rfind(' ', 0, max_chars)
+                if split_at == -1:
+                    split_at = max_chars
+                chunks.append(sentence[:split_at].strip())
+                sentence = sentence[split_at:].strip()
+            current = sentence
+        elif current and len(current) + 1 + len(sentence) > max_chars:
+            chunks.append(current.strip())
+            current = sentence
+        else:
+            current = (current + " " + sentence).strip() if current else sentence
+    if current:
+        chunks.append(current.strip())
+    return [c for c in chunks if c]
+
+
 def prepare_for_narration(text):
     """Preprocess text so ElevenLabs reads it like a human narrator."""
     lines = text.split("\n")
@@ -321,18 +347,23 @@ def generate():
 
     else:
         el_headers["Accept"] = "audio/mpeg"
-        resp = requests.post(
-            f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}",
-            headers=el_headers, json=payload, timeout=60,
-        )
-        if resp.status_code != 200:
-            return jsonify({"error": f"ElevenLabs error {resp.status_code}: {resp.text}"}), 502
+        chunks = chunk_text(text) if len(text) > 4500 else [text]
+        all_audio = b""
+        for chunk in chunks:
+            payload["text"] = chunk
+            resp = requests.post(
+                f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}",
+                headers=el_headers, json=payload, timeout=60,
+            )
+            if resp.status_code != 200:
+                return jsonify({"error": f"ElevenLabs error {resp.status_code}: {resp.text}"}), 502
+            all_audio += resp.content
 
         _history.append({
             "text": data.get("text", "")[:120],
             "stability": stability, "similarity": similarity, "style": style,
         })
-        buf = io.BytesIO(resp.content)
+        buf = io.BytesIO(all_audio)
         buf.seek(0)
         return send_file(buf, mimetype="audio/mpeg", as_attachment=False, download_name="narration.mp3")
 

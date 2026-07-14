@@ -388,6 +388,11 @@
     </select>
     <button class="btn-ghost btn-sm" id="refreshVoicesBtn" title="Refresh voice list">↺</button>
   </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.25rem">
+    <span style="font-size:0.72rem;color:var(--muted);white-space:nowrap;letter-spacing:0.06em;text-transform:uppercase">Voice ID</span>
+    <input type="text" id="voiceIdOverride" placeholder="auto — or paste an ElevenLabs voice ID to override"
+           style="flex:1;font-size:0.78rem;font-family:monospace;padding:0.4rem 0.7rem;min-height:0" />
+  </div>
 
   <div class="sliders">
     <div class="slider-group">
@@ -709,18 +714,29 @@ async function loadVoices() {
 function renderVoiceOptions() {
   const lang = langFilter.value;
   const filtered = lang ? allVoices.filter(v => v.language === lang) : allVoices;
+  if (!filtered.length) {
+    voiceSelect.innerHTML = '<option value="">— no voices in this filter —</option>';
+    return;
+  }
   voiceSelect.innerHTML = filtered.map(v => {
     const label = v.name + (v.language ? ` (${v.language})` : '');
     const sel = v.voice_id === selectedVoiceId ? ' selected' : '';
     return `<option value="${escHtml(v.voice_id)}"${sel}>${escHtml(label)}</option>`;
   }).join('');
-  if (!filtered.some(v => v.voice_id === selectedVoiceId) && filtered.length) {
+  if (!filtered.some(v => v.voice_id === selectedVoiceId)) {
     voiceSelect.selectedIndex = 0;
+    selectedVoiceId = voiceSelect.value;
   }
+  const override = document.getElementById('voiceIdOverride');
+  if (!override.value) override.placeholder = `auto (${voiceSelect.options[voiceSelect.selectedIndex]?.text || voiceSelect.value}) — or paste a voice ID`;
 }
 
 langFilter.addEventListener('change', renderVoiceOptions);
-voiceSelect.addEventListener('change', () => { selectedVoiceId = voiceSelect.value; });
+voiceSelect.addEventListener('change', () => {
+  selectedVoiceId = voiceSelect.value;
+  const override = document.getElementById('voiceIdOverride');
+  if (!override.value) override.placeholder = voiceSelect.value || 'auto — or paste an ElevenLabs voice ID to override';
+});
 
 document.getElementById('refreshVoicesBtn').addEventListener('click', loadVoices);
 
@@ -790,13 +806,9 @@ const narrateError = document.getElementById('narrateError');
 
 async function generate(text) {
   if (!text.trim()) { showMsg(narrateError, 'No text to narrate.', 'error'); return; }
-  if (text.length > 10000) {
-    showMsg(narrateError, `Text is ${text.length.toLocaleString()} characters — ElevenLabs limit is ~10,000. Select a shorter passage.`, 'error');
-    return;
-  }
 
   const withHighlight = document.getElementById('highlightToggle').checked;
-  const voice_id = voiceSelect.value || '';
+  const voice_id = document.getElementById('voiceIdOverride').value.trim() || voiceSelect.value || '';
 
   document.getElementById('narrateAllBtn').disabled = true;
   narrateSelBtn.disabled = true;
