@@ -2,3 +2,7 @@ flask
 requests
 pypdf
 anthropic
+ebooklib
+python-docx
+beautifulsoup4
+lxml

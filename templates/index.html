@@ -34,15 +34,10 @@
       padding: 2rem 1rem 5rem;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
+    header { text-align: center; margin-bottom: 2.5rem; }
     header h1 {
-      font-size: 2rem;
-      font-weight: 300;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
+      font-size: 2rem; font-weight: 300;
+      letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--accent);
     }
     header p { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
@@ -52,32 +47,41 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.75rem;
-      width: 100%;
-      max-width: 800px;
+      width: 100%; max-width: 800px;
       margin-bottom: 1.25rem;
     }
     .card-title {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.25rem;
     }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex; gap: 0; margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--muted); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.5rem 1rem; cursor: pointer; margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      min-height: 0;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     /* Upload zone */
     .upload-zone {
-      border: 1.5px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-      transition: border-color 0.2s, background 0.2s;
+      border: 1.5px dashed var(--border); border-radius: var(--radius);
+      padding: 1.5rem 1rem; text-align: center; cursor: pointer;
+      position: relative; transition: border-color 0.2s, background 0.2s;
     }
     .upload-zone:hover, .upload-zone.drag-over {
-      border-color: var(--accent-dim);
-      background: rgba(200,169,110,0.04);
+      border-color: var(--accent-dim); background: rgba(200,169,110,0.04);
     }
     .upload-zone.loaded { border-color: var(--success); background: rgba(76,175,125,0.05); }
     .upload-zone input[type="file"] {
@@ -90,69 +94,75 @@
     .uz-spinner {
       display: none; width: 16px; height: 16px;
       border: 2px solid var(--border); border-top-color: var(--accent);
-      border-radius: 50%; animation: spin 0.7s linear infinite;
-      margin: 0 auto 0.4rem;
+      border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 0.4rem;
     }
+
+    /* URL input */
+    .url-row { display: flex; gap: 0.6rem; }
+    .url-row input {
+      flex: 1; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text); font-size: 0.9rem;
+      padding: 0.6rem 0.9rem; outline: none; min-height: 44px;
+      transition: border-color 0.2s;
+    }
+    .url-row input:focus { border-color: var(--accent-dim); }
+    .url-row input::placeholder { color: var(--muted); }
 
     /* Doc viewer */
     .doc-toolbar {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;
+      margin: 1rem 0 0.75rem; flex-wrap: wrap; gap: 0.5rem;
     }
-    .doc-toolbar .char-count { font-size: 0.72rem; color: var(--muted); }
-    .doc-toolbar .char-count.warn { color: #e67e22; }
-    .doc-toolbar .char-count.over { color: var(--danger); }
+    .char-count { font-size: 0.72rem; color: var(--muted); }
+    .char-count.warn { color: #e67e22; }
+    .char-count.over { color: var(--danger); }
 
     #docView {
-      width: 100%;
-      min-height: 220px;
-      max-height: 400px;
-      overflow-y: auto;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      font-size: 0.92rem;
-      line-height: 1.75;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-word;
-      cursor: text;
-      user-select: text;
-      -webkit-user-select: text;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
+      width: 100%; min-height: 220px; max-height: 400px; overflow-y: auto;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+      font-size: 0.92rem; line-height: 1.75; color: var(--text);
+      white-space: pre-wrap; word-break: break-word;
+      cursor: text; user-select: text; -webkit-user-select: text;
+      outline: none; resize: vertical; transition: border-color 0.2s;
     }
     #docView:focus { border-color: var(--accent-dim); }
-    #docView[contenteditable="true"] { cursor: text; }
     #docView:empty::before {
-      content: attr(data-placeholder);
-      color: var(--muted);
-      pointer-events: none;
+      content: attr(data-placeholder); color: var(--muted); pointer-events: none;
     }
 
     .sel-bar {
-      display: none;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 0.6rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--surface3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.75rem;
-      color: var(--muted);
+      display: none; align-items: center; gap: 0.75rem;
+      margin-top: 0.6rem; padding: 0.5rem 0.75rem;
+      background: var(--surface3); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.75rem; color: var(--muted);
     }
     .sel-bar.visible { display: flex; }
     .sel-bar .sel-count { flex: 1; }
+
+    /* Voice selector */
+    .voice-row {
+      display: flex; gap: 0.6rem; margin-bottom: 1.25rem; flex-wrap: wrap;
+    }
+    .voice-row select {
+      flex: 1; min-width: 160px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text); font-size: 0.85rem;
+      padding: 0.5rem 0.7rem; outline: none; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6460'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.7rem center;
+      padding-right: 2rem; min-height: 40px;
+      transition: border-color 0.2s;
+    }
+    .voice-row select:focus { border-color: var(--accent-dim); }
+    .voice-row select option { background: var(--surface2); color: var(--text); }
 
     /* Sliders */
     .sliders {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
+      gap: 1.25rem; margin-bottom: 1.5rem;
     }
     .slider-group label {
       display: flex; justify-content: space-between;
@@ -173,7 +183,7 @@
 
     .toggle-row {
       display: flex; align-items: center; gap: 0.6rem;
-      margin-bottom: 1.25rem; font-size: 0.8rem; color: var(--muted);
+      margin-bottom: 1rem; font-size: 0.8rem; color: var(--muted);
     }
     .toggle { position: relative; width: 36px; height: 20px; }
     .toggle input { opacity: 0; width: 0; height: 0; }
@@ -206,6 +216,7 @@
     .btn-secondary:hover:not(:disabled) { background: var(--accent-dim); color: #0d0d0d; }
     .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
     .btn-ghost:hover:not(:disabled) { border-color: var(--accent-dim); color: var(--accent); }
+    .btn-sm { font-size: 0.7rem; padding: 0.3rem 0.7rem; min-height: 0; }
 
     .spinner {
       display: none; width: 18px; height: 18px;
@@ -214,34 +225,76 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Error / info */
+    /* Messages */
     .msg-box {
       display: none; margin-top: 1rem; font-size: 0.8rem;
       border-radius: var(--radius); padding: 0.6rem 0.9rem;
     }
-    .msg-box.error { color: var(--danger); background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); }
-    .msg-box.info  { color: var(--info); background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.25); }
+    .msg-box.error  { color: var(--danger); background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); }
+    .msg-box.info   { color: var(--info);   background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.25); }
+    .msg-box.success{ color: var(--success); background: rgba(76,175,125,0.08); border: 1px solid rgba(76,175,125,0.25); }
 
-    /* Audio */
+    /* Player */
     .audio-wrap { margin-top: 1.25rem; display: none; }
     audio { width: 100%; filter: invert(1) hue-rotate(180deg) brightness(0.85); border-radius: var(--radius); }
-    .audio-actions { display: flex; gap: 0.75rem; margin-top: 0.6rem; }
+    .audio-actions { display: flex; gap: 0.75rem; margin-top: 0.6rem; flex-wrap: wrap; align-items: center; }
+
+    /* Speed control */
+    .speed-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-top: 0.75rem; font-size: 0.78rem; color: var(--muted);
+    }
+    .speed-row input[type="range"] { width: 140px; }
+    .speed-val { color: var(--accent); font-variant-numeric: tabular-nums; min-width: 2.5rem; }
+
+    /* Word highlight view */
+    #highlightView {
+      display: none;
+      margin-top: 1.25rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+      font-size: 1rem; line-height: 2.2;
+      color: var(--text); max-height: 350px; overflow-y: auto;
+    }
+    .hw { display: inline; }
+    .hw.active {
+      background: rgba(200,169,110,0.28);
+      border-radius: 3px; padding: 0 2px;
+      color: var(--accent);
+    }
+
+    /* Text inputs */
+    textarea, input[type="text"], input[type="url"] {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text); font-size: 0.9rem;
+      padding: 0.6rem 0.9rem; outline: none; font-family: inherit;
+      transition: border-color 0.2s; width: 100%;
+    }
+    textarea:focus, input[type="text"]:focus, input[type="url"]:focus { border-color: var(--accent-dim); }
+    textarea::placeholder, input::placeholder { color: var(--muted); }
+    textarea { resize: vertical; min-height: 80px; }
 
     /* Q&A */
     .qa-input-row { display: flex; gap: 0.6rem; margin-bottom: 1rem; }
-    .qa-input-row input {
-      flex: 1; background: var(--surface2); border: 1px solid var(--border);
-      border-radius: var(--radius); color: var(--text); font-size: 0.9rem;
-      padding: 0.6rem 0.9rem; outline: none; min-height: 44px;
-      transition: border-color 0.2s;
-    }
-    .qa-input-row input:focus { border-color: var(--accent-dim); }
-    .qa-input-row input::placeholder { color: var(--muted); }
+    .qa-input-row input { flex: 1; }
     .qa-answer {
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1rem; font-size: 0.88rem;
       line-height: 1.65; color: var(--text); display: none; white-space: pre-wrap;
     }
+
+    /* Clone voice */
+    .clone-file-zone {
+      border: 1.5px dashed var(--border); border-radius: var(--radius);
+      padding: 1rem; text-align: center; cursor: pointer;
+      position: relative; margin: 0.75rem 0;
+      transition: border-color 0.2s;
+    }
+    .clone-file-zone:hover { border-color: var(--accent-dim); }
+    .clone-file-zone input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+    .clone-file-zone p { font-size: 0.8rem; color: var(--muted); pointer-events: none; }
+    .clone-file-zone p strong { color: var(--accent); }
+    #cloneFileList { font-size: 0.75rem; color: var(--success); margin-top: 0.3rem; pointer-events: none; }
 
     /* History */
     #historyList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
@@ -256,57 +309,85 @@
     }
     .history-item .meta { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
     #emptyHistory { font-size: 0.8rem; color: var(--muted); text-align: center; padding: 0.75rem 0; }
+
+    /* Podcast textarea */
+    #podcastNotes { min-height: 120px; margin-top: 0.75rem; }
+
+    .form-label {
+      display: block; font-size: 0.72rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .form-group { margin-bottom: 1rem; }
   </style>
 </head>
 <body>
 
 <header>
   <h1>Matte Noir</h1>
-  <p>Narration Studio — powered by ElevenLabs</p>
+  <p>Narration Studio — powered by ElevenLabs &amp; Claude</p>
 </header>
 
-<!-- Upload -->
+<!-- ── Document ─────────────────────────────────────────────────────── -->
 <div class="card">
   <div class="card-title">Document</div>
-  <div class="upload-zone" id="uploadZone">
-    <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.gif,.webp" />
-    <div class="uz-label">
-      <div class="uz-spinner" id="uzSpinner"></div>
-      <strong>Upload PDF or Image</strong>
-      <span class="uz-sub">Drag &amp; drop or click — PDF, JPG, PNG, WEBP supported</span>
-    </div>
-    <span class="uz-file" id="uzFile"></span>
-  </div>
-</div>
 
-<!-- Document Viewer -->
-<div class="card">
-  <div class="card-title">Script</div>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="upload">▲ Upload</button>
+    <button class="tab-btn" data-tab="url">🔗 URL</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-upload">
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept=".pdf,.epub,.docx,.jpg,.jpeg,.png,.gif,.webp" />
+      <div class="uz-label">
+        <div class="uz-spinner" id="uzSpinner"></div>
+        <strong>Upload File</strong>
+        <span class="uz-sub">PDF, ePub, Word (.docx), or Image — drag &amp; drop or click</span>
+      </div>
+      <span class="uz-file" id="uzFile"></span>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-url">
+    <div class="url-row">
+      <input type="url" id="urlInput" placeholder="https://example.com/article" />
+      <button class="btn-secondary" id="fetchUrlBtn">Fetch</button>
+      <div class="spinner" id="urlSpinner"></div>
+    </div>
+    <div class="msg-box error" id="urlError"></div>
+  </div>
+
   <div class="doc-toolbar">
     <div class="char-count" id="charCount">0 characters</div>
-    <div style="display:flex;gap:0.5rem">
-      <button class="btn-ghost" style="font-size:0.7rem;padding:0.3rem 0.7rem;min-height:0" onclick="clearDoc()">Clear</button>
-    </div>
+    <button class="btn-ghost btn-sm" onclick="clearDoc()">Clear</button>
   </div>
 
   <div id="docView"
        contenteditable="true"
-       data-placeholder="Paste your script here, or upload a PDF / image above…"
+       data-placeholder="Paste your script here, or upload a file / enter a URL above…"
        spellcheck="false"></div>
 
   <div class="sel-bar" id="selBar">
     <span class="sel-count" id="selCount"></span>
-    <button class="btn-secondary" style="font-size:0.72rem;padding:0.35rem 0.8rem;min-height:0" id="narrateSelBtn">
-      ▶ Narrate Selection
-    </button>
+    <button class="btn-secondary btn-sm" id="narrateSelBtn">▶ Narrate Selection</button>
   </div>
 
   <div class="msg-box error" id="docError"></div>
 </div>
 
-<!-- Narrate -->
+<!-- ── Voice & Settings ─────────────────────────────────────────────── -->
 <div class="card">
-  <div class="card-title">Voice</div>
+  <div class="card-title">Voice &amp; Settings</div>
+
+  <div class="voice-row">
+    <select id="langFilter" title="Filter by language/accent">
+      <option value="">All Languages</option>
+    </select>
+    <select id="voiceSelect" title="Choose a voice">
+      <option value="">Loading voices…</option>
+    </select>
+    <button class="btn-ghost btn-sm" id="refreshVoicesBtn" title="Refresh voice list">↺</button>
+  </div>
 
   <div class="sliders">
     <div class="slider-group">
@@ -331,6 +412,14 @@
     Natural reading — auto-pauses at headings &amp; paragraphs
   </div>
 
+  <div class="toggle-row">
+    <label class="toggle">
+      <input type="checkbox" id="highlightToggle" />
+      <span class="toggle-slider"></span>
+    </label>
+    Word highlighting — shows each word as it's spoken
+  </div>
+
   <div class="btn-row">
     <button class="btn-primary" id="narrateAllBtn">▶ Narrate All</button>
     <div class="spinner" id="spinner"></div>
@@ -338,15 +427,47 @@
 
   <div class="msg-box error" id="narrateError"></div>
 
+  <!-- Player -->
   <div class="audio-wrap" id="audioWrap">
     <audio id="audioPlayer" controls></audio>
+    <div class="speed-row">
+      <span>Speed</span>
+      <input type="range" id="speedSlider" min="0.5" max="3" step="0.25" value="1" />
+      <span class="speed-val" id="speedVal">1.00×</span>
+    </div>
     <div class="audio-actions">
-      <button class="btn-secondary" id="downloadBtn" style="display:none">&#8659; Download MP3</button>
+      <button class="btn-secondary btn-sm" id="downloadBtn" style="display:none">&#8659; Download MP3</button>
     </div>
   </div>
+
+  <!-- Highlight view -->
+  <div id="highlightView"></div>
 </div>
 
-<!-- Q&A -->
+<!-- ── Podcast Generator ─────────────────────────────────────────────── -->
+<div class="card">
+  <div class="card-title">AI Podcast Generator</div>
+
+  <div class="form-group">
+    <label class="form-label" for="podcastTopic">Topic or title</label>
+    <input type="text" id="podcastTopic" placeholder="e.g. The future of renewable energy" />
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="podcastNotes">Source notes or talking points (optional)</label>
+    <textarea id="podcastNotes" placeholder="Paste any notes, bullet points, or source material here…"></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" id="podcastBtn">✦ Generate Script</button>
+    <div class="spinner" id="podcastSpinner"></div>
+  </div>
+
+  <div class="msg-box error"   id="podcastError"></div>
+  <div class="msg-box success" id="podcastSuccess"></div>
+</div>
+
+<!-- ── Q&A ───────────────────────────────────────────────────────────── -->
 <div class="card">
   <div class="card-title">Ask the Document</div>
   <div class="qa-input-row">
@@ -356,10 +477,38 @@
   </div>
   <div class="qa-answer" id="qaAnswer"></div>
   <div class="msg-box error" id="qaError"></div>
-  <div class="msg-box info" id="qaInfo"></div>
+  <div class="msg-box info"  id="qaInfo"></div>
 </div>
 
-<!-- History -->
+<!-- ── Voice Clone ───────────────────────────────────────────────────── -->
+<div class="card">
+  <div class="card-title">Clone a Voice</div>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem">
+    Upload 1–5 audio samples (MP3, WAV, M4A — at least 1 minute of clear speech for best results).
+    ElevenLabs will create a custom voice you can use immediately.
+  </p>
+
+  <div class="form-group">
+    <label class="form-label" for="cloneName">Voice name</label>
+    <input type="text" id="cloneName" placeholder="e.g. My Narrator Voice" />
+  </div>
+
+  <div class="clone-file-zone" id="cloneZone">
+    <input type="file" id="cloneAudio" accept=".mp3,.wav,.m4a,audio/*" multiple />
+    <p><strong>Upload audio samples</strong></p>
+    <div id="cloneFileList"></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" id="cloneBtn">⬡ Create Clone</button>
+    <div class="spinner" id="cloneSpinner"></div>
+  </div>
+
+  <div class="msg-box error"   id="cloneError"></div>
+  <div class="msg-box success" id="cloneSuccess"></div>
+</div>
+
+<!-- ── History ───────────────────────────────────────────────────────── -->
 <div class="card">
   <div class="card-title">Generation History</div>
   <ul id="historyList">
@@ -368,137 +517,336 @@
 </div>
 
 <script>
-  // ── Utilities ──────────────────────────────────────────────────────────────
+// ── Utilities ────────────────────────────────────────────────────────────────
 
-  function showMsg(el, msg) { el.textContent = msg; el.style.display = 'block'; }
-  function hideMsg(el)      { el.style.display = 'none'; }
+function showMsg(el, msg, type) {
+  el.textContent = msg;
+  if (type) el.className = 'msg-box ' + type;
+  el.style.display = 'block';
+}
+function hideMsg(el) { el.style.display = 'none'; }
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
+// ── Tabs ─────────────────────────────────────────────────────────────────────
 
-  // ── Sliders ────────────────────────────────────────────────────────────────
-
-  ['stability','similarity','style'].forEach(id => {
-    const el = document.getElementById(id);
-    const lbl = document.getElementById(id + 'Val');
-    el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.closest('.card');
+    group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    group.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    group.querySelector('#tab-' + btn.dataset.tab).classList.add('active');
   });
+});
 
-  // ── Doc view ───────────────────────────────────────────────────────────────
+// ── Sliders ──────────────────────────────────────────────────────────────────
 
-  const docView  = document.getElementById('docView');
-  const charCount = document.getElementById('charCount');
-  const selBar   = document.getElementById('selBar');
-  const selCount = document.getElementById('selCount');
-  const narrateSelBtn = document.getElementById('narrateSelBtn');
+['stability','similarity','style'].forEach(id => {
+  const el = document.getElementById(id);
+  const lbl = document.getElementById(id + 'Val');
+  el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
+});
 
-  function getDocText() { return docView.innerText || ''; }
+// Speed control
+const speedSlider = document.getElementById('speedSlider');
+const speedVal    = document.getElementById('speedVal');
+speedSlider.addEventListener('input', () => {
+  const v = parseFloat(speedSlider.value);
+  audioPlayer.playbackRate = v;
+  speedVal.textContent = v.toFixed(2) + '×';
+});
 
-  function setDocText(text) {
-    docView.innerText = text;
-    updateCharCount();
+// ── Doc view ─────────────────────────────────────────────────────────────────
+
+const docView   = document.getElementById('docView');
+const charCount = document.getElementById('charCount');
+const selBar    = document.getElementById('selBar');
+const selCount  = document.getElementById('selCount');
+const narrateSelBtn = document.getElementById('narrateSelBtn');
+
+function getDocText()    { return docView.innerText || ''; }
+function setDocText(t)   { docView.innerText = t; updateCharCount(); }
+function clearDoc()      { docView.innerText = ''; updateCharCount(); hideMsg(document.getElementById('docError')); }
+
+function updateCharCount() {
+  const n = getDocText().length;
+  charCount.textContent = `${n.toLocaleString()} characters`;
+  charCount.className = 'char-count' + (n > 9000 ? ' over' : n > 5000 ? ' warn' : '');
+}
+
+docView.addEventListener('input', updateCharCount);
+
+function getSelectedText() {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return '';
+  const r = sel.getRangeAt(0);
+  if (!docView.contains(r.commonAncestorContainer)) return '';
+  return sel.toString().trim();
+}
+
+function onSelectionChange() {
+  const text = getSelectedText();
+  if (text.length > 0) {
+    selCount.textContent = `${text.length.toLocaleString()} characters selected`;
+    selBar.classList.add('visible');
+  } else {
+    selBar.classList.remove('visible');
   }
+}
 
-  function clearDoc() { docView.innerText = ''; updateCharCount(); hideMsg(document.getElementById('docError')); }
+document.addEventListener('selectionchange', onSelectionChange);
+docView.addEventListener('touchend', () => setTimeout(onSelectionChange, 100));
 
-  function updateCharCount() {
-    const n = getDocText().length;
-    const el = charCount;
-    el.textContent = `${n.toLocaleString()} characters`;
-    el.className = 'char-count' + (n > 9000 ? ' over' : n > 5000 ? ' warn' : '');
+// ── Upload ───────────────────────────────────────────────────────────────────
+
+const uploadZone = document.getElementById('uploadZone');
+const fileInput  = document.getElementById('fileInput');
+const uzSpinner  = document.getElementById('uzSpinner');
+const uzFile     = document.getElementById('uzFile');
+const docError   = document.getElementById('docError');
+
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+async function handleFile(file) {
+  uzSpinner.style.display = 'block';
+  uzFile.textContent = '';
+  uploadZone.classList.remove('loaded');
+  hideMsg(docError);
+
+  const form = new FormData();
+  form.append('file', file);
+
+  try {
+    const res  = await fetch('/extract', { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    setDocText(data.text);
+    uzFile.textContent = `✓ ${file.name}`;
+    uploadZone.classList.add('loaded');
+  } catch (e) {
+    showMsg(docError, e.message, 'error');
+  } finally {
+    uzSpinner.style.display = 'none';
   }
+}
 
-  docView.addEventListener('input', updateCharCount);
+// ── URL fetch ────────────────────────────────────────────────────────────────
 
-  // Selection detection
-  function getSelection_() {
-    const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0) return '';
-    const range = sel.getRangeAt(0);
-    if (!docView.contains(range.commonAncestorContainer)) return '';
-    return sel.toString().trim();
-  }
+const urlInput   = document.getElementById('urlInput');
+const fetchUrlBtn= document.getElementById('fetchUrlBtn');
+const urlSpinner = document.getElementById('urlSpinner');
+const urlError   = document.getElementById('urlError');
 
-  function onSelectionChange() {
-    const text = getSelection_();
-    if (text.length > 0) {
-      selCount.textContent = `${text.length.toLocaleString()} characters selected`;
-      selBar.classList.add('visible');
-    } else {
-      selBar.classList.remove('visible');
+async function fetchUrl() {
+  const url = urlInput.value.trim();
+  if (!url) return;
+
+  fetchUrlBtn.disabled = true;
+  urlSpinner.style.display = 'inline-block';
+  hideMsg(urlError);
+
+  try {
+    const res  = await fetch('/fetch-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    setDocText(data.text);
+    if (data.title && data.title !== url) {
+      showMsg(urlError, `Loaded: ${data.title}`, 'success');
+      urlError.className = 'msg-box success';
     }
+  } catch (e) {
+    showMsg(urlError, e.message, 'error');
+  } finally {
+    fetchUrlBtn.disabled = false;
+    urlSpinner.style.display = 'none';
   }
+}
 
-  document.addEventListener('selectionchange', onSelectionChange);
-  docView.addEventListener('touchend', () => setTimeout(onSelectionChange, 100));
+fetchUrlBtn.addEventListener('click', fetchUrl);
+urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') fetchUrl(); });
 
-  // ── Upload ─────────────────────────────────────────────────────────────────
+// ── Voice list ───────────────────────────────────────────────────────────────
 
-  const uploadZone = document.getElementById('uploadZone');
-  const fileInput  = document.getElementById('fileInput');
-  const uzSpinner  = document.getElementById('uzSpinner');
-  const uzFile     = document.getElementById('uzFile');
-  const docError   = document.getElementById('docError');
+const voiceSelect  = document.getElementById('voiceSelect');
+const langFilter   = document.getElementById('langFilter');
+let allVoices = [];
+let selectedVoiceId = '';
 
-  fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
-  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
-  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-  uploadZone.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadZone.classList.remove('drag-over');
-    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-  });
-
-  async function handleFile(file) {
-    uzSpinner.style.display = 'block';
-    uzFile.textContent = '';
-    uploadZone.classList.remove('loaded');
-    hideMsg(docError);
-
-    const form = new FormData();
-    form.append('file', file);
-
-    try {
-      const res  = await fetch('/extract', { method: 'POST', body: form });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      setDocText(data.text);
-      uzFile.textContent = `✓ ${file.name}`;
-      uploadZone.classList.add('loaded');
-    } catch (e) {
-      showMsg(docError, e.message);
-    } finally {
-      uzSpinner.style.display = 'none';
-    }
-  }
-
-  // ── Generate ───────────────────────────────────────────────────────────────
-
-  const audioWrap   = document.getElementById('audioWrap');
-  const audioPlayer = document.getElementById('audioPlayer');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const spinner     = document.getElementById('spinner');
-  const narrateError = document.getElementById('narrateError');
-
-  async function generate(text) {
-    if (!text.trim()) { showMsg(narrateError, 'No text to narrate.'); return; }
-    if (text.length > 10000) {
-      showMsg(narrateError, `Text is ${text.length.toLocaleString()} characters — ElevenLabs limit is ~10,000. Select a shorter passage.`);
+async function loadVoices() {
+  try {
+    const res  = await fetch('/voices');
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      voiceSelect.innerHTML = '<option value="">— voices unavailable —</option>';
       return;
     }
+    allVoices = data.voices || [];
+    selectedVoiceId = data.default || '';
 
-    document.getElementById('narrateAllBtn').disabled = true;
-    narrateSelBtn.disabled = true;
-    spinner.style.display  = 'inline-block';
-    hideMsg(narrateError);
+    const langs = [...new Set(allVoices.map(v => v.language).filter(Boolean))].sort();
+    langFilter.innerHTML = '<option value="">All Languages</option>' +
+      langs.map(l => `<option value="${escHtml(l)}">${escHtml(l)}</option>`).join('');
 
-    try {
+    renderVoiceOptions();
+  } catch (e) {
+    voiceSelect.innerHTML = '<option value="">— voices unavailable —</option>';
+  }
+}
+
+function renderVoiceOptions() {
+  const lang = langFilter.value;
+  const filtered = lang ? allVoices.filter(v => v.language === lang) : allVoices;
+  voiceSelect.innerHTML = filtered.map(v => {
+    const label = v.name + (v.language ? ` (${v.language})` : '');
+    const sel = v.voice_id === selectedVoiceId ? ' selected' : '';
+    return `<option value="${escHtml(v.voice_id)}"${sel}>${escHtml(label)}</option>`;
+  }).join('');
+  if (!filtered.some(v => v.voice_id === selectedVoiceId) && filtered.length) {
+    voiceSelect.selectedIndex = 0;
+  }
+}
+
+langFilter.addEventListener('change', renderVoiceOptions);
+voiceSelect.addEventListener('change', () => { selectedVoiceId = voiceSelect.value; });
+
+document.getElementById('refreshVoicesBtn').addEventListener('click', loadVoices);
+
+loadVoices();
+
+// ── Word highlighting ─────────────────────────────────────────────────────────
+
+const highlightView = document.getElementById('highlightView');
+const audioPlayer   = document.getElementById('audioPlayer');
+
+let wordData = [];
+let wordSpans = [];
+let activeWordIdx = -1;
+
+function base64ToBlob(b64, mime) {
+  const bytes = atob(b64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+function buildHighlightView(words) {
+  wordData = words;
+  wordSpans = [];
+  activeWordIdx = -1;
+  highlightView.innerHTML = '';
+
+  words.forEach((w, i) => {
+    if (i > 0) highlightView.appendChild(document.createTextNode(' '));
+    const span = document.createElement('span');
+    span.className = 'hw';
+    span.textContent = w.word;
+    highlightView.appendChild(span);
+    wordSpans.push(span);
+  });
+
+  highlightView.style.display = words.length ? 'block' : 'none';
+}
+
+audioPlayer.addEventListener('timeupdate', () => {
+  if (!wordData.length) return;
+  const t = audioPlayer.currentTime;
+  let idx = -1;
+  for (let i = 0; i < wordData.length; i++) {
+    if (t >= wordData[i].start && t < wordData[i].end) { idx = i; break; }
+  }
+  if (idx === activeWordIdx) return;
+  if (activeWordIdx >= 0 && wordSpans[activeWordIdx]) wordSpans[activeWordIdx].classList.remove('active');
+  if (idx >= 0 && wordSpans[idx]) {
+    wordSpans[idx].classList.add('active');
+    wordSpans[idx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  activeWordIdx = idx;
+});
+
+audioPlayer.addEventListener('ended', () => {
+  wordSpans.forEach(s => s.classList.remove('active'));
+  activeWordIdx = -1;
+});
+
+// ── Generate ──────────────────────────────────────────────────────────────────
+
+const audioWrap    = document.getElementById('audioWrap');
+const downloadBtn  = document.getElementById('downloadBtn');
+const spinner      = document.getElementById('spinner');
+const narrateError = document.getElementById('narrateError');
+
+async function generate(text) {
+  if (!text.trim()) { showMsg(narrateError, 'No text to narrate.', 'error'); return; }
+  if (text.length > 10000) {
+    showMsg(narrateError, `Text is ${text.length.toLocaleString()} characters — ElevenLabs limit is ~10,000. Select a shorter passage.`, 'error');
+    return;
+  }
+
+  const withHighlight = document.getElementById('highlightToggle').checked;
+  const voice_id = voiceSelect.value || '';
+
+  document.getElementById('narrateAllBtn').disabled = true;
+  narrateSelBtn.disabled = true;
+  spinner.style.display  = 'inline-block';
+  hideMsg(narrateError);
+
+  try {
+    if (withHighlight) {
       const res = await fetch('/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text,
+          voice_id,
+          natural:         document.getElementById('naturalToggle').checked,
+          stability:       parseFloat(document.getElementById('stability').value),
+          similarity:      parseFloat(document.getElementById('similarity').value),
+          style:           parseFloat(document.getElementById('style').value),
+          with_timestamps: true,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+      const blob = base64ToBlob(data.audio, 'audio/mpeg');
+      const url  = URL.createObjectURL(blob);
+
+      audioPlayer.src = url;
+      audioWrap.style.display = 'block';
+      buildHighlightView(data.words || []);
+
+      downloadBtn.style.display = 'inline-block';
+      downloadBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = url; a.download = `narration-${Date.now()}.mp3`; a.click();
+      };
+
+      addHistory(text, url);
+      audioPlayer.play().catch(() => {});
+
+    } else {
+      // Clear highlight view when not using timestamps
+      buildHighlightView([]);
+
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text,
+          voice_id,
           natural:    document.getElementById('naturalToggle').checked,
           stability:  parseFloat(document.getElementById('stability').value),
           similarity: parseFloat(document.getElementById('similarity').value),
@@ -516,7 +864,7 @@
 
       audioPlayer.src = url;
       audioWrap.style.display = 'block';
-      audioPlayer.play();
+      audioPlayer.play().catch(() => {});
 
       downloadBtn.style.display = 'inline-block';
       downloadBtn.onclick = () => {
@@ -525,90 +873,172 @@
       };
 
       addHistory(text, url);
-    } catch (e) {
-      showMsg(narrateError, e.message);
-    } finally {
-      document.getElementById('narrateAllBtn').disabled = false;
-      narrateSelBtn.disabled = false;
-      spinner.style.display  = 'none';
     }
+  } catch (e) {
+    showMsg(narrateError, e.message, 'error');
+  } finally {
+    document.getElementById('narrateAllBtn').disabled = false;
+    narrateSelBtn.disabled = false;
+    spinner.style.display  = 'none';
   }
+}
 
-  document.getElementById('narrateAllBtn').addEventListener('click', () => {
-    generate(getDocText());
-  });
+document.getElementById('narrateAllBtn').addEventListener('click', () => generate(getDocText()));
+narrateSelBtn.addEventListener('click', () => { const t = getSelectedText(); if (t) generate(t); });
 
-  narrateSelBtn.addEventListener('click', () => {
-    const text = getSelection_();
-    if (text) generate(text);
-  });
+// ── Podcast ───────────────────────────────────────────────────────────────────
 
-  // ── Q&A ────────────────────────────────────────────────────────────────────
+const podcastBtn     = document.getElementById('podcastBtn');
+const podcastSpinner = document.getElementById('podcastSpinner');
+const podcastError   = document.getElementById('podcastError');
+const podcastSuccess = document.getElementById('podcastSuccess');
 
-  const qaInput   = document.getElementById('qaInput');
-  const qaBtn     = document.getElementById('qaBtn');
-  const qaAnswer  = document.getElementById('qaAnswer');
-  const qaError   = document.getElementById('qaError');
-  const qaInfo    = document.getElementById('qaInfo');
-  const qaSpinner = document.getElementById('qaSpinner');
+podcastBtn.addEventListener('click', async () => {
+  const prompt = document.getElementById('podcastTopic').value.trim();
+  const notes  = document.getElementById('podcastNotes').value.trim();
+  if (!prompt && !notes) { showMsg(podcastError, 'Enter a topic or paste some notes.', 'error'); return; }
 
-  async function askQuestion() {
-    const question = qaInput.value.trim();
-    if (!question) return;
+  podcastBtn.disabled = true;
+  podcastSpinner.style.display = 'inline-block';
+  hideMsg(podcastError); hideMsg(podcastSuccess);
 
-    qaBtn.disabled = true;
-    qaSpinner.style.display = 'inline-block';
-    qaAnswer.style.display  = 'none';
-    hideMsg(qaError); hideMsg(qaInfo);
-
-    try {
-      const res = await fetch('/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, text: getDocText() }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      qaAnswer.textContent    = data.answer;
-      qaAnswer.style.display  = 'block';
-    } catch (e) {
-      const msg = e.message;
-      if (msg.includes('ANTHROPIC_API_KEY')) {
-        showMsg(qaInfo, 'Q&A requires an Anthropic API key. Add ANTHROPIC_API_KEY to your .env and restart the server.');
-      } else {
-        showMsg(qaError, msg);
-      }
-    } finally {
-      qaBtn.disabled = false;
-      qaSpinner.style.display = 'none';
-    }
-  }
-
-  qaBtn.addEventListener('click', askQuestion);
-  qaInput.addEventListener('keydown', e => { if (e.key === 'Enter') askQuestion(); });
-
-  // ── History ─────────────────────────────────────────────────────────────────
-
-  function addHistory(text, url) {
-    const empty = document.getElementById('emptyHistory');
-    if (empty) empty.remove();
-
-    const snippet = text.length > 90 ? text.slice(0, 90) + '…' : text;
-    const li = document.createElement('li');
-    li.className = 'history-item';
-    li.innerHTML = `
-      <span class="snippet" title="${escHtml(text.slice(0,200))}">${escHtml(snippet)}</span>
-      <button class="btn-ghost" style="font-size:0.7rem;padding:0.3rem 0.7rem;min-height:0;white-space:nowrap">▶ Replay</button>
-    `;
-    li.querySelector('button').addEventListener('click', () => {
-      audioPlayer.src = url;
-      audioWrap.style.display = 'block';
-      audioPlayer.play();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  try {
+    const res  = await fetch('/podcast', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, notes }),
     });
-    const list = document.getElementById('historyList');
-    list.insertBefore(li, list.firstChild);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    setDocText(data.script);
+    showMsg(podcastSuccess, 'Script loaded into the editor — click Narrate All to listen.', 'success');
+    document.getElementById('docView').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) {
+    const msg = e.message;
+    if (msg.includes('ANTHROPIC_API_KEY')) {
+      showMsg(podcastError, 'Podcast generation requires an Anthropic API key. Add ANTHROPIC_API_KEY to your .env and restart.', 'error');
+    } else {
+      showMsg(podcastError, msg, 'error');
+    }
+  } finally {
+    podcastBtn.disabled = false;
+    podcastSpinner.style.display = 'none';
   }
+});
+
+// ── Q&A ───────────────────────────────────────────────────────────────────────
+
+const qaInput   = document.getElementById('qaInput');
+const qaBtn     = document.getElementById('qaBtn');
+const qaAnswer  = document.getElementById('qaAnswer');
+const qaError   = document.getElementById('qaError');
+const qaInfo    = document.getElementById('qaInfo');
+const qaSpinner = document.getElementById('qaSpinner');
+
+async function askQuestion() {
+  const question = qaInput.value.trim();
+  if (!question) return;
+
+  qaBtn.disabled = true;
+  qaSpinner.style.display = 'inline-block';
+  qaAnswer.style.display  = 'none';
+  hideMsg(qaError); hideMsg(qaInfo);
+
+  try {
+    const res  = await fetch('/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, text: getDocText() }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    qaAnswer.textContent   = data.answer;
+    qaAnswer.style.display = 'block';
+  } catch (e) {
+    const msg = e.message;
+    if (msg.includes('ANTHROPIC_API_KEY')) {
+      showMsg(qaInfo, 'Q&A requires an Anthropic API key. Add ANTHROPIC_API_KEY to your .env and restart.', 'info');
+    } else {
+      showMsg(qaError, msg, 'error');
+    }
+  } finally {
+    qaBtn.disabled = false;
+    qaSpinner.style.display = 'none';
+  }
+}
+
+qaBtn.addEventListener('click', askQuestion);
+qaInput.addEventListener('keydown', e => { if (e.key === 'Enter') askQuestion(); });
+
+// ── Voice clone ───────────────────────────────────────────────────────────────
+
+const cloneAudioInput = document.getElementById('cloneAudio');
+const cloneFileList   = document.getElementById('cloneFileList');
+const cloneBtn        = document.getElementById('cloneBtn');
+const cloneSpinner    = document.getElementById('cloneSpinner');
+const cloneError      = document.getElementById('cloneError');
+const cloneSuccess    = document.getElementById('cloneSuccess');
+
+cloneAudioInput.addEventListener('change', () => {
+  const files = [...cloneAudioInput.files];
+  cloneFileList.textContent = files.length
+    ? '✓ ' + files.map(f => f.name).join(', ')
+    : '';
+});
+
+cloneBtn.addEventListener('click', async () => {
+  const name  = document.getElementById('cloneName').value.trim() || 'My Cloned Voice';
+  const files = cloneAudioInput.files;
+  if (!files.length) { showMsg(cloneError, 'Upload at least one audio file.', 'error'); return; }
+
+  cloneBtn.disabled = true;
+  cloneSpinner.style.display = 'inline-block';
+  hideMsg(cloneError); hideMsg(cloneSuccess);
+
+  const form = new FormData();
+  form.append('name', name);
+  for (const f of files) form.append('audio', f);
+
+  try {
+    const res  = await fetch('/clone-voice', { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+    showMsg(cloneSuccess, `Voice "${data.name}" created! ID: ${data.voice_id}. Refreshing voice list…`, 'success');
+    selectedVoiceId = data.voice_id;
+    await loadVoices();
+    showMsg(cloneSuccess, `Voice "${data.name}" is ready — it's now selected in the voice list.`, 'success');
+  } catch (e) {
+    showMsg(cloneError, e.message, 'error');
+  } finally {
+    cloneBtn.disabled = false;
+    cloneSpinner.style.display = 'none';
+  }
+});
+
+// ── History ───────────────────────────────────────────────────────────────────
+
+function addHistory(text, url) {
+  const empty = document.getElementById('emptyHistory');
+  if (empty) empty.remove();
+
+  const snippet = text.length > 90 ? text.slice(0, 90) + '…' : text;
+  const li = document.createElement('li');
+  li.className = 'history-item';
+  li.innerHTML = `
+    <span class="snippet" title="${escHtml(text.slice(0,200))}">${escHtml(snippet)}</span>
+    <button class="btn-ghost btn-sm" style="white-space:nowrap">▶ Replay</button>
+  `;
+  li.querySelector('button').addEventListener('click', () => {
+    buildHighlightView([]);
+    audioPlayer.src = url;
+    audioWrap.style.display = 'block';
+    audioPlayer.play().catch(() => {});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  const list = document.getElementById('historyList');
+  list.insertBefore(li, list.firstChild);
+}
 </script>
 </body>
 </html>
