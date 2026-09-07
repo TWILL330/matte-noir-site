@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matte Noir</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #161616;
+      --surface2:  #1e1e1e;
+      --surface3:  #252525;
+      --border:    #2a2a2a;
+      --accent:    #c8a96e;
+      --accent-dim:#8c6f3f;
+      --text:      #e8e2d9;
+      --muted:     #6b6460;
+      --danger:    #c0392b;
+      --success:   #4caf7d;
+      --info:      #5b9bd5;
+      --radius:    8px;
+      --bar-h:     64px;
+      --top-h:     52px;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top bar ──────────────────────────────────────────────── */
+    #appBar {
+      height: var(--top-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      gap: 0.75rem;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+    #appBar .logo {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex: 1;
+    }
+    #appBar button {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      min-height: 34px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    #appBar button:hover { color: var(--accent); border-color: var(--accent-dim); }
+    #appBar button.primary {
+      background: var(--accent); color: #0d0d0d; border-color: var(--accent);
+    }
+    #appBar button.primary:hover { opacity: 0.85; }
+
+    /* ── Reader area ──────────────────────────────────────────── */
+    #readerArea {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 3rem 1.5rem;
+    }
+    #readerContent {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #readerContent.empty-state {
+      color: var(--muted);
+      text-align: center;
+      padding-top: 6rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    #readerContent.empty-state .big-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+      opacity: 0.4;
+    }
+    #readerContent.empty-state h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .word {
+      display: inline;
+      border-radius: 2px;
+      padding: 0 1px;
+      cursor: pointer;
+      transition: background 0.08s;
+    }
+    .word:hover { background: rgba(200,169,110,0.12); }
+    .word.active { background: rgba(200,169,110,0.3); color: var(--accent); }
+
+    /* Loading overlay inside reader */
+    #loadingOverlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(13,13,13,0.75);
+      z-index: 30;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      pointer-events: all;
+    }
+    #loadingOverlay.visible { display: flex; }
+    #loadingOverlay .spin {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    #loadingOverlay p { font-size: 0.85rem; color: var(--muted); }
+
+    #readerWrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Player bar ────────────────────────────────────────────── */
+    #playerBar {
+      height: var(--bar-h);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 1rem;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.4rem;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      min-width: 32px; min-height: 32px;
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+    .ctrl-btn:hover { color: var(--accent); }
+    .ctrl-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    #playPauseBtn {
+      font-size: 1.4rem;
+      color: var(--accent);
+      min-width: 40px; min-height: 40px;
+    }
+    .skip-lbl {
+      font-size: 0.55rem;
+      letter-spacing: 0.04em;
+      display: block;
+      margin-top: 1px;
+      text-align: center;
+    }
+    .ctrl-stack { display: flex; flex-direction: column; align-items: center; font-size: 0.8rem; }
+
+    /* Progress */
+    #progressWrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    #progressBar {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+    #progressFill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      width: 0%;
+      pointer-events: none;
+    }
+    #progressKnob {
+      position: absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      top: 50%; left: 0%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    #progressBar:hover #progressKnob { opacity: 1; }
+    #timeDisplay {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Speed */
+    .speed-group {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .sp-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.4rem;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .sp-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
+    .sp-btn.active { background: var(--accent-dim); color: #0d0d0d; border-color: var(--accent-dim); }
+
+    #downloadAudioBtn {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Error bar ─────────────────────────────────────────────── */
+    #errorBar {
+      display: none;
+      background: rgba(192,57,43,0.12);
+      border-top: 1px solid rgba(192,57,43,0.3);
+      color: var(--danger);
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Overlay / modal base ─────────────────────────────────── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+    .overlay.hidden { display: none; }
+    .overlay.panel-right {
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+    .overlay.panel-right aside {
+      width: 340px;
+      max-width: 100%;
+    }
+
+    /* ── Import modal ──────────────────────────────────────────── */
+    #importModal {
+      background: var(--surface);
+      border-radius: var(--radius) var(--radius) 0 0;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    .modal-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .modal-hdr span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+    }
+    .close-btn:hover { color: var(--text); }
+
+    .upload-zone {
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--accent-dim);
+      background: rgba(200,169,110,0.04);
+    }
+    .upload-zone.loaded { border-color: var(--success); }
+    .upload-zone input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;
+    }
+    .uz-inner { pointer-events: none; font-size: 0.85rem; color: var(--muted); }
+    .uz-inner strong { color: var(--accent); display: block; margin-bottom: 0.3rem; }
+    .uz-inner .uz-sub { font-size: 0.72rem; }
+    .uz-inner .uz-file { display: block; margin-top: 0.35rem; font-size: 0.74rem; color: var(--success); }
+    .uz-spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+
+    .divider {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%; width: calc(50% - 4rem);
+      height: 1px;
+      background: var(--border);
+    }
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+    .url-row { display: flex; gap: 0.5rem; }
+    .url-row input { flex: 1; }
+
+    .modal-footer {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* ── Settings panel ───────────────────────────────────────── */
+    #settingsPanel {
+      background: var(--surface);
+      height: 100%;
+      overflow-y: auto;
+      padding: 1.5rem;
+      border-left: 1px solid var(--border);
+    }
+    .panel-section {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .panel-section:last-child { border-bottom: none; }
+    .panel-section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    /* ── Q&A panel ────────────────────────────────────────────── */
+    #qaPanel {
+      background: var(--surface);
+      border-radius: var(--radius) var(--radius) 0 0;
+      width: 100%;
+      max-width: 640px;
+      padding: 1.5rem;
+    }
+    .qa-input-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .qa-input-row input { flex: 1; }
+    .qa-answer {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    /* ── Shared form elements ─────────────────────────────────── */
+    input[type="text"], input[type="url"], textarea, select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.88rem;
+      padding: 0.55rem 0.8rem;
+      outline: none;
+      font-family: inherit;
+      width: 100%;
+      min-height: 40px;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent-dim); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { resize: vertical; min-height: 80px; }
+    select {
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6460'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+      cursor: pointer;
+    }
+    select option { background: var(--surface2); }
+    .form-lbl {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .form-group { margin-bottom: 0.85rem; }
+
+    button.btn-primary {
+      background: var(--accent); color: #0d0d0d;
+      border: none; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.6rem 1.2rem; cursor: pointer;
+      min-height: 40px; transition: opacity 0.2s;
+    }
+    button.btn-primary:hover { opacity: 0.85; }
+    button.btn-primary:disabled { opacity: 0.38; cursor: not-allowed; }
+    button.btn-secondary {
+      background: transparent;
+      border: 1px solid var(--accent-dim); color: var(--accent);
+      border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.6rem 1.2rem; cursor: pointer;
+      min-height: 40px; transition: background 0.2s;
+    }
+    button.btn-secondary:hover { background: var(--accent-dim); color: #0d0d0d; }
+    button.btn-secondary:disabled { opacity: 0.38; cursor: not-allowed; }
+
+    .spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    .spinner.sm { width: 14px; height: 14px; }
+
+    .msg-box {
+      display: none; font-size: 0.8rem;
+      border-radius: var(--radius); padding: 0.55rem 0.8rem; margin-top: 0.75rem;
+    }
+    .msg-box.error  { color: var(--danger); background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); }
+    .msg-box.info   { color: var(--info);   background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.25); }
+    .msg-box.success{ color: var(--success); background: rgba(76,175,125,0.08); border: 1px solid rgba(76,175,125,0.25); }
+
+    .slider-group label {
+      display: flex; justify-content: space-between;
+      font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .slider-group .val { color: var(--accent); }
+    input[type="range"] {
+      -webkit-appearance: none; width: 100%; height: 4px;
+      background: var(--border); border-radius: 2px; outline: none; cursor: pointer;
+      padding: 0; min-height: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 15px; height: 15px;
+      border-radius: 50%; background: var(--accent); border: none;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: none;
+    }
+
+    .toggle-row {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; border-radius: 20px;
+      background: var(--border); cursor: pointer; transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 14px; height: 14px; left: 3px; top: 3px;
+      border-radius: 50%; background: var(--muted);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent-dim); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(16px); background: var(--accent); }
+
+    .clone-zone {
+      border: 1px dashed var(--border); border-radius: var(--radius);
+      padding: 0.75rem; text-align: center; cursor: pointer;
+      position: relative; margin-bottom: 0.75rem;
+      font-size: 0.8rem; color: var(--muted); transition: border-color 0.2s;
+    }
+    .clone-zone:hover { border-color: var(--accent-dim); }
+    .clone-zone input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+    .clone-zone p { pointer-events: none; }
+    .clone-zone strong { color: var(--accent); }
+
+    .voice-row { display: flex; gap: 0.5rem; align-items: center; }
+    .voice-row select { flex: 1; }
+    .icon-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--muted);
+      font-size: 1rem; padding: 0.3rem 0.5rem; cursor: pointer;
+      min-height: 36px; transition: color 0.15s;
+    }
+    .icon-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive: hide some labels on small screens */
+    @media (max-width: 480px) {
+      .skip-lbl { display: none; }
+      .speed-group { gap: 1px; }
+      .sp-btn { padding: 0.2rem 0.3rem; font-size: 0.62rem; }
+      #appBar .logo { font-size: 0.85rem; letter-spacing: 0.15em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── App bar ──────────────────────────────────────────────────────── -->
+<div id="appBar">
+  <span class="logo">Matte Noir</span>
+  <button id="qaToggleBtn">✦ Ask</button>
+  <button id="importBtn">▲ Import</button>
+  <button id="settingsBtn">⚙ Settings</button>
+</div>
+
+<!-- ── Reader ────────────────────────────────────────────────────────── -->
+<div id="readerWrap">
+  <div id="readerArea">
+    <div id="readerContent" class="empty-state">
+      <span class="big-icon">◎</span>
+      <h2>Nothing loaded yet</h2>
+      <p>Tap <strong>Import</strong> to load a document,<br>paste text, or enter a URL.</p>
+    </div>
+  </div>
+  <div id="loadingOverlay">
+    <div class="spin"></div>
+    <p id="loadingMsg">Generating audio…</p>
+  </div>
+  <div id="errorBar"></div>
+</div>
+
+<!-- ── Player bar ─────────────────────────────────────────────────────── -->
+<div id="playerBar">
+  <button class="ctrl-btn" id="prevSentBtn" title="Previous sentence" disabled>
+    <div class="ctrl-stack">⏮<span class="skip-lbl">prev</span></div>
+  </button>
+  <button class="ctrl-btn" id="skipBackBtn" title="Back 15 seconds" disabled>
+    <div class="ctrl-stack">↩<span class="skip-lbl">15s</span></div>
+  </button>
+  <button class="ctrl-btn" id="playPauseBtn" title="Play" disabled>▶</button>
+  <button class="ctrl-btn" id="skipFwdBtn" title="Forward 15 seconds" disabled>
+    <div class="ctrl-stack">↪<span class="skip-lbl">15s</span></div>
+  </button>
+  <button class="ctrl-btn" id="nextSentBtn" title="Next sentence" disabled>
+    <div class="ctrl-stack">⏭<span class="skip-lbl">next</span></div>
+  </button>
+
+  <div id="progressWrap">
+    <div id="progressBar">
+      <div id="progressFill"></div>
+      <div id="progressKnob"></div>
+    </div>
+    <div id="timeDisplay">0:00 / 0:00</div>
+  </div>
+
+  <div class="speed-group">
+    <button class="sp-btn" data-speed="0.75">¾×</button>
+    <button class="sp-btn active" data-speed="1">1×</button>
+    <button class="sp-btn" data-speed="1.5">1½×</button>
+    <button class="sp-btn" data-speed="2">2×</button>
+  </div>
+
+  <button class="ctrl-btn" id="downloadAudioBtn" title="Download MP3" style="display:none">⬇</button>
+</div>
+
+<!-- ── Import overlay ────────────────────────────────────────────────── -->
+<div class="overlay hidden" id="importOverlay">
+  <div id="importModal">
+    <div class="modal-hdr">
+      <span>Import Document</span>
+      <button class="close-btn" data-close="importOverlay">✕</button>
+    </div>
+
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept=".pdf,.epub,.docx,.jpg,.jpeg,.png,.gif,.webp" />
+      <div class="uz-inner">
+        <div class="uz-spinner" id="uzSpinner"></div>
+        <strong>Drop file or tap to browse</strong>
+        <span class="uz-sub">PDF · ePub · Word (.docx) · Image</span>
+        <span class="uz-file" id="uzFile"></span>
+      </div>
+    </div>
+
+    <div class="divider">or enter a URL</div>
+    <div class="url-row">
+      <input type="url" id="urlInput" placeholder="https://example.com/article" />
+      <button class="btn-secondary" id="fetchUrlBtn">Fetch</button>
+      <div class="spinner" id="urlSpinner"></div>
+    </div>
+    <div class="msg-box error" id="urlError"></div>
+
+    <div class="divider">or paste text</div>
+    <textarea id="pasteArea" placeholder="Paste your script or article here…" rows="5"></textarea>
+
+    <div class="modal-footer">
+      <div class="msg-box error" id="importError" style="flex:1;margin:0"></div>
+      <button class="btn-primary" id="loadDocBtn">Load Document →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Settings overlay ──────────────────────────────────────────────── -->
+<div class="overlay panel-right hidden" id="settingsOverlay">
+  <aside id="settingsPanel">
+    <div class="modal-hdr" style="margin-bottom:1.5rem">
+      <span>Settings</span>
+      <button class="close-btn" data-close="settingsOverlay">✕</button>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-title">Voice</div>
+      <div class="form-group">
+        <div class="voice-row">
+          <select id="langFilter"><option value="">All Languages</option></select>
+          <button class="icon-btn" id="refreshVoicesBtn" title="Refresh">↺</button>
+        </div>
+        <select id="voiceSelect" style="margin-top:0.5rem"><option value="">Loading voices…</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-lbl">Voice ID (manual override)</label>
+        <input type="text" id="voiceIdOverride" placeholder="paste an ElevenLabs voice ID" style="font-size:0.78rem;font-family:monospace" />
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-title">Voice Settings</div>
+      <div class="form-group slider-group">
+        <label>Stability <span class="val" id="stabilityVal">0.50</span></label>
+        <input type="range" id="stability" min="0" max="1" step="0.01" value="0.5" />
+      </div>
+      <div class="form-group slider-group">
+        <label>Similarity <span class="val" id="similarityVal">0.75</span></label>
+        <input type="range" id="similarity" min="0" max="1" step="0.01" value="0.75" />
+      </div>
+      <div class="form-group slider-group">
+        <label>Style <span class="val" id="styleVal">0.30</span></label>
+        <input type="range" id="style" min="0" max="1" step="0.01" value="0.3" />
+      </div>
+      <div class="toggle-row" style="margin-bottom:0.6rem">
+        <label class="toggle"><input type="checkbox" id="naturalToggle" checked /><span class="toggle-slider"></span></label>
+        Natural reading (heading pauses)
+      </div>
+      <div class="toggle-row">
+        <label class="toggle"><input type="checkbox" id="highlightToggle" checked /><span class="toggle-slider"></span></label>
+        Word highlighting
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-title">Podcast Generator</div>
+      <div class="form-group">
+        <input type="text" id="podcastTopic" placeholder="Topic or title" />
+      </div>
+      <div class="form-group">
+        <textarea id="podcastNotes" rows="3" placeholder="Notes or talking points (optional)"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="btn-secondary" id="podcastBtn" style="flex:1">✦ Generate Script</button>
+        <div class="spinner" id="podcastSpinner"></div>
+      </div>
+      <div class="msg-box error" id="podcastError"></div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-title">Clone a Voice</div>
+      <div class="form-group">
+        <input type="text" id="cloneName" placeholder="Voice name" />
+      </div>
+      <div class="clone-zone">
+        <input type="file" id="cloneAudio" accept=".mp3,.wav,.m4a,audio/*" multiple />
+        <p><strong>Upload audio samples</strong><br>MP3, WAV, or M4A</p>
+        <div id="cloneFileList" style="margin-top:0.3rem;font-size:0.72rem;color:var(--success)"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="btn-secondary" id="cloneBtn" style="flex:1">⬡ Create Clone</button>
+        <div class="spinner" id="cloneSpinner"></div>
+      </div>
+      <div class="msg-box error" id="cloneError"></div>
+      <div class="msg-box success" id="cloneSuccess"></div>
+    </div>
+  </aside>
+</div>
+
+<!-- ── Q&A overlay ────────────────────────────────────────────────────── -->
+<div class="overlay hidden" id="qaOverlay">
+  <div id="qaPanel">
+    <div class="modal-hdr">
+      <span>Ask the Document</span>
+      <button class="close-btn" data-close="qaOverlay">✕</button>
+    </div>
+    <div class="qa-input-row">
+      <input type="text" id="qaInput" placeholder="What is this document about?" />
+      <button class="btn-primary" id="qaBtn">Ask</button>
+      <div class="spinner" id="qaSpinner"></div>
+    </div>
+    <div class="qa-answer" id="qaAnswer"></div>
+    <div class="msg-box error" id="qaError"></div>
+    <div class="msg-box info"  id="qaInfo"></div>
+  </div>
+</div>
+
+<audio id="audioPlayer" preload="auto"></audio>
+
+<script>
+// ── Utilities ────────────────────────────────────────────────────────────────
+
+const $ = id => document.getElementById(id);
+
+function showMsg(el, text, type) {
+  el.textContent = text;
+  if (type) el.className = 'msg-box ' + type;
+  el.style.display = 'block';
+}
+function hideMsg(el) { el.style.display = 'none'; }
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function fmtTime(s) {
+  if (!isFinite(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+function base64ToBlob(b64, mime) {
+  const bytes = atob(b64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+// ── Overlays ─────────────────────────────────────────────────────────────────
+
+function openOverlay(id) { $(id).classList.remove('hidden'); }
+function closeOverlay(id) { $(id).classList.add('hidden'); }
+
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => closeOverlay(btn.dataset.close));
+});
+document.querySelectorAll('.overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeOverlay(overlay.id);
+  });
+});
+
+$('importBtn').addEventListener('click', () => openOverlay('importOverlay'));
+$('settingsBtn').addEventListener('click', () => openOverlay('settingsOverlay'));
+$('qaToggleBtn').addEventListener('click', () => openOverlay('qaOverlay'));
+
+// ── Document state ────────────────────────────────────────────────────────────
+
+let docText = '';
+let wordData = [];        // [{word, start, end}]
+let wordSpans = [];       // DOM spans matching wordData
+let sentences = [];       // [{start, end}] indices into wordData
+let activeWordIdx = -1;
+let audioUrl = null;
+let pendingSeekWordIdx = null;
+
+function loadDocument(text, title) {
+  docText = text.trim();
+  if (!docText) return;
+
+  // Reset audio state
+  audioPlayer.src = '';
+  audioUrl = null;
+  wordData = [];
+  wordSpans = [];
+  sentences = [];
+  activeWordIdx = -1;
+  setPlayerEnabled(false);
+  $('downloadAudioBtn').style.display = 'none';
+  hideError();
+
+  // Render plain text; words will be spanified after audio generation
+  const rc = $('readerContent');
+  rc.className = '';
+  rc.textContent = docText;
+
+  // Show a "tap play to listen" hint at the bottom of the app bar
+  const playHint = $('playHintBtn');
+  if (playHint) playHint.style.display = 'inline-block';
+
+  // Make the play button a "generate + play" action
+  $('playPauseBtn').disabled = false;
+  $('playPauseBtn').title = 'Generate and play';
+  setPlayerEnabled(false, /*playEnabled=*/true);
+
+  closeOverlay('importOverlay');
+}
+
+// ── Reader word spans ─────────────────────────────────────────────────────────
+
+function buildWordSpans(words) {
+  wordData = words;
+  wordSpans = [];
+  sentences = [];
+  activeWordIdx = -1;
+
+  const rc = $('readerContent');
+  rc.className = '';
+  rc.innerHTML = '';
+
+  let inSentence = false;
+  let sentStart = 0;
+
+  words.forEach((w, i) => {
+    if (i > 0) rc.appendChild(document.createTextNode(' '));
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.textContent = w.word;
+    span.addEventListener('click', () => seekToWord(i));
+    rc.appendChild(span);
+    wordSpans.push(span);
+
+    // Sentence tracking: end of sentence on . ? !
+    if (!inSentence) { sentStart = i; inSentence = true; }
+    if (/[.!?]$/.test(w.word)) {
+      sentences.push({ start: sentStart, end: i });
+      inSentence = false;
+    }
+  });
+  // Trailing sentence without terminal punctuation
+  if (inSentence && words.length > 0) {
+    sentences.push({ start: sentStart, end: words.length - 1 });
+  }
+}
+
+function seekToWord(idx) {
+  if (!wordData.length || idx < 0 || idx >= wordData.length) return;
+  audioPlayer.currentTime = wordData[idx].start;
+  if (audioPlayer.paused) audioPlayer.play().catch(() => {});
+}
+
+function updateHighlight(t) {
+  let idx = -1;
+  for (let i = 0; i < wordData.length; i++) {
+    if (t >= wordData[i].start && t < wordData[i].end) { idx = i; break; }
+  }
+  if (idx === activeWordIdx) return;
+  if (activeWordIdx >= 0 && wordSpans[activeWordIdx]) wordSpans[activeWordIdx].classList.remove('active');
+  if (idx >= 0 && wordSpans[idx]) {
+    wordSpans[idx].classList.add('active');
+    wordSpans[idx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  activeWordIdx = idx;
+}
+
+// ── Audio player ──────────────────────────────────────────────────────────────
+
+const audioPlayer = $('audioPlayer');
+let isPlaying = false;
+
+function setPlayerEnabled(enabled, playEnabled) {
+  [$('skipBackBtn'), $('skipFwdBtn'), $('prevSentBtn'), $('nextSentBtn')].forEach(b => b.disabled = !enabled);
+  if (playEnabled !== undefined) $('playPauseBtn').disabled = !playEnabled;
+  else $('playPauseBtn').disabled = !enabled;
+}
+
+audioPlayer.addEventListener('timeupdate', () => {
+  const t = audioPlayer.currentTime;
+  const d = audioPlayer.duration || 0;
+  const pct = d ? (t / d * 100) : 0;
+  $('progressFill').style.width = pct + '%';
+  $('progressKnob').style.left = pct + '%';
+  $('timeDisplay').textContent = fmtTime(t) + ' / ' + fmtTime(d);
+  if (document.getElementById('highlightToggle').checked && wordData.length) updateHighlight(t);
+});
+
+audioPlayer.addEventListener('play', () => {
+  isPlaying = true;
+  $('playPauseBtn').textContent = '⏸';
+});
+audioPlayer.addEventListener('pause', () => {
+  isPlaying = false;
+  $('playPauseBtn').textContent = '▶';
+});
+audioPlayer.addEventListener('ended', () => {
+  isPlaying = false;
+  $('playPauseBtn').textContent = '▶';
+  if (activeWordIdx >= 0 && wordSpans[activeWordIdx]) wordSpans[activeWordIdx].classList.remove('active');
+  activeWordIdx = -1;
+});
+audioPlayer.addEventListener('canplaythrough', () => {
+  if (pendingSeekWordIdx !== null) {
+    seekToWord(pendingSeekWordIdx);
+    pendingSeekWordIdx = null;
+  }
+});
+
+// Progress bar click + drag
+const progressBar = $('progressBar');
+let dragging = false;
+
+function seekFromEvent(e) {
+  const rect = progressBar.getBoundingClientRect();
+  const x = (e.touches ? e.touches[0].clientX : e.clientX);
+  const ratio = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+  if (audioPlayer.duration) audioPlayer.currentTime = ratio * audioPlayer.duration;
+}
+
+progressBar.addEventListener('mousedown', e => { dragging = true; seekFromEvent(e); });
+document.addEventListener('mousemove', e => { if (dragging) seekFromEvent(e); });
+document.addEventListener('mouseup', () => { dragging = false; });
+progressBar.addEventListener('touchstart', e => { dragging = true; seekFromEvent(e); }, { passive: true });
+document.addEventListener('touchmove', e => { if (dragging) seekFromEvent(e); }, { passive: true });
+document.addEventListener('touchend', () => { dragging = false; });
+
+// Play/pause
+$('playPauseBtn').addEventListener('click', () => {
+  if (!audioUrl && docText) {
+    generateAudio();
+  } else if (isPlaying) {
+    audioPlayer.pause();
+  } else {
+    audioPlayer.play().catch(() => {});
+  }
+});
+
+// Skip ±15s
+$('skipBackBtn').addEventListener('click', () => { audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 15); });
+$('skipFwdBtn').addEventListener('click', () => { audioPlayer.currentTime = Math.min(audioPlayer.duration || 0, audioPlayer.currentTime + 15); });
+
+// Sentence navigation
+function currentSentenceIdx() {
+  if (!sentences.length || activeWordIdx < 0) return -1;
+  return sentences.findIndex(s => activeWordIdx >= s.start && activeWordIdx <= s.end);
+}
+
+$('prevSentBtn').addEventListener('click', () => {
+  const si = currentSentenceIdx();
+  const target = si > 0 ? sentences[si - 1] : (sentences.length ? sentences[0] : null);
+  if (target) seekToWord(target.start);
+});
+$('nextSentBtn').addEventListener('click', () => {
+  const si = currentSentenceIdx();
+  if (si >= 0 && si < sentences.length - 1) seekToWord(sentences[si + 1].start);
+});
+
+// Speed buttons
+document.querySelectorAll('.sp-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sp-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    audioPlayer.playbackRate = parseFloat(btn.dataset.speed);
+  });
+});
+
+// Download
+$('downloadAudioBtn').addEventListener('click', () => {
+  if (!audioUrl) return;
+  const a = document.createElement('a');
+  a.href = audioUrl;
+  a.download = 'narration-' + Date.now() + '.mp3';
+  a.click();
+});
+
+function showError(msg) {
+  const bar = $('errorBar');
+  bar.textContent = msg;
+  bar.style.display = 'block';
+  setTimeout(() => { bar.style.display = 'none'; }, 8000);
+}
+function hideError() { $('errorBar').style.display = 'none'; }
+
+// ── Generate audio ────────────────────────────────────────────────────────────
+
+async function generateAudio(startWordIdx) {
+  if (!docText) return;
+
+  const voice_id = $('voiceIdOverride').value.trim() || $('voiceSelect').value || '';
+  const withHighlight = $('highlightToggle').checked;
+
+  $('playPauseBtn').disabled = true;
+  $('loadingOverlay').classList.add('visible');
+  $('loadingMsg').textContent = docText.length > 5000
+    ? `Generating audio… (${Math.ceil(docText.length / 4500)} chunks, may take a moment)`
+    : 'Generating audio…';
+  hideError();
+
+  try {
+    if (withHighlight) {
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text:            docText,
+          voice_id,
+          natural:         $('naturalToggle').checked,
+          stability:       parseFloat($('stability').value),
+          similarity:      parseFloat($('similarity').value),
+          style:           parseFloat($('style').value),
+          with_timestamps: true,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+      buildWordSpans(data.words || []);
+      const blob = base64ToBlob(data.audio, 'audio/mpeg');
+      audioUrl = URL.createObjectURL(blob);
+      audioPlayer.src = audioUrl;
+
+    } else {
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text:       docText,
+          voice_id,
+          natural:    $('naturalToggle').checked,
+          stability:  parseFloat($('stability').value),
+          similarity: parseFloat($('similarity').value),
+          style:      parseFloat($('style').value),
+        }),
+      });
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throw new Error(e.error || `HTTP ${res.status}`);
+      }
+      const blob = await res.blob();
+      audioUrl = URL.createObjectURL(blob);
+      audioPlayer.src = audioUrl;
+    }
+
+    setPlayerEnabled(true);
+    $('downloadAudioBtn').style.display = 'flex';
+
+    if (startWordIdx != null) {
+      pendingSeekWordIdx = startWordIdx;
+    }
+    audioPlayer.play().catch(() => {});
+
+  } catch (e) {
+    showError(e.message);
+    $('playPauseBtn').disabled = false;
+    if (docText) $('playPauseBtn').disabled = false;
+  } finally {
+    $('loadingOverlay').classList.remove('visible');
+    $('playPauseBtn').disabled = !docText;
+  }
+}
+
+// ── Sliders ──────────────────────────────────────────────────────────────────
+
+['stability','similarity','style'].forEach(id => {
+  const el = $(id), lbl = $(id + 'Val');
+  el.addEventListener('input', () => { lbl.textContent = parseFloat(el.value).toFixed(2); });
+});
+
+// ── Voice list ───────────────────────────────────────────────────────────────
+
+let allVoices = [], selectedVoiceId = '';
+
+async function loadVoices() {
+  try {
+    const res = await fetch('/voices');
+    const data = await res.json();
+    if (!res.ok || data.error) { $('voiceSelect').innerHTML = '<option value="">— unavailable —</option>'; return; }
+    allVoices = data.voices || [];
+    selectedVoiceId = data.default || '';
+    const langs = [...new Set(allVoices.map(v => v.language).filter(Boolean))].sort();
+    $('langFilter').innerHTML = '<option value="">All Languages</option>' +
+      langs.map(l => `<option value="${escHtml(l)}">${escHtml(l)}</option>`).join('');
+    renderVoiceOptions();
+  } catch { $('voiceSelect').innerHTML = '<option value="">— unavailable —</option>'; }
+}
+
+function renderVoiceOptions() {
+  const lang = $('langFilter').value;
+  const filtered = lang ? allVoices.filter(v => v.language === lang) : allVoices;
+  if (!filtered.length) { $('voiceSelect').innerHTML = '<option value="">— none —</option>'; return; }
+  $('voiceSelect').innerHTML = filtered.map(v => {
+    const label = v.name + (v.language ? ` (${v.language})` : '');
+    const sel = v.voice_id === selectedVoiceId ? ' selected' : '';
+    return `<option value="${escHtml(v.voice_id)}"${sel}>${escHtml(label)}</option>`;
+  }).join('');
+  if (!filtered.some(v => v.voice_id === selectedVoiceId)) {
+    $('voiceSelect').selectedIndex = 0;
+    selectedVoiceId = $('voiceSelect').value;
+  }
+  const override = $('voiceIdOverride');
+  if (!override.value) override.placeholder = $('voiceSelect').options[$('voiceSelect').selectedIndex]?.text || 'paste voice ID';
+}
+
+$('langFilter').addEventListener('change', renderVoiceOptions);
+$('voiceSelect').addEventListener('change', () => {
+  selectedVoiceId = $('voiceSelect').value;
+  const override = $('voiceIdOverride');
+  if (!override.value) override.placeholder = $('voiceSelect').options[$('voiceSelect').selectedIndex]?.text || 'paste voice ID';
+});
+$('refreshVoicesBtn').addEventListener('click', loadVoices);
+loadVoices();
+
+// ── File upload ───────────────────────────────────────────────────────────────
+
+const uploadZone = $('uploadZone');
+const fileInput  = $('fileInput');
+
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault(); uploadZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+async function handleFile(file) {
+  $('uzSpinner').style.display = 'block';
+  $('uzFile').textContent = '';
+  uploadZone.classList.remove('loaded');
+  hideMsg($('importError'));
+
+  const form = new FormData();
+  form.append('file', file);
+  try {
+    const res  = await fetch('/extract', { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    $('uzFile').textContent = '✓ ' + file.name;
+    uploadZone.classList.add('loaded');
+    $('pasteArea').value = '';
+    $('urlInput').value = '';
+    // Store but don't load yet — user clicks Load button
+    $('loadDocBtn').dataset.pendingText = data.text;
+  } catch(e) {
+    showMsg($('importError'), e.message, 'error');
+  } finally {
+    $('uzSpinner').style.display = 'none';
+  }
+}
+
+// ── URL fetch ─────────────────────────────────────────────────────────────────
+
+$('fetchUrlBtn').addEventListener('click', fetchUrl);
+$('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') fetchUrl(); });
+
+async function fetchUrl() {
+  const url = $('urlInput').value.trim();
+  if (!url) return;
+  $('fetchUrlBtn').disabled = true;
+  $('urlSpinner').style.display = 'inline-block';
+  hideMsg($('urlError'));
+  try {
+    const res  = await fetch('/fetch-url', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    $('pasteArea').value = '';
+    $('uzFile').textContent = '';
+    uploadZone.classList.remove('loaded');
+    $('loadDocBtn').dataset.pendingText = data.text;
+    showMsg($('urlError'), '✓ Fetched: ' + (data.title || url), 'success');
+    $('urlError').className = 'msg-box success';
+  } catch(e) {
+    showMsg($('urlError'), e.message, 'error');
+  } finally {
+    $('fetchUrlBtn').disabled = false;
+    $('urlSpinner').style.display = 'none';
+  }
+}
+
+// ── Load document button ──────────────────────────────────────────────────────
+
+$('loadDocBtn').addEventListener('click', () => {
+  const pending = $('loadDocBtn').dataset.pendingText;
+  const pasted  = $('pasteArea').value.trim();
+  const text    = pending || pasted;
+  if (!text) { showMsg($('importError'), 'Add a file, fetch a URL, or paste some text.', 'error'); return; }
+  delete $('loadDocBtn').dataset.pendingText;
+  loadDocument(text);
+});
+
+// ── Podcast ───────────────────────────────────────────────────────────────────
+
+$('podcastBtn').addEventListener('click', async () => {
+  const prompt = $('podcastTopic').value.trim();
+  const notes  = $('podcastNotes').value.trim();
+  if (!prompt && !notes) { showMsg($('podcastError'), 'Enter a topic or paste notes.', 'error'); return; }
+  $('podcastBtn').disabled = true;
+  $('podcastSpinner').style.display = 'inline-block';
+  hideMsg($('podcastError'));
+  try {
+    const res  = await fetch('/podcast', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, notes }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    loadDocument(data.script);
+    closeOverlay('settingsOverlay');
+  } catch(e) {
+    const msg = e.message;
+    showMsg($('podcastError'), msg.includes('ANTHROPIC') ? 'Requires ANTHROPIC_API_KEY in .env' : msg, 'error');
+  } finally {
+    $('podcastBtn').disabled = false;
+    $('podcastSpinner').style.display = 'none';
+  }
+});
+
+// ── Voice clone ───────────────────────────────────────────────────────────────
+
+$('cloneAudio').addEventListener('change', () => {
+  const files = [...$('cloneAudio').files];
+  $('cloneFileList').textContent = files.length ? '✓ ' + files.map(f => f.name).join(', ') : '';
+});
+
+$('cloneBtn').addEventListener('click', async () => {
+  const name = $('cloneName').value.trim() || 'My Cloned Voice';
+  const files = $('cloneAudio').files;
+  if (!files.length) { showMsg($('cloneError'), 'Upload at least one audio file.', 'error'); return; }
+  $('cloneBtn').disabled = true;
+  $('cloneSpinner').style.display = 'inline-block';
+  hideMsg($('cloneError')); hideMsg($('cloneSuccess'));
+  const form = new FormData();
+  form.append('name', name);
+  for (const f of files) form.append('audio', f);
+  try {
+    const res  = await fetch('/clone-voice', { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    showMsg($('cloneSuccess'), `"${data.name}" created — refreshing voices…`, 'success');
+    selectedVoiceId = data.voice_id;
+    await loadVoices();
+    showMsg($('cloneSuccess'), `"${data.name}" is ready and selected.`, 'success');
+  } catch(e) {
+    showMsg($('cloneError'), e.message, 'error');
+  } finally {
+    $('cloneBtn').disabled = false;
+    $('cloneSpinner').style.display = 'none';
+  }
+});
+
+// ── Q&A ───────────────────────────────────────────────────────────────────────
+
+async function askQuestion() {
+  const q = $('qaInput').value.trim();
+  if (!q) return;
+  $('qaBtn').disabled = true;
+  $('qaSpinner').style.display = 'inline-block';
+  $('qaAnswer').style.display = 'none';
+  hideMsg($('qaError')); hideMsg($('qaInfo'));
+  try {
+    const res  = await fetch('/ask', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: q, text: docText }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    $('qaAnswer').textContent = data.answer;
+    $('qaAnswer').style.display = 'block';
+  } catch(e) {
+    const msg = e.message;
+    if (msg.includes('ANTHROPIC')) showMsg($('qaInfo'), 'Requires ANTHROPIC_API_KEY in .env', 'info');
+    else showMsg($('qaError'), msg, 'error');
+  } finally {
+    $('qaBtn').disabled = false;
+    $('qaSpinner').style.display = 'none';
+  }
+}
+
+$('qaBtn').addEventListener('click', askQuestion);
+$('qaInput').addEventListener('keydown', e => { if (e.key === 'Enter') askQuestion(); });
+</script>
+</body>
+</html>
