@@ -325,25 +325,43 @@ def generate():
 
     if with_timestamps:
         el_headers["Accept"] = "application/json"
-        resp = requests.post(
-            f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
-            headers=el_headers, json=payload, timeout=60,
-        )
-        if resp.status_code != 200:
-            return jsonify({"error": f"ElevenLabs error {resp.status_code}: {resp.text}"}), 502
+        chunks = chunk_text(text) if len(text) > 4500 else [text]
+        all_words = []
+        all_audio_parts = []
+        time_offset = 0.0
 
-        result = resp.json()
-        alignment = result.get("alignment", {})
-        words = chars_to_words(
-            alignment.get("characters", []),
-            alignment.get("character_start_times_seconds", []),
-            alignment.get("character_end_times_seconds", []),
-        )
+        for chunk in chunks:
+            payload["text"] = chunk
+            resp = requests.post(
+                f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
+                headers=el_headers, json=payload, timeout=60,
+            )
+            if resp.status_code != 200:
+                return jsonify({"error": f"ElevenLabs error {resp.status_code}: {resp.text}"}), 502
+
+            result = resp.json()
+            alignment = result.get("alignment", {})
+            chunk_words = chars_to_words(
+                alignment.get("characters", []),
+                alignment.get("character_start_times_seconds", []),
+                alignment.get("character_end_times_seconds", []),
+            )
+            for w in chunk_words:
+                w["start"] += time_offset
+                w["end"] += time_offset
+            if chunk_words:
+                time_offset = chunk_words[-1]["end"]
+            all_words.extend(chunk_words)
+            all_audio_parts.append(result.get("audio_base64", ""))
+
+        combined_audio = b"".join(base64.b64decode(p) for p in all_audio_parts if p)
+        combined_b64 = base64.b64encode(combined_audio).decode()
+
         _history.append({
             "text": data.get("text", "")[:120],
             "stability": stability, "similarity": similarity, "style": style,
         })
-        return jsonify({"audio": result.get("audio_base64", ""), "words": words})
+        return jsonify({"audio": combined_b64, "words": all_words})
 
     else:
         el_headers["Accept"] = "audio/mpeg"
